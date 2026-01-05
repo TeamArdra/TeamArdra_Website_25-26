@@ -1,31 +1,29 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion"; 
 import { useState, useEffect } from "react";
 
-// Mock Data
 const TEAM_MEMBERS = [
-  { id: 1, name: "MEMBER ONE" },
-  { id: 2, name: "MEMBER TWO" },
-  { id: 3, name: "MEMBER THREE" },
-  { id: 4, name: "MEMBER FOUR" },
-  { id: 5, name: "MEMBER FIVE" },
+  { id: 1, name: "MEMBER ONE", role: "POSITION 1" },
+  { id: 2, name: "MEMBER TWO", role: "POSITION 2" },
+  { id: 3, name: "MEMBER THREE", role: "POSITION 3" },
+  { id: 4, name: "MEMBER FOUR", role: "POSITION 4" },
+  { id: 5, name: "MEMBER FIVE", role: "POSITION 5" },
 ];
 
 export default function TeamBoard() {
   const [activeIndex, setActiveIndex] = useState(2);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-rotate every 3 seconds (unless paused/dragging)
+  // Auto-rotate every 3 seconds
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       handleNext();
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, [isPaused, activeIndex]);
 
-  // Handlers to cycle through cards
   const handleNext = () => {
     setActiveIndex((prev) => (prev + 1) % TEAM_MEMBERS.length);
   };
@@ -34,59 +32,27 @@ export default function TeamBoard() {
     setActiveIndex((prev) => (prev - 1 + TEAM_MEMBERS.length) % TEAM_MEMBERS.length);
   };
 
-  // Drag Logic: Detect swipe direction
   const onDragEnd = (event, info) => {
     const swipeThreshold = 50;
-    // If dragged Left (< -50), go Next
     if (info.offset.x < -swipeThreshold) {
       handleNext();
-    } 
-    // If dragged Right (> 50), go Prev
-    else if (info.offset.x > swipeThreshold) {
+    } else if (info.offset.x > swipeThreshold) {
       handlePrev();
     }
-    // Resume auto-play after drag
     setIsPaused(false);
   };
 
-  // Helper: Position calculation with WIDER spacing
   const getCardStyle = (index) => {
     const total = TEAM_MEMBERS.length;
     let distance = (index - activeIndex + total) % total;
-    if (distance > 2) distance -= total; // Normalize to -2, -1, 0, 1, 2
+    if (distance > 2) distance -= total;
 
-    // 1. CENTER CARD
     if (distance === 0) {
-      return {
-        x: 0,
-        scale: 1.1, // Slightly larger center
-        zIndex: 50,
-        opacity: 1,
-        rotateY: 0,
-        bg: "#04115A",
-      };
-    }
-    // 2. IMMEDIATE NEIGHBORS (Wider Spacing)
-    else if (Math.abs(distance) === 1) {
-      return {
-        x: distance * 380, // INCREASED from 220 to 400
-        scale: 0.85,
-        zIndex: 30,
-        opacity: 0.9,
-        rotateY: distance > 0 ? -15 : 15,
-        bg: "#2563eb", // Bright Blue
-      };
-    }
-    // 3. FAR NEIGHBORS (Far Edges)
-    else {
-      return {
-        x: distance * 340, // Tucked slightly behind neighbors
-        scale: 0.6,
-        zIndex: 10,
-        opacity: 0.4,
-        rotateY: distance > 0 ? -30 : 30,
-        bg: "#04115A",
-      };
+      return { x: 0, scale: 1.1, zIndex: 50, opacity: 1, rotateY: 0, bg: "#04115A" };
+    } else if (Math.abs(distance) === 1) {
+      return { x: distance * 380, scale: 0.85, zIndex: 30, opacity: 0.9, rotateY: distance > 0 ? -15 : 15, bg: "#2563eb" };
+    } else {
+      return { x: distance * 340, scale: 0.6, zIndex: 10, opacity: 0.4, rotateY: distance > 0 ? -30 : 30, bg: "#04115A" };
     }
   };
 
@@ -102,9 +68,21 @@ export default function TeamBoard() {
         [TEAM BOARD]
       </motion.h2>
 
-      <motion.p className="text-white font-ocr text-sm md:text-xl tracking-[0.2em] mb-12 z-20 pointer-events-none">
-        position
-      </motion.p>
+      {/* 2. DYNAMIC POSITION TEXT */}
+      <div className="h-8 mb-12 z-20 overflow-hidden relative flex justify-center items-center w-full">
+        <AnimatePresence mode="wait">
+          <motion.p 
+            key={activeIndex} // Triggers animation on change
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="text-white font-ocr text-sm md:text-xl tracking-[0.2em] pointer-events-none absolute"
+          >
+            {TEAM_MEMBERS[activeIndex].role}
+          </motion.p>
+        </AnimatePresence>
+      </div>
 
       {/* SVG BACKGROUND LINES */}
       <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none opacity-40">
@@ -114,14 +92,12 @@ export default function TeamBoard() {
         </svg>
       </div>
 
-      {/* INTERACTIVE DRAG AREA */}
+      {/* CARDS */}
       <motion.div 
         className="relative z-10 flex items-center justify-center h-[500px] w-full max-w-[90%] perspective-1000 cursor-grab active:cursor-grabbing"
-        
-        // ENABLE DRAGGING
         drag="x" 
-        dragConstraints={{ left: 0, right: 0 }} // Snap back effect
-        dragElastic={0.05} // Stiff resistance
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.05}
         onDragStart={() => setIsPaused(true)}
         onDragEnd={onDragEnd}
         onMouseEnter={() => setIsPaused(true)}
@@ -135,8 +111,6 @@ export default function TeamBoard() {
             <motion.div
               key={member.id}
               className={`absolute w-64 h-80 md:w-80 md:h-96 rounded-3xl border border-blue-500/30 flex flex-col items-center justify-center shadow-lg backdrop-blur-sm transition-colors duration-500`}
-              
-              // ANIMATE POSITION
               animate={{
                 x: style.x,
                 scale: style.scale,
@@ -144,29 +118,17 @@ export default function TeamBoard() {
                 opacity: style.opacity,
                 rotateY: style.rotateY,
                 backgroundColor: style.bg,
-                boxShadow: isCenter 
-                    ? "0 0 50px rgba(4,17,90,0.8)" 
-                    : "0 0 10px rgba(0,0,0,0.5)"
+                boxShadow: isCenter ? "0 0 50px rgba(4,17,90,0.8)" : "0 0 10px rgba(0,0,0,0.5)"
               }}
-              
-              // HOVER STYLES (Only when hovering the specific card)
               whileHover={{
                 scale: style.scale * 1.05,
                 borderColor: "#38bdf8",
                 boxShadow: "0 0 40px rgba(56, 189, 248, 0.6)",
               }}
-
-              transition={{
-                duration: 0.6,
-                ease: "easeInOut", // Snappy transition
-              }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
             >
-              {/* IMAGE PLACEHOLDER */}
-              <div className="w-full h-full relative">
-                 {/* <img src="..." className="object-cover rounded-3xl opacity-80" /> */}
-              </div>
-
-              {/* NAME LABEL */}
+              <div className="w-full h-full relative" />
+              
               <motion.div 
                 className="absolute bottom-8 w-full text-center pointer-events-none"
                 animate={{ opacity: isCenter ? 1 : 0 }} 
@@ -187,11 +149,7 @@ export default function TeamBoard() {
           <motion.div
             className="flex gap-12 whitespace-nowrap"
             animate={{ x: ["10%", "-10%"] }}
-            transition={{
-              duration: 30,
-              ease: "linear",
-              repeat: Infinity,
-            }}
+            transition={{ duration: 30, ease: "linear", repeat: Infinity }}
           >
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <span key={i} className="font-nico text-xl md:text-2xl text-white tracking-[0.3em] uppercase">
@@ -201,7 +159,6 @@ export default function TeamBoard() {
           </motion.div>
         </div>
       </div>
-
     </section>
   );
 }
