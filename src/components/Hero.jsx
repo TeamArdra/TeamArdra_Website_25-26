@@ -60,7 +60,7 @@ export default function Hero() {
       </p>
 
       {/* Year */}
-      <p className="absolute top-[58%] right-[5.5%] rotate-[90deg] font-anton text-3xl z-20">
+      <p className="absolute top-[70%] right-0 rotate-[90deg] font-anton text-3xl z-20">
         [2018]
       </p>
 
@@ -122,7 +122,7 @@ export default function Hero() {
       {/* BLUE RIBBON */}
       <div
         className="
-          absolute z-0 top-[65%] left-[-10%]
+          absolute top-[60%] left-[-10%]
           w-[200%] rotate-[-12deg]
           bg-[#04115A] py-2 overflow-hidden
         "
