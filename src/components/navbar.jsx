@@ -17,7 +17,10 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-black/80 backdrop-blur-md text-white w-full sticky top-0 z-50 shadow-lg">
+    <nav
+      className="backdrop-blur-md text-white w-full sticky top-0 z-50 shadow-lg"
+      style={{ background: 'linear-gradient(to bottom, #1e1e1e 0%, #1e1e1e 65%, #000 100%)' }}
+    >
       <div className="w-full px-4 font-anton "> 
         <div className="flex items-center justify-between h-24 relative">
           

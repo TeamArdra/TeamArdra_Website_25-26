@@ -29,11 +29,11 @@ export default function Hero() {
   }, [droneControls]);
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen w-full flex justify-center overflow-hidden">
 
       {/* Blue Circle */}
-       <motion.div
-        className="absolute z-0 h-[420px] w-[420px] rounded-full bg-blue-700/90"
+         <motion.div
+        className="absolute top-0 left-1/2 -translate-x-1/2 z-30 h-[420px] w-[420px] rounded-full bg-[#031680]"
         animate={{
             scale: [1, 1.05, 1],
         }}
@@ -48,7 +48,7 @@ export default function Hero() {
       {/* Micro Text */}
       <p
         className="
-          absolute top-[32%] left-[7.5%]
+          absolute top-[5%] left-[7.5%]
           text-[clamp(0.8rem,0.2vw,5rem)]
           font-ocr tracking-[0.2em]
           uppercase text-white z-20
@@ -56,23 +56,23 @@ export default function Hero() {
       >
         <span className="text-xl">Dream. Design. Do</span>
         <span className="relative left-[16%]">What We Do</span>
-        <span className="relative left-[209%]">We Make It Fly</span>
+        <span className="relative left-[109%]">We Make It Fly</span>
       </p>
 
       {/* Year */}
-      <p className="absolute top-[70%] right-0 rotate-[90deg] font-anton text-3xl z-20">
+      <p className="absolute top-[30%] right-[8%] rotate-[80deg] font-anton text-3xl z-20">
         [2018]
       </p>
 
       {/* Title */}
       <motion.h1
         className="
-          relative z-10 font-anton text-white
-          text-[clamp(4rem,20vw,19rem)]
-          tracking-widest text-center
+          relative z-50 font-anton text-white
+          text-[14rem]
+          tracking-widest text-center top-[33%]
         "
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 20 }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
       >
         TEAM ARDRA
@@ -82,15 +82,15 @@ export default function Hero() {
       <motion.img
         src="/drone.png"
         alt="Drone"
-        className="absolute z-20 w-[420px]"
-        initial={{ y: 300, opacity: 0 }}
+        className="absolute z-70 w-[420px] top-[10%] left-1/2 -translate-x-1/2"
+        initial={{ y: 700, opacity: 0 }}
         animate={droneControls}
       />
 
       {/* YELLOW RIBBON */}
       <div
         className="
-          absolute z-0 top-[35%] left-[-10%]
+          absolute z-0 top-[20%] left-[-10%]
           w-[200%] rotate-[-12deg]
           bg-yellow-100 py-2 overflow-hidden
         "
@@ -122,7 +122,7 @@ export default function Hero() {
       {/* BLUE RIBBON */}
       <div
         className="
-          absolute top-[60%] left-[-10%]
+          absolute top-[45%] left-[-10%]
           w-[200%] rotate-[-12deg]
           bg-[#04115A] py-2 overflow-hidden
         "
