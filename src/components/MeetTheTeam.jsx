@@ -38,8 +38,8 @@ export default function MeetTheTeam() {
 
       {/* Decorative Arcs */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full border border-blue-700/30" />
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full border border-blue-700/30" />
+        <div className="absolute top-[-20%] left-[-10%] w-60% h-full rounded-full border border-blue-700/30" />
+        <div className="absolute top-[-20%] right-[-10%] w-60% h-full rounded-full border border-blue-700/30" />
       </div>
 
       {/* Rotating Image Frame */}
