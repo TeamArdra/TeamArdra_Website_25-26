@@ -11,12 +11,12 @@ export default function Home() {
     <>
       <Hero />
       <About />
-      <OurDrones />
-      <MeetTheTeam />
+      {/* <OurDrones /> */}
+      {/* <MeetTheTeam /> */}
       <TeamBoard />
-      <Achievements />
-      <Blogs />
-      <Maintimeline />
+      {/* <Achievements /> */}
+      {/* <Blogs /> */}
+      {/* <Maintimeline /> */}
     </>
   )
 }
