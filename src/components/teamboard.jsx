@@ -1,23 +1,47 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import BoardCard from "./BoardCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TEAM_MEMBERS = [
-  { id: 1, name: "MEMBER ONE", role: "POSITION 1" },
-  { id: 2, name: "MEMBER TWO", role: "POSITION 2" },
-  { id: 3, name: "MEMBER THREE", role: "POSITION 3" },
-  { id: 4, name: "MEMBER FOUR", role: "POSITION 4" },
-  { id: 5, name: "MEMBER FIVE", role: "POSITION 5" },
+  { id: 1, name: "MEMBER ONE", role: "POSITION 1", image: "/team/team1.jpeg" },
+  { id: 2, name: "MEMBER TWO", role: "POSITION 2", image: "/team/team2.jpeg" },
+  { id: 3, name: "MEMBER THREE", role: "POSITION 3", image: "/team/team3.jpeg" },
+  { id: 4, name: "MEMBER FOUR", role: "POSITION 4", image: "/team/team4.jpeg" },
+  { id: 5, name: "MEMBER FIVE", role: "POSITION 5", image: "/team/team5.jpeg" },
 ];
+
+// BoardCard component - only shows image
+function BoardCard({ member, index, width, height }) {
+  return (
+    <div
+      className="flex-shrink-0 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm"
+      style={{ 
+        width: `${width}px`,
+        height: `${height}px`
+      }}
+    >
+      <div className="w-full h-full flex items-center justify-center p-6">
+        {/* Image only */}
+        <div className="w-full h-full rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center overflow-hidden">
+          {/* show member image; fall back to a generic placeholder if missing */}
+          <img
+            src={member.image || '/team/team6.jpeg'}
+            alt={member.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // Custom hook for screen size
 const useScreenSize = () => {
-  const [screenSize, setScreenSize] = React.useState('desktop');
+  const [screenSize, setScreenSize] = useState('desktop');
   
   React.useEffect(() => {
     const checkScreenSize = () => {
@@ -39,6 +63,7 @@ export default function TeamBoard() {
   const containerRef = useRef(null);
   const carouselRef = useRef(null);
   const screenSize = useScreenSize();
+  const [activeMember, setActiveMember] = useState(TEAM_MEMBERS[0]);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -78,15 +103,24 @@ export default function TeamBoard() {
         anticipatePin: 1,
         onUpdate: (self) => {
           const containerCenter = containerWidth / 2;
+          let closestCard = null;
+          let closestDistance = Infinity;
           
           requestAnimationFrame(() => {
-            cards.forEach((card) => {
+            cards.forEach((card, idx) => {
               const cardRect = card.getBoundingClientRect();
               const containerRect = container.getBoundingClientRect();
               const cardCenter = cardRect.left + cardRect.width / 2 - containerRect.left;
               
               const distanceFromCenter = Math.abs(cardCenter - containerCenter) / containerCenter;
               const clampedDistance = Math.min(distanceFromCenter, 1);
+              
+              // Track closest card to center
+              const absoluteDistance = Math.abs(cardCenter - containerCenter);
+              if (absoluteDistance < closestDistance) {
+                closestDistance = absoluteDistance;
+                closestCard = idx;
+              }
               
               // Scale effect
               const minScale = screenSize === 'mobile' ? 0.7 : screenSize === 'tablet' ? 0.65 : 0.6;
@@ -122,6 +156,11 @@ export default function TeamBoard() {
                 rotationY: rotationY,
               });
             });
+            
+            // Update active member based on closest card
+            if (closestCard !== null && TEAM_MEMBERS[closestCard]) {
+              setActiveMember(TEAM_MEMBERS[closestCard]);
+            }
           });
         }
       }
@@ -198,19 +237,28 @@ export default function TeamBoard() {
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20"
+      className="font-nico relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20 bg-black"
     >
       {/* HEADER */}
-      <h2 className="text-white font-bold text-2xl md:text-4xl tracking-widest uppercase mb-16 z-20 pointer-events-none">
+      <h2 className="font-bold text-white text-xl md:text-2xl tracking-widest uppercase mb-8 z-20 pointer-events-none">
         [TEAM BOARD]
       </h2>
+      
+      {/* POSITION - Above carousel */}
+      <p className="text-gray-400 text-sm md:text-base tracking-widest uppercase mb-12 z-20 pointer-events-none transition-all duration-300">
+        {activeMember.role}
+      </p>
 
-      {/* SVG BACKGROUND LINES */}
-      <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none opacity-40">
-        <svg width="100%" height="100%" viewBox="0 0 1200 600" preserveAspectRatio="none">
-          <path d="M0,300 L300,200 L600,100 L900,200 L1200,300" stroke="#0ea5e9" strokeWidth="1" fill="none" opacity="0.4" />
-          <line x1="600" y1="100" x2="600" y2="600" stroke="#0ea5e9" strokeWidth="1" opacity="0.2" />
-        </svg>
+      {/* BG TRIANGLES - decorative triangles behind content */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div
+          className="absolute left-0 top-0 h-full w-2/3 bg-gradient-to-b from-blue-700/30 to-transparent"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }}
+        />
+        <div
+          className="absolute right-0 bottom-0 h-full w-2/3 bg-gradient-to-t from-purple-700/30 to-transparent"
+          style={{ clipPath: 'polygon(100% 100%, 100% 0, 0 100%)' }}
+        />
       </div>
 
       {/* CAROUSEL CONTAINER */}
@@ -239,9 +287,16 @@ export default function TeamBoard() {
         </div>
       </div>
 
+      {/* NAME - Below carousel */}
+      <div className="z-20 mt-12 text-center pointer-events-none">
+        <h3 className="text-white text-sm md:text-base tracking-widest uppercase transition-all duration-300">
+          {activeMember.name}
+        </h3>
+      </div>
+
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/60 text-sm tracking-wider uppercase pointer-events-none">
-        Scroll down to explore 
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/40 text-xs tracking-wider uppercase pointer-events-none">
+        Scroll to explore 
       </div>
     </section>
   );

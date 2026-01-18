@@ -47,7 +47,7 @@ export default function About() {
             />
 
             {/* Stats */}
-            <div className="bg-[#0A1E5E] rounded-2xl p-6 grid grid-cols-2 gap-y-4 text-sm tracking-widest uppercase text-[#F8F8E2]">
+            <div className="bg-[#0A1E5E] rounded-2xl p-6 grid grid-cols-2 gap-y-4 text-sm md:text-md tracking-widest uppercase text-[#F8F8E2]">
               <div className={`${bigShoulders.className}`}>Established</div>
               <div className={`text-right ${aubrey.className}`}>2019</div>
 
@@ -87,7 +87,7 @@ export default function About() {
             viewport={{ once: true }}
           >
             <p
-              className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-[2] text-lg`}
+              className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-[2] text-md md:text-lg`}
             >
               Team Ardra was founded to foster technical innovation in aviation at
               VIT. Comprising dedicated students, the team designs, develops, and
