@@ -29,7 +29,7 @@ export default function Hero() {
   }, [droneControls]);
 
   return (
-    <section className="relative min-h-screen w-full flex justify-center overflow-hidden">
+    <section className="bg-black relative min-h-screen w-full flex justify-center overflow-hidden">
 
       {/* Blue Circle (no pulse) */}
          <motion.div
@@ -46,9 +46,9 @@ export default function Hero() {
               <defs>
                 <path id="text-circle" d="M110,110 m0,-85 a85,85 0 1,1 0,170 a85,85 0 1,1 0,-170" />
               </defs>
-              <text className="font-nico fill-white text-[clamp(12px,1.4vw,20px)] tracking-[0.3em] uppercase" textAnchor="middle">
+              <text className="hidden md:block font-nico fill-white text-[clamp(12px,1.4vw,20px)] tracking-[0.3em] uppercase" textAnchor="middle">
                 <textPath href="#text-circle" startOffset="50%">
-                  WE MAKE IT FLY • WE MAKE IT FLY
+                  WE MAKE IT FLY• WE MAKE IT FLY
                 </textPath>
               </text>
             </svg>

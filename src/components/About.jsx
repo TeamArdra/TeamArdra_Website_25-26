@@ -1,9 +1,18 @@
 "use client";
 import { motion } from "framer-motion";
+import { Aubrey, Big_Shoulders} from "next/font/google";
+import localFont from "next/font/local";
+const aubrey = Aubrey({ subsets: ["latin"], weight: ["400"], display: "swap" });
+const bigShoulders = Big_Shoulders({ subsets: ["latin"], weight: ["400"], display: "swap" });
+
+const ocrA= localFont({
+  src: "../../public/fonts/ocraextended.woff",
+  display: "swap",
+});
 
 export default function About() {
   return (
-    <section className="w-full bg-black text-white py-32 px-[6%]">
+    <section className="w-full bg-black text-[#f8f8e2] py-32 px-[6%]">
       
       {/* Section Title */}
       <div className="text-center mb-20">
@@ -19,7 +28,7 @@ export default function About() {
       </div>
 
       {/* Outer Card */}
-      <div className="bg-[#FFF2A8] rounded-3xl p-8 lg:p-12">
+      <div className="bg-[#231f1f] rounded-3xl p-8 lg:p-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
           {/* LEFT PANEL */}
@@ -38,27 +47,27 @@ export default function About() {
             />
 
             {/* Stats */}
-            <div className="bg-[#0A1E5E] rounded-2xl p-6 grid grid-cols-2 gap-y-4 text-sm font-audiowide tracking-widest uppercase text-[#FFF2A8]">
-              <div>Established</div>
-              <div className="text-right">2019</div>
+            <div className="bg-[#0A1E5E] rounded-2xl p-6 grid grid-cols-2 gap-y-4 text-sm tracking-widest uppercase text-[#F8F8E2]">
+              <div className={`${bigShoulders.className}`}>Established</div>
+              <div className={`text-right ${aubrey.className}`}>2019</div>
 
-              <div>Chapter</div>
-              <div className="text-right">SEDS VIT</div>
+              <div className={`${bigShoulders.className}`}>Chapter</div>
+              <div className={`text-right ${aubrey.className}`}>SEDS VIT</div>
 
-              <div>Institution</div>
-              <div className="text-right">VIT Vellore</div>
+              <div className={`${bigShoulders.className}`}>Institution</div>
+              <div className={`text-right ${aubrey.className}`}>VIT Vellore</div>
 
-              <div>Domains</div>
-              <div className="text-right">UAVs</div>
+              <div className={`${bigShoulders.className}`}>Domains</div>
+              <div className={`text-right ${aubrey.className}`}>UAVs</div>
 
-              <div>Main Specialty</div>
-              <div className="text-right">Autonomous Drones</div>
+              <div className={`${bigShoulders.className}`}>Main Specialty</div>
+              <div className={`text-right ${aubrey.className}`}>Autonomous Drones</div>
 
-              <div>Team Size</div>
-              <div className="text-right">32</div>
+              <div className={`${bigShoulders.className}`}>Team Size</div>
+              <div className={`text-right ${aubrey.className}`}>32</div>
 
-              <div>Team Motto</div>
-              <div className="text-right">THROTTLING TOWARDS EXCELLENCE</div>
+              <div className={`${bigShoulders.className}`}>Team Motto</div>
+              <div className={`text-right ${aubrey.className}`}>THROTTLING TOWARDS EXCELLENCE</div>
               
             </div>
           </motion.div>
@@ -78,14 +87,7 @@ export default function About() {
             viewport={{ once: true }}
           >
             <p
-              className="
-                font-audiowide
-                text-[#FFF2A8]
-                uppercase
-                tracking-[0.25em]
-                leading-[2]
-                text-lg
-              "
+              className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-[2] text-lg`}
             >
               Team Ardra was founded to foster technical innovation in aviation at
               VIT. Comprising dedicated students, the team designs, develops, and
