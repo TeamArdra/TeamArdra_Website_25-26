@@ -6,6 +6,8 @@ import TeamBoard from "@/components/teamboard";
 import Achievements from "@/components/Achivements";
 import Maintimeline from "@/components/Maintimeline";
 import Blogs from "@/components/blogs";
+import Board from "@/components/Board";
+import CompsAndSpons from "@/components/CompsAndSpons";
 export default function Home() {
   return (
     <>
@@ -13,7 +15,8 @@ export default function Home() {
       <About />
       {/* <OurDrones /> */}
       {/* <MeetTheTeam /> */}
-      <TeamBoard />
+      <Board/>
+      <CompsAndSpons/>
       {/* <Achievements /> */}
       {/* <Blogs /> */}
       {/* <Maintimeline /> */}

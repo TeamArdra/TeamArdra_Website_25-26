@@ -3,6 +3,7 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,10 +27,10 @@ function BoardCard({ member, index, width, height }) {
     >
       <div className="w-full h-full flex items-center justify-center p-6">
         {/* Image only */}
-        <div className="w-full h-full rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center overflow-hidden">
+        <div className="w-full h-full rounded-2xl flex items-center justify-center overflow-hidden">
           {/* show member image; fall back to a generic placeholder if missing */}
           <img
-            src={member.image || '/team/team6.jpeg'}
+            src={member.image}
             alt={member.name}
             className="w-full h-full object-cover"
           />
@@ -223,7 +224,7 @@ export default function TeamBoard() {
   }, [screenSize]);
 
   const getCardWidth = () => {
-    return screenSize === 'mobile' ? 280 : screenSize === 'tablet' ? 320 : 380;
+    return screenSize === 'mobile' ? 240 : screenSize === 'tablet' ? 280 : 320;
   };
 
   const getGap = () => {
@@ -231,7 +232,7 @@ export default function TeamBoard() {
   };
 
   const getCardHeight = () => {
-    return screenSize === 'mobile' ? 400 : 450;
+    return screenSize === 'mobile' ? 200 : 350;
   };
 
   return (
@@ -240,30 +241,28 @@ export default function TeamBoard() {
       className="font-nico relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20 bg-black"
     >
       {/* HEADER */}
-      <h2 className="font-bold text-white text-xl md:text-2xl tracking-widest uppercase mb-8 z-20 pointer-events-none">
-        [TEAM BOARD]
-      </h2>
+      <div className="text-center mb-20">
+        <h2
+          className="font-nico text-6xl tracking-widest"
+        >
+          [THE BOARD]
+        </h2>
+      </div>
       
       {/* POSITION - Above carousel */}
-      <p className="text-gray-400 text-sm md:text-base tracking-widest uppercase mb-12 z-20 pointer-events-none transition-all duration-300">
+      <p className="text-gray-400 text-sm md:text-base tracking-widest uppercase mb-4 z-20 pointer-events-none transition-all duration-300">
         {activeMember.role}
       </p>
 
       {/* BG TRIANGLES - decorative triangles behind content */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div
-          className="absolute left-0 top-0 h-full w-2/3 bg-gradient-to-b from-blue-700/30 to-transparent"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }}
-        />
-        <div
-          className="absolute right-0 bottom-0 h-full w-2/3 bg-gradient-to-t from-purple-700/30 to-transparent"
-          style={{ clipPath: 'polygon(100% 100%, 100% 0, 0 100%)' }}
-        />
+      <div className="absolute inset-0 z-[-1] pointer-events-none">
+        <Image src="/board-triangles-right.png" alt="Decorative Triangles Left" width={400} height={400} className="absolute left-0 top-1/2 transform -translate-y-1/2" />
+        <Image src="/board-triangles-left.png" alt="Decorative Triangles Right" width={400} height={400} className="absolute right-0 top-1/2 transform -translate-y-1/2" />
       </div>
 
       {/* CAROUSEL CONTAINER */}
       <div className="z-10 relative w-full perspective-1000">
-        <div className="w-full overflow-hidden flex items-center py-8 px-4">
+        <div className="w-full overflow-hidden flex items-center py-3 px-4">
           <div
             ref={carouselRef}
             className="flex items-center"
@@ -288,7 +287,7 @@ export default function TeamBoard() {
       </div>
 
       {/* NAME - Below carousel */}
-      <div className="z-20 mt-12 text-center pointer-events-none">
+      <div className="z-20 mt-4 text-center pointer-events-none">
         <h3 className="text-white text-sm md:text-base tracking-widest uppercase transition-all duration-300">
           {activeMember.name}
         </h3>

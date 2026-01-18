@@ -1,6 +1,7 @@
 import "./globals.css";
 import { anton, audiowide, nicoMoji, ocrA } from "./fonts.js";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({ children }) {
   return (
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
       <body className="bg-black text-white antialiased overflow-x-hidden">
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
