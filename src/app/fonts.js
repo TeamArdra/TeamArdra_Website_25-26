@@ -19,7 +19,7 @@ export const nicoMoji = localFont({
 });
 
 export const ocrA = localFont({
-  src: "../../public/fonts/OCRAEXT.woff",
+  src: "../../public/fonts/ocraextended.woff",
   variable: "--font-ocr-a",
   display: "swap",
 });
