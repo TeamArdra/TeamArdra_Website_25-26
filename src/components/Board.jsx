@@ -6,12 +6,12 @@ import { motion } from 'framer-motion';
 // The component name must start with a capital letter
 const Board = () => {
   return (
-    <div>
+    <div className='overflow-hidden bg-black'>
       <TeamBoard/>
       <div
         className="
           relative top-[15%] left-[-10%]
-          w-[200%] rotate-[-3deg]
+          w-[200%] -rotate-3
           bg-[#04115A] py-2 overflow-hidden
         "
       >
@@ -42,7 +42,7 @@ const Board = () => {
       <div
         className="
           relative top-[15%] right-[10%]
-          w-[200%] rotate-[3deg]
+          w-[200%] rotate-3
           bg-[#f8f8e3] py-2 overflow-hidden
         "
       >

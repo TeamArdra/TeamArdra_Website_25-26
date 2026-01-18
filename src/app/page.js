@@ -10,7 +10,7 @@ import Board from "@/components/Board";
 import CompsAndSpons from "@/components/CompsAndSpons";
 export default function Home() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Hero />
       <About />
       {/* <OurDrones /> */}
@@ -20,6 +20,6 @@ export default function Home() {
       {/* <Achievements /> */}
       {/* <Blogs /> */}
       {/* <Maintimeline /> */}
-    </>
+    </div>
   )
 }

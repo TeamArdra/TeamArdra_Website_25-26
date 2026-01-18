@@ -1,4 +1,8 @@
 import React from 'react';
+import { BenchNine} from "next/font/google";
+
+const benchNine = BenchNine({ subsets: ["latin"], weight: ["400"], display: "swap" });
+
 
 const Footer = () => {
   return (
@@ -14,24 +18,39 @@ const Footer = () => {
               RESEARCH<br />
               NEW APPROACH
             </p>
-            <p className="text-white font-nico text-lg mt-4">BEYOND LIMITS</p>
+            <p className={`text-white ${benchNine.className} text-lg mt-4`}>BEYOND LIMITS</p>
           </div>
 
           <div className="md:w-1/3 mt-6 md:mt-0">
-            <div className="flex items-start justify-end gap-6">
+            <div className="flex flex-col items-center md:items-end">
               <div className="text-right">
-                <p className="font-nico text-sm uppercase">Address -</p>
-                <p className="font-nico text-sm mt-1">
+                <p className="font-audiowide text-sm uppercase">Address -</p>
+                <p className="font-audiowide text-sm mt-1">
                   VIT, Vellore Campus,
                   <br /> Vellore, Tamil Nadu 632014
                 </p>
 
-                <p className="font-nico text-sm mt-4">Contact us:</p>
-                <p className="font-nico text-sm mt-1">+91 74729 47974</p>
-                <p className="font-nico text-sm">+91 88585 84438</p>
+                <div className="mt-4">
+                  <p className="font-audiowide text-sm">Contact us:</p>
+                  <div className="flex flex-col items-center md:items-end mt-1 gap-2">
+                    <div className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor">
+                        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.26 2.67.76 3.88a1 1 0 01-.21 1.11l-2.43 2.8z" />
+                      </svg>
+                      <span className="font-audiowide text-sm">+91 74729 47974</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor">
+                        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.26 2.67.76 3.88a1 1 0 01-.21 1.11l-2.43 2.8z" />
+                      </svg>
+                      <span className="font-audiowide text-sm">+91 88585 84438</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-col items-end gap-3">
+              <div className="flex items-center gap-3 mt-4">
                 <a href="mailto:info@teamardra.example" aria-label="Email" className="bg-white rounded-full w-10 h-10 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 text-black" fill="currentColor">
                     <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
@@ -64,7 +83,7 @@ const Footer = () => {
       />
         </div>
       </div>
-        <p className="text-center text-white font-audiowide text-[12rem] mt-0 pb-0">
+        <p className="text-center text-white font-audiowide text-5xl md:text-[12rem] mt-0 pb-0">
           TEAM ARDRA
         </p>
     </footer>

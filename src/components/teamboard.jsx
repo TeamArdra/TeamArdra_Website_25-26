@@ -4,7 +4,7 @@ import React, { useRef, useLayoutEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from 'next/image';
-
+import {motion} from "framer-motion";
 gsap.registerPlugin(ScrollTrigger);
 
 const TEAM_MEMBERS = [
@@ -19,7 +19,7 @@ const TEAM_MEMBERS = [
 function BoardCard({ member, index, width, height }) {
   return (
     <div
-      className="flex-shrink-0 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm"
+      className="flex shrink-0 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-sm"
       style={{ 
         width: `${width}px`,
         height: `${height}px`
@@ -241,12 +241,16 @@ export default function TeamBoard() {
       className="font-nico relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20 bg-black"
     >
       {/* HEADER */}
-      <div className="text-center mb-20">
-        <h2
-          className="font-nico text-6xl tracking-widest"
+      <div className="text-center mx-4 sm:mx-8 md:mx-12 lg:mx-20 my-10 sm:my-12 md:my-16 lg:my-20">
+        <motion.h2
+          className="font-nico text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-widest"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
         >
           [THE BOARD]
-        </h2>
+        </motion.h2>
       </div>
       
       {/* POSITION - Above carousel */}

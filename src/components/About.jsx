@@ -14,13 +14,12 @@ export default function About() {
   return (
     <section className="w-full bg-black text-[#f8f8e2] py-32 px-[6%]">
       
-      {/* Section Title */}
-      <div className="text-center mb-20">
+      <div className="text-center mx-4 sm:mx-8 md:mx-12 lg:mx-20 my-10 sm:my-12 md:my-16 lg:my-20">
         <motion.h2
-          className="font-nico text-6xl tracking-widest"
+          className="font-nico text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-widest"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
           [ABOUT US]
@@ -43,7 +42,7 @@ export default function About() {
             <img
               src="/about.jpeg"
               alt="Team Ardra"
-              className="rounded-xl object-cover w-full h-[280px]"
+              className="rounded-xl object-cover w-full h-70"
             />
 
             {/* Stats */}
@@ -87,7 +86,7 @@ export default function About() {
             viewport={{ once: true }}
           >
             <p
-              className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-[2] text-md md:text-lg`}
+              className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-loose text-md md:text-lg`}
             >
               Team Ardra was founded to foster technical innovation in aviation at
               VIT. Comprising dedicated students, the team designs, develops, and
