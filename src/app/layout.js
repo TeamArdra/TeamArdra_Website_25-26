@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
       <body className="bg-black text-white antialiased overflow-x-hidden">
         <Navbar />
         <main>{children}</main>
-        <Footer />
+        <Footer className="bottom-0" />
       </body>
     </html>
   );
