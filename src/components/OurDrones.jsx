@@ -76,10 +76,10 @@ const rightDroneVariants = {
                 left-[25%]
                 -translate-x-1/2
                 -translate-y-1/2
-                w-[720px]
-                h-[720px]
+                w-180
+                h-180
                 rounded-full
-                border-[2px]
+                border-2
                 border-amber-100
                 opacity-90
                 "
@@ -93,10 +93,10 @@ const rightDroneVariants = {
                 left-1/2
                 -translate-x-1/2
                 -translate-y-1/2
-                w-[720px]
-                h-[720px]
+                w-180
+                h-180
                 rounded-full
-                border-[2px]
+                border-2
                 border-amber-100
                 opacity-90
                 "
@@ -110,10 +110,10 @@ const rightDroneVariants = {
                 left-[75%]
                 -translate-x-1/2
                 -translate-y-1/2
-                w-[720px]
-                h-[720px]
+                w-180
+                h-180
                 rounded-full
-                border-[2px]
+                border-2
                 border-amber-100
                 opacity-90
                 "
@@ -126,7 +126,7 @@ const rightDroneVariants = {
       <div className="relative flex justify-center items-end gap-40">
         {/* Left Card */}
         <motion.div
-            className="relative w-[360px] h-[440px] rounded-2xl bg-amber-100 flex items-center justify-center"
+            className="relative w-90 h-110 rounded-2xl bg-amber-100 flex items-center justify-center"
             variants={leftDroneVariants}
             initial="hidden"
             whileInView="visible"
@@ -150,8 +150,8 @@ const rightDroneVariants = {
             className="
                 absolute
                 bottom-[12%]
-                w-[220px]
-                h-[28px]
+                w-55
+                h-7
                 bg-black/70
                 blur-xl
                 rounded-full
@@ -172,7 +172,7 @@ const rightDroneVariants = {
             <motion.img
                 src="/drone.png"
                 alt="Drone 1"
-                className="relative z-10 w-[460px] opacity-80"
+                className="relative z-10 w-115 opacity-80"
                 whileHover={{
                     y: -8,
                 }}
@@ -187,7 +187,7 @@ const rightDroneVariants = {
 
         {/* Center Card (Highlighted) */}
          <motion.div
-            className="relative w-[360px] h-[440px] rounded-2xl bg-amber-100 flex items-center justify-center"
+            className="relative w-90 h-110 rounded-2xl bg-amber-100 flex items-center justify-center"
             variants={centerDroneVariants}
             initial="hidden"
             whileInView="visible"
@@ -210,8 +210,8 @@ const rightDroneVariants = {
             className="
                 absolute
                 bottom-[12%]
-                w-[220px]
-                h-[28px]
+                w-55
+                h-7
                 bg-black/70
                 blur-xl
                 rounded-full
@@ -229,7 +229,7 @@ const rightDroneVariants = {
          <motion.img
             src="/kurogane.png"
             alt="Drone 1"
-            className="relative z-10 w-[460px] opacity-80"
+            className="relative z-10 w-115 opacity-80"
             whileHover={{
                 y: -8,
             }}
@@ -244,7 +244,7 @@ const rightDroneVariants = {
 
         {/* Right Card */}
          <motion.div
-            className="relative w-[360px] h-[440px] rounded-2xl bg-amber-100 flex items-center justify-center"
+            className="relative w-90 h-110 rounded-2xl bg-amber-100 flex items-center justify-center"
             variants={rightDroneVariants}
             initial="hidden"
             whileInView="visible"
@@ -266,8 +266,8 @@ const rightDroneVariants = {
             className="
                 absolute
                 bottom-[12%]
-                w-[220px]
-                h-[28px]
+                w-55
+                h-7
                 bg-black/70
                 blur-xl
                 rounded-full
@@ -285,7 +285,7 @@ const rightDroneVariants = {
             <motion.img
                 src="/drone.png"
                 alt="Drone 1"
-                className="relative z-10 w-[460px] opacity-80"
+                className="relative z-10 w-115 opacity-80"
                 whileHover={{
                     y: -8,
                 }}
@@ -301,7 +301,7 @@ const rightDroneVariants = {
       </div>
 
       {/* Bottom Blue Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-[10px] bg-blue-700" />
+      <div className="absolute bottom-0 left-0 w-full h-2.5 bg-blue-700" />
 
     </section>
   );

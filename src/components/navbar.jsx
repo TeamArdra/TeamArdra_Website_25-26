@@ -2,11 +2,13 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { name: "HOME", href: "/" },
@@ -57,7 +59,7 @@ export default function Navbar() {
       <div className="w-full px-4 font-anton">
         <div className="flex items-center justify-between h-24 relative">
           {/* Logo Section */}
-          <div className="flex-shrink-0 z-20">
+          <div className="flex shrink-0 z-20">
             <Link href="/" className="flex items-center p-0">
               <Image
                 src="/logo.png"
@@ -72,16 +74,21 @@ export default function Navbar() {
 
           {/* Desktop Menu (ABSOLUTE CENTERED & SPREAD OUT) */}
           <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 ml-24">
-            <div className="flex items-center space-x-[5rem]">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="font-Anton text-white hover:text-blue-400 text-sm font-anton tracking-widest uppercase transition-colors duration-200 whitespace-nowrap"
-                >
-                  {link.name}
-                </Link>
-              ))}
+            <div className="flex items-center space-x-20">
+              {navLinks.map((link) => {
+                const active = pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={`font-Anton text-white hover:text-blue-400 text-sm font-anton tracking-widest uppercase transition-colors duration-200 whitespace-nowrap ${
+                      active ? "border-b-2 border-blue-400 pb-1" : ""
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
@@ -109,17 +116,22 @@ export default function Navbar() {
           >
             {/* Menu Items Container */}
             <div className="flex-1 flex flex-col justify-center items-center px-6 space-y-8 top-30">
-              {navLinks.map((link, index) => (
-                <motion.div key={link.name} variants={itemVariants}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block text-lg font-anton text-white hover:text-blue-400 transition-colors tracking-widest uppercase"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
+              {navLinks.map((link, index) => {
+                const active = pathname === link.href;
+                return (
+                  <motion.div key={link.name} variants={itemVariants}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`block text-lg font-anton text-white hover:text-blue-400 transition-colors tracking-widest uppercase ${
+                        active ? "border-b-2 border-blue-400 pb-1" : ""
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Footer Section with Logo and Copyright */}
