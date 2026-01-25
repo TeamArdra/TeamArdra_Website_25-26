@@ -10,9 +10,11 @@ export default function RootLayout({ children }) {
       className={`${anton.variable} ${audiowide.variable} ${nicoMoji.variable} ${ocrA.variable}`}
     >
       <body className="bg-black text-white antialiased overflow-x-hidden">
+        <div className="flex min-h-screen flex-col">
         <Navbar />
-        <main>{children}</main>
-        <Footer className="bottom-0" />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        </div>
       </body>
     </html>
   );
