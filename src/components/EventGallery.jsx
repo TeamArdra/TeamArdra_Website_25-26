@@ -20,7 +20,8 @@ const EventGallery = () => {
         'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&h=800&fit=crop',
         'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&h=800&fit=crop'
       ],
-      description: 'An incredible outdoor music festival featuring top artists from around the world. Experience three days of non-stop entertainment, food, and unforgettable memories.'
+      description:
+        'An incredible outdoor music festival featuring top artists from around the world. Experience three days of non-stop entertainment, food, and unforgettable memories.'
     },
     {
       id: 2,
@@ -31,7 +32,8 @@ const EventGallery = () => {
         'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&h=800&fit=crop',
         'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200&h=800&fit=crop'
       ],
-      description: 'Join industry leaders and innovators for cutting-edge talks on AI, blockchain, and the future of technology. Network with professionals and explore the latest innovations.'
+      description:
+        'Join industry leaders and innovators for cutting-edge talks on AI, blockchain, and the future of technology.'
     },
     {
       id: 3,
@@ -42,7 +44,8 @@ const EventGallery = () => {
         'https://images.unsplash.com/photo-1578301978162-7aae4d755744?w=1200&h=800&fit=crop',
         'https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=1200&h=800&fit=crop'
       ],
-      description: 'Discover contemporary art and design from emerging and established artists. Interactive installations, live demonstrations, and exclusive gallery showings await you.'
+      description:
+        'Discover contemporary art and design from emerging and established artists.'
     },
     {
       id: 4,
@@ -53,14 +56,15 @@ const EventGallery = () => {
         'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=800&fit=crop',
         'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=1200&h=800&fit=crop'
       ],
-      description: 'Savor exquisite cuisines from world-renowned chefs paired with premium wines. Cooking demonstrations, tastings, and culinary workshops throughout the weekend.'
+      description:
+        'Savor exquisite cuisines from world-renowned chefs paired with premium wines.'
     }
   ];
 
   useEffect(() => {
     if (selectedEvent) {
       const interval = setInterval(() => {
-        setCurrentSlide(prev => 
+        setCurrentSlide(prev =>
           (prev + 1) % events.find(e => e.id === selectedEvent).images.length
         );
       }, 3000);
@@ -68,75 +72,54 @@ const EventGallery = () => {
     }
   }, [selectedEvent, events]);
 
-  const handleEventClick = (eventId) => {
-    setSelectedEvent(eventId);
-    setCurrentSlide(0);
-  };
-
-  const nextSlide = () => {
-    const event = events.find(e => e.id === selectedEvent);
-    setCurrentSlide(prev => (prev + 1) % event.images.length);
-  };
-
-  const prevSlide = () => {
-    const event = events.find(e => e.id === selectedEvent);
-    setCurrentSlide(prev => (prev - 1 + event.images.length) % event.images.length);
-  };
-
   const selectedEventData = events.find(e => e.id === selectedEvent);
 
   return (
-    <div className="min-h-screen bg-black p-4 md:p-8 text-[#f8f8e2]">
+    <div className="min-h-screen bg-black p-6 md:p-10 text-[#f8f8e2]">
       <div className="max-w-7xl mx-auto">
-        {/* <h1 className={`${audiowide.className} text-4xl font-bold mb-8 text-center text-[#f8f8e2]`}>Event Gallery</h1> */}
-        
-        <div className={`flex flex-col ${selectedEvent ? 'md:flex-row' : ''} gap-6`}>
-          {/* Main Content Area */}
+
+        <div className={`flex flex-col ${selectedEvent ? 'md:flex-row' : ''} gap-8`}>
+
+          {/* MAIN CONTENT */}
           {selectedEvent && (
-            <div className="flex-1 order-1 md:order-0">
+            <div className="flex-1">
               <div className="bg-[#231f1f] rounded-3xl overflow-hidden shadow-2xl">
-                {/* Slideshow */}
                 <div className="relative aspect-video bg-black">
                   <img
                     src={selectedEventData.images[currentSlide]}
-                    alt={`${selectedEventData.name} - Slide ${currentSlide + 1}`}
                     className="w-full h-full object-cover"
+                    alt=""
                   />
-                  
-                  {/* Navigation Arrows */}
+
                   <button
-                    onClick={prevSlide}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition"
+                    onClick={() =>
+                      setCurrentSlide(
+                        (currentSlide - 1 + selectedEventData.images.length) %
+                          selectedEventData.images.length
+                      )
+                    }
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full"
                   >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition"
-                  >
-                    <ChevronRight size={24} />
+                    <ChevronLeft />
                   </button>
 
-                  {/* Slide Indicators */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                    {selectedEventData.images.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentSlide(idx)}
-                        className={`w-2 h-2 rounded-full transition ${
-                          idx === currentSlide ? 'bg-white w-8' : 'bg-white/50'
-                        }`}
-                      />
-                    ))}
-                  </div>
+                  <button
+                    onClick={() =>
+                      setCurrentSlide(
+                        (currentSlide + 1) % selectedEventData.images.length
+                      )
+                    }
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full"
+                  >
+                    <ChevronRight />
+                  </button>
                 </div>
 
-                {/* Event Details */}
-                <div className="p-6">
-                  <h2 className={`${audiowide.className} text-3xl font-bold mb-4 text-[#f8f8e2]`}>
+                <div className="p-8">
+                  <h2 className={`${audiowide.className} text-3xl mb-4`}>
                     {selectedEventData.name}
                   </h2>
-                  <p className={`font-nico text-[#f8f8e2] text-lg leading-relaxed`}>
+                  <p className="text-lg leading-relaxed">
                     {selectedEventData.description}
                   </p>
                 </div>
@@ -144,41 +127,45 @@ const EventGallery = () => {
             </div>
           )}
 
-          {/* Event Thumbnails */}
-          <div className={`
-            ${selectedEvent 
-              ? 'md:w-80 flex md:flex-col gap-4 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 order-2 md:order-0' 
-              : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'
+          {/* EVENT CARDS */}
+          <div
+            className={
+              selectedEvent
+                ? 'md:w-96 flex md:flex-col gap-6 overflow-x-auto'
+                : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'
             }
-          `}>
+          >
             {events.map(event => (
               <div
                 key={event.id}
-                onClick={() => handleEventClick(event.id)}
+                onClick={() => {
+                  setSelectedEvent(event.id);
+                  setCurrentSlide(0);
+                }}
                 className={`
-                  relative cursor-pointer group overflow-hidden rounded-lg shadow-lg
-                  transition-all duration-300 hover:shadow-2xl hover:scale-105
-                  ${selectedEvent 
-                    ? 'flex shrink-0 w-64 md:w-full' 
-                    : ''
-                  }
+                  cursor-pointer overflow-hidden rounded-xl shadow-xl
+                  transition-all duration-300 hover:scale-105
                   ${selectedEvent === event.id ? 'ring-4 ring-blue-500' : ''}
+                  ${selectedEvent ? 'w-72 md:w-full shrink-0' : ''}
                 `}
               >
-                <div className="aspect-video relative">
+                <div className="aspect-[4/3] relative">
                   <img
                     src={event.cover}
-                    alt={event.name}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-full object-cover"
+                    alt=""
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
-                  <h3 className={`${audiowide.className} absolute bottom-4 left-4 right-4 text-[#f8f8e2] font-bold text-lg md:text-xl`}>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <h3
+                    className={`${audiowide.className} absolute bottom-6 left-6 right-6 text-xl md:text-2xl`}
+                  >
                     {event.name}
                   </h3>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </div>
