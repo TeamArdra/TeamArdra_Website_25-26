@@ -9,10 +9,28 @@ export default function WinningTimeline() {
       content: (
         <div>
           <h3 className="text-2xl md:text-4xl font-audiowide text-blue-400 mb-4">
-            9TH PLACE ISDC'25
+            FINALIST OF GEO-AI HACKOTHON, TECHFEST
+          </h3>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="/team-left.jpg" 
+              alt="ISDC 2025 Team"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
+            />
+            <img
+              src="/drone.png"
+              alt="Drone Prototype 2025"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
+            />
+          </div>
+          <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
+            Team Ardra participated in the Geo-AI Hackathon at IIT Bombay’s Techfest, developing geospatial machine learning pipelines for rural infrastructure mapping using aerial imagery.
+          </p>
+          <h3 className="text-2xl md:text-4xl font-audiowide text-blue-400 mb-4">
+            9TH PLACE IN ISDC'25
           </h3>
           <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
-            Competed against 100+ global teams, securing a top-10 finish with our upgraded aerodynamic chassis and autonomous navigation systems.
+            Secured 9th place at ISDC Goa 2025, showcasing strong performance in autonomous flight and drone operations among top student teams.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
@@ -37,7 +55,52 @@ export default function WinningTimeline() {
             WINNERS OF ISDC'24
           </h3>
           <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
-            Secured 1st place internationally. This was a landmark victory for Team Ardra, showcasing superior maneuverability and payload delivery.
+            Winners of ISDC ’24, demonstrating excellence in autonomous drone systems and mission execution.
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="/team-right.jpg" 
+              alt="Winning Moment"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
+            />
+            <img
+              src="/team-left.jpg"
+              alt="Team Celebration"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
+            />
+          </div>
+          <h3 className="text-2xl md:text-4xl font-audiowide text-yellow-400 mb-4">
+            COGNIZANCE  IITR FINALS ‘24
+          </h3>
+          <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
+            Qualified for the Cognizance IIT Roorkee Finals 2024, demonstrating reliable system design and execution.
+          </p>
+        </div>
+        
+      ),
+    },
+    {
+      title: "2021",
+      content: (
+        <div>
+          <h3 className="text-2xl md:text-4xl font-audiowide text-white mb-4">
+              FINALS  SUAS ’21 USA
+          </h3>
+          <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
+            Finalists at SUAS 2021 (USA), competing in autonomous unmanned aircraft mission challenges.
+          </p>
+          <div className="grid grid-cols-1 gap-4">
+             <img
+              src="/team-right.jpg" 
+              alt="Winning Moment"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
+            />
+          </div>
+          <h3 className="text-2xl md:text-4xl font-audiowide text-yellow-400 mb-4">
+            3RD PLACE  IPAS'21
+          </h3>
+          <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
+            Secured 3rd place at IPAS 2021, demonstrating strong technical performance and system reliability.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
@@ -55,45 +118,6 @@ export default function WinningTimeline() {
       ),
     },
     {
-      title: "2022",
-      content: (
-        <div>
-          <h3 className="text-2xl md:text-4xl font-audiowide text-white mb-4">
-            USA COGNIZANCE & SUAS
-          </h3>
-          <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
-            Finalists in the highly competitive AI-driven drone league held at IIT Roorkee and showcased semi-autonomous flight capabilities.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-             <div className="h-20 md:h-44 lg:h-60 w-full rounded-lg bg-[#04115A] border border-blue-500/30 flex items-center justify-center">
-                <span className="font-ocr text-blue-300 text-xs">USA FINALIST</span>
-             </div>
-             <div className="h-20 md:h-44 lg:h-60 w-full rounded-lg bg-[#04115A] border border-blue-500/30 flex items-center justify-center">
-                <span className="font-ocr text-blue-300 text-xs">IITR EVENT</span>
-             </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      title: "2019",
-      content: (
-        <div>
-          <h3 className="text-2xl md:text-4xl font-audiowide text-amber-600 mb-4">
-            3RD PLACE SUAS'19
-          </h3>
-          <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
-            Awarded for 'Best Design' and podium finish in the precision payload drop category during our early years.
-          </p>
-           <div className="grid grid-cols-2 gap-4">
-            <img
-              src="/drone.png"
-              alt="Early Prototype"
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(217,119,6,0.2)] border border-amber-600/20"
-            />
-          </div>
-        </div>
-      ),
     },
   ];
 
