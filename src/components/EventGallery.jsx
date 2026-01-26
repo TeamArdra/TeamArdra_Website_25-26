@@ -1,10 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Audiowide } from "next/font/google";
 
-const audiowide = Audiowide({ subsets: ["latin"], weight: ["400"], display: "swap" });
+const audiowide = Audiowide({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
 
 const EventGallery = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -13,130 +17,104 @@ const EventGallery = () => {
   const events = [
     {
       id: 1,
-      name: 'Summer Music Festival',
-      cover: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop',
-      images: [
-        'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&h=800&fit=crop'
-      ],
-      description: 'An incredible outdoor music festival featuring top artists from around the world. Experience three days of non-stop entertainment, food, and unforgettable memories.'
+      name: "Outreach @ Takshilah School",
+      cover: "/takshilah.png",
+      images: ["/takshilah-1.png", "/takshilah-2.png", "/takshilah-3.png"],
+      description:
+        "Team Ardra had the opportunity to engage with the students of the Takshilah Global School, Ambur, through an interactive session on drones covering types, flight physics, space related concepts, and real-world applications. The speakers shared hands-on experiences, and an enthusiastic Q&A reflected the impact of the session. We thank SEDS VIT for their support and the school and students for their warm welcome and curiosity. Here's to inspiring future innovators.",
     },
     {
       id: 2,
-      name: 'Tech Conference 2024',
-      cover: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop',
-      images: [
-        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1200&h=800&fit=crop'
-      ],
-      description: 'Join industry leaders and innovators for cutting-edge talks on AI, blockchain, and the future of technology. Network with professionals and explore the latest innovations.'
+      name: "GRAVITAS 2025",
+      cover: "/gravitas.png",
+      images: ["/gravitas-1.png", "/gravitas-2.png", "/gravitas-3.png"],
+      description:
+        "During Gravitas at VIT, Team Ardra showcased its autonomous drine systems to an enthusiastic audience over three days...",
     },
     {
       id: 3,
-      name: 'Art & Design Expo',
-      cover: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&h=600&fit=crop',
-      images: [
-        'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1578301978162-7aae4d755744?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=1200&h=800&fit=crop'
-      ],
-      description: 'Discover contemporary art and design from emerging and established artists. Interactive installations, live demonstrations, and exclusive gallery showings await you.'
+      name: "STAR PARTY",
+      cover: "/Starparty.png",
+      images: ["/Starparty-1.png", "/Starparty-2.png", "/Starparty-3..png"],
+      description:
+        "At the SEDS VIT Star Party (Sept 26–28), Team Ardra showcased a live drone flight...",
     },
     {
       id: 4,
-      name: 'Food & Wine Festival',
-      cover: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=600&fit=crop',
-      images: [
-        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=1200&h=800&fit=crop'
-      ],
-      description: 'Savor exquisite cuisines from world-renowned chefs paired with premium wines. Cooking demonstrations, tastings, and culinary workshops throughout the weekend.'
-    }
+      name: "ASTSF 2025",
+      cover: "/ASTSF.png",
+      images: ["/ASTSF-1.png", "/ASTSF-2.png"],
+      description:
+        "Team Ardra had the privilege of showcasing our innovations at the INYAS ASTSF 2025...",
+    },
   ];
 
   useEffect(() => {
-    if (selectedEvent) {
-      const interval = setInterval(() => {
-        setCurrentSlide(prev => 
-          (prev + 1) % events.find(e => e.id === selectedEvent).images.length
-        );
-      }, 3000);
-      return () => clearInterval(interval);
-    }
+    if (!selectedEvent) return;
+
+    const interval = setInterval(() => {
+      const event = events.find((e) => e.id === selectedEvent);
+      setCurrentSlide((prev) => (prev + 1) % event.images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, [selectedEvent, events]);
 
-  const handleEventClick = (eventId) => {
-    setSelectedEvent(eventId);
-    setCurrentSlide(0);
-  };
-
-  const nextSlide = () => {
-    const event = events.find(e => e.id === selectedEvent);
-    setCurrentSlide(prev => (prev + 1) % event.images.length);
-  };
-
-  const prevSlide = () => {
-    const event = events.find(e => e.id === selectedEvent);
-    setCurrentSlide(prev => (prev - 1 + event.images.length) % event.images.length);
-  };
-
-  const selectedEventData = events.find(e => e.id === selectedEvent);
+  const selectedEventData = events.find((e) => e.id === selectedEvent);
 
   return (
     <div className="min-h-screen bg-black p-4 md:p-8 text-[#f8f8e2]">
       <div className="max-w-7xl mx-auto">
-        {/* <h1 className={`${audiowide.className} text-4xl font-bold mb-8 text-center text-[#f8f8e2]`}>Event Gallery</h1> */}
-        
-        <div className={`flex flex-col ${selectedEvent ? 'md:flex-row' : ''} gap-6`}>
-          {/* Main Content Area */}
+        <div
+          className={`flex flex-col ${
+            selectedEvent ? "md:flex-row" : ""
+          } gap-6 md:gap-8`}
+        >
+          {/* ================= MAIN VIEW ================= */}
           {selectedEvent && (
-            <div className="flex-1 order-1 md:order-0">
+            <div className="flex-1">
               <div className="bg-[#231f1f] rounded-3xl overflow-hidden shadow-2xl">
-                {/* Slideshow */}
-                <div className="relative aspect-video bg-black">
+                {/* SLIDESHOW */}
+                <div className="relative aspect-video">
                   <img
                     src={selectedEventData.images[currentSlide]}
-                    alt={`${selectedEventData.name} - Slide ${currentSlide + 1}`}
                     className="w-full h-full object-cover"
                   />
-                  
-                  {/* Navigation Arrows */}
+
+                  {/* MOBILE + DESKTOP CONTROLS (same logic, better touch on mobile) */}
                   <button
-                    onClick={prevSlide}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition"
+                    onClick={() =>
+                      setCurrentSlide(
+                        (currentSlide - 1 + selectedEventData.images.length) %
+                          selectedEventData.images.length
+                      )
+                    }
+                    className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 bg-black/60 p-4 md:p-3 rounded-full"
                   >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition"
-                  >
-                    <ChevronRight size={24} />
+                    <ChevronLeft />
                   </button>
 
-                  {/* Slide Indicators */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                    {selectedEventData.images.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentSlide(idx)}
-                        className={`w-2 h-2 rounded-full transition ${
-                          idx === currentSlide ? 'bg-white w-8' : 'bg-white/50'
-                        }`}
-                      />
-                    ))}
-                  </div>
+                  <button
+                    onClick={() =>
+                      setCurrentSlide(
+                        (currentSlide + 1) %
+                          selectedEventData.images.length
+                      )
+                    }
+                    className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 bg-black/60 p-4 md:p-3 rounded-full"
+                  >
+                    <ChevronRight />
+                  </button>
                 </div>
 
-                {/* Event Details */}
-                <div className="p-6">
-                  <h2 className={`${audiowide.className} text-3xl font-bold mb-4 text-[#f8f8e2]`}>
+                {/* DETAILS */}
+                <div className="p-4 md:p-6">
+                  <h2
+                    className={`${audiowide.className} text-2xl md:text-3xl mb-4`}
+                  >
                     {selectedEventData.name}
                   </h2>
-                  <p className={`font-nico text-[#f8f8e2] text-lg leading-relaxed`}>
+                  <p className="font-nico text-base md:text-lg leading-relaxed">
                     {selectedEventData.description}
                   </p>
                 </div>
@@ -144,35 +122,55 @@ const EventGallery = () => {
             </div>
           )}
 
-          {/* Event Thumbnails */}
-          <div className={`
-            ${selectedEvent 
-              ? 'md:w-80 flex md:flex-col gap-4 overflow-x-auto md:overflow-x-visible pb-4 md:pb-0 order-2 md:order-0' 
-              : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'
+          {/* ================= EVENT LIST ================= */}
+          <div
+            className={
+              selectedEvent
+                ? `
+                  md:w-96
+                  flex md:flex-col
+                  gap-4 md:gap-6
+                  overflow-x-auto md:overflow-y-auto
+                  md:h-[calc(100vh-6rem)]
+                  pr-2
+                `
+                : `
+                  grid grid-cols-2
+                  gap-4 md:gap-8
+                `
             }
-          `}>
-            {events.map(event => (
+          >
+            {events.map((event) => (
               <div
                 key={event.id}
-                onClick={() => handleEventClick(event.id)}
+                onClick={() => {
+                  setSelectedEvent(event.id);
+                  setCurrentSlide(0);
+                }}
                 className={`
-                  relative cursor-pointer group overflow-hidden rounded-lg shadow-lg
-                  transition-all duration-300 hover:shadow-2xl hover:scale-105
-                  ${selectedEvent 
-                    ? 'flex shrink-0 w-64 md:w-full' 
-                    : ''
+                  cursor-pointer
+                  rounded-xl
+                  overflow-hidden
+                  shadow-lg
+                  transition-all
+                  hover:scale-105
+                  min-w-[70%] md:min-w-0
+                  ${
+                    selectedEvent === event.id
+                      ? "ring-4 ring-blue-500"
+                      : ""
                   }
-                  ${selectedEvent === event.id ? 'ring-4 ring-blue-500' : ''}
                 `}
               >
                 <div className="aspect-video relative">
                   <img
                     src={event.cover}
-                    alt={event.name}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
-                  <h3 className={`${audiowide.className} absolute bottom-4 left-4 right-4 text-[#f8f8e2] font-bold text-lg md:text-xl`}>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <h3
+                    className={`${audiowide.className} absolute bottom-3 left-3 right-3 text-sm md:text-lg`}
+                  >
                     {event.name}
                   </h3>
                 </div>
