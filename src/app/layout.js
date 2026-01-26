@@ -1,5 +1,5 @@
 import "./globals.css";
-import { anton, audiowide, nicoMoji, ocrA } from "./fonts.js";
+import { anton, audiowide, nicoMoji, ocrA, aubrey } from "./fonts.js";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 

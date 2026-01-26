@@ -8,6 +8,7 @@ import Maintimeline from "@/components/Maintimeline";
 import Blogs from "@/components/blogs";
 import Board from "@/components/Board";
 import CompsAndSpons from "@/components/CompsAndSpons";
+//import MeetTheTeam from "@/components/MeetTheTeam";
 export default function Home() {
   return (
     <div className="overflow-x-hidden">

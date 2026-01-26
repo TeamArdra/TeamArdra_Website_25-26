@@ -62,6 +62,9 @@
   .font-ocr {
     font-family: var(--font-ocr-a);
   }
+  .font-aubrey{
+    font-family: var(--font-aubrey);
+  }
 }
 
 :root {
