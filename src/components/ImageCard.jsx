@@ -8,7 +8,7 @@ export default function ImageCard({ url, alt }) {
       md:w-72 md:h-72
       rounded-2xl
       overflow-hidden
-      bg-[#1a1a1a]
+      bg-[#F8F8E2]
       flex items-center justify-center
     ">
       <div className="relative w-[90%] h-[90%]">

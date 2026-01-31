@@ -16,7 +16,7 @@ export default function Home() {
       <About />
       {/* <OurDrones /> */}
       {/* <MeetTheTeam /> */}
-      <Board/>
+      {/* <Board/> */}
       <CompsAndSpons/>
       {/* <Achievements /> */}
       {/* <Blogs /> */}
