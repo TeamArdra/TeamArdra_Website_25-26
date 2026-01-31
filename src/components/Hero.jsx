@@ -33,7 +33,7 @@ export default function Hero() {
 
       {/* Blue Circle */}
        <motion.div
-        className="absolute z-0 h-[420px] w-[420px] rounded-full bg-[#061045]"
+        className="absolute z-0 h-105 w-105 rounded-full bg-[#061045]"
         animate={{
             scale: [1, 1.05, 1],
         }}
@@ -46,29 +46,16 @@ export default function Hero() {
 
 
       {/* Micro Text */}
-      <p
-        className="
-          absolute top-[32%] left-[7.5%]
-          text-[clamp(1.5rem,0.2vw,5rem)]
-          font-ocr tracking-[0.2em]
-          uppercase text-white z-20
-        "
-      >
-        <span className="relative left-[16%]">What We Do</span>
-        <span className="relative left-[209%]">We Make It Fly</span>
-      </p>
-      <p className="absolute top-[64%] left-[8.5%] text-[clamp(1.5rem,0.2vw,15rem)] font-ocr">Dream. Design. Do</p>
+      
 
       {/* Year */}
-      <p className="absolute top-[58%] right-[5.5%] rotate-[90deg] font-anton text-3xl z-20">
-        [2019]
-      </p>
+      
 
       {/* Title */}
       <motion.h1
         className="
           relative z-10 font-anton text-white
-          text-[clamp(4rem,20vw,19rem)]
+          text-[clamp(6rem,17vw,17rem)]
           tracking-widest text-center
         "
         initial={{ opacity: 0, y: 40 }}
@@ -82,7 +69,7 @@ export default function Hero() {
       <motion.img
         src="/drone.png"
         alt="Drone"
-        className="absolute z-20 w-[420px]"
+        className="absolute z-20 w-105"
         initial={{ y: 300, opacity: 0 }}
         animate={droneControls}
       />

@@ -86,11 +86,10 @@ const ContactUs = () => {
           {/* Left Column: Contact Form */}
           <motion.div variants={itemVariants} className="bg-[#091243] p-8 rounded-xl shadow-2xl border border-blue-900/30 backdrop-blur-sm">
             <div className="mb-6">
-              <h2 className="text-xl text-blue-300 font-medium" >Contact Us</h2>
-              <h3 className="text-3xl font-bold text-white mt-1 tracking-wide" >Get in Touch</h3>
+              <h3 className="text-3xl font-audiowide font-bold text-white mt-1 tracking-wide" >Get in Touch</h3>
             </div>
 
-            <form className="space-y-6" onSubmit={handleSendEmail}>
+            <form className="space-y-6 font-nico" onSubmit={handleSendEmail}>
               <div className="group">
                 <label htmlFor="name" className="block text-sm font-bold text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">Name</label>
                 <input
@@ -153,7 +152,7 @@ const ContactUs = () => {
           <div className="flex flex-col justify-between h-full space-y-10">
             
             {/* Description Text */}
-            <motion.div variants={itemVariants} className="text-gray-300 font-Aubrey text-lg leading-relaxed text-justify border-l-4 border-blue-500 pl-4 py-2 bg-white/5 rounded-r-lg">
+            <motion.div variants={itemVariants} className="text-gray-300 font-nico text-lg leading-relaxed text-justify border-l-4 border-blue-500 pl-4 py-2 bg-white/5 rounded-r-lg">
               <p>
                 Team Ardra was founded to foster technical innovation in aviation at VIT. 
                 Comprising dedicated students, the team designs, develops, and deploys UAVs, 
@@ -162,22 +161,22 @@ const ContactUs = () => {
             </motion.div>
 
             {/* Contact Details Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center" style={{ fontFamily: '"Akatab", sans-serif' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center font-nico" style={{ fontFamily: '"Akatab", sans-serif' }}>
               
               {/* Phone */}
-              <motion.div variants={itemVariants} className="flex flex-col items-center group">
+              <motion.div variants={itemVariants} className="flex flex-col items-center group font-nico">
                 <div className="w-16 h-16 rounded-full border border-gray-500 flex items-center justify-center mb-4 group-hover:border-blue-400 group-hover:bg-blue-900/20 transition-all duration-300">
                   <Phone className="w-8 h-8 text-gray-300 group-hover:text-blue-400 group-hover:scale-110 transition-transform" />
                 </div>
                 <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-1 group-hover:text-blue-300 transition-colors">Phone Number</h4>
-                <p className="text-white text-lg">+91 0000000000</p>
+                <p className="text-white text-lg">+91 70219 50250</p>
               </motion.div>
 
               {/* Email */}
               <motion.a 
                 href="mailto:teamardra@vit.ac.in" 
                 variants={itemVariants}
-                className="flex flex-col items-center group cursor-pointer"
+                className="flex flex-col items-center group cursor-pointer font-nico"
               >
                 <div className="w-16 h-16 rounded-full border border-gray-500 flex items-center justify-center mb-4 group-hover:border-blue-400 group-hover:bg-blue-900/20 transition-all duration-300">
                   <Mail className="w-8 h-8 text-gray-300 group-hover:text-blue-400 group-hover:scale-110 transition-transform" />
@@ -188,7 +187,7 @@ const ContactUs = () => {
             </div>
 
             {/* Location & Map */}
-            <motion.div variants={itemVariants} className="flex flex-col items-center text-center" >
+            <motion.div variants={itemVariants} className="flex flex-col items-center text-center font-nico" >
               <div className="mb-4 group cursor-default">
                  <MapPin className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:text-red-500 group-hover:animate-bounce transition-colors" />
                  <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 group-hover:text-blue-300 transition-colors">Our Location</h4>
@@ -221,9 +220,9 @@ const ContactUs = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-20 relative w-full h-64 md:h-80 rounded-2xl overflow-hidden group shadow-2xl border border-gray-800"
+          className="font-audiowide mt-20 relative w-full h-64 md:h-80 rounded-2xl overflow-hidden group shadow-2xl border border-gray-800"
         >
-          <img 
+          <img
             src="/contactus_drone.png" 
             alt="Drone Throttling Towards Excellence" 
             className="w-full h-full object-cover opacity-60 group-hover:scale-110 group-hover:opacity-80 transition-all duration-700 ease-out"

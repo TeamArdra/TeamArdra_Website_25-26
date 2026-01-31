@@ -12,7 +12,7 @@ const Footer = () => {
         
         
         <div className="flex flex-col md:flex-row items-start justify-between">
-          <div className="md:w-1/3">
+          <div className="hidden md:block w-1/3">
             <p className="text-white font-nico text-lg leading-relaxed">
               PROJECTS<br />
               RESEARCH<br />
@@ -21,9 +21,9 @@ const Footer = () => {
             <p className={`text-white ${benchNine.className} text-lg mt-4`}>BEYOND LIMITS</p>
           </div>
 
-          <div className="md:w-1/3 mt-6 md:mt-0">
-            <div className="flex flex-col items-center md:items-end">
-              <div className="text-right">
+          <div className="ml-22 md:ml-0 md:w-1/3 mt-6 md:mt-0">
+            <div className="flex flex-col items-center md:items-end text-center md:text-right">
+              <div className="text-center md:text-right">
                 <p className="font-audiowide text-sm uppercase">Address -</p>
                 <p className="font-audiowide text-sm mt-1">
                   VIT, Vellore Campus,
@@ -32,15 +32,15 @@ const Footer = () => {
 
                 <div className="mt-4">
                   <p className="font-audiowide text-sm">Contact us:</p>
-                  <div className="flex flex-col items-center md:items-end mt-1 gap-2">
-                    <div className="flex items-center gap-2">
+                  <div className="flex flex-col items-center md:items-end mt-1 gap-0 md:gap-2">
+                    <div className="flex items-center justify-center md:justify-end gap-2">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor">
                         <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.26 2.67.76 3.88a1 1 0 01-.21 1.11l-2.43 2.8z" />
                       </svg>
                       <span className="font-audiowide text-sm">+91 74729 47974</span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center md:justify-end gap-2">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor">
                         <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.26 2.67.76 3.88a1 1 0 01-.21 1.11l-2.43 2.8z" />
                       </svg>
@@ -50,7 +50,7 @@ const Footer = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 mt-4">
+              <div className="flex items-center justify-center md:justify-end gap-5 md:gap-3 mt-4 mb-4 md:mb-0">
                 <a href="mailto:info@teamardra.example" aria-label="Email" className="bg-white rounded-full w-10 h-10 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 text-black" fill="currentColor">
                     <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
