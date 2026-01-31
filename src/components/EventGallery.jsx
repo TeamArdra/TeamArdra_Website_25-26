@@ -167,7 +167,7 @@ const EventGallery = () => {
                     src={event.cover}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
                   <h3
                     className={`${audiowide.className} absolute bottom-3 left-3 right-3 text-sm md:text-lg`}
                   >

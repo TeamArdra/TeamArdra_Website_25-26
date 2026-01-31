@@ -13,12 +13,12 @@ export default function WinningTimeline() {
           </h3>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/team-left.jpg" 
+              src="/tf-1a.png" 
               alt="ISDC 2025 Team"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
             />
             <img
-              src="/drone.png"
+              src="/tf-2a.png"
               alt="Drone Prototype 2025"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
             />
@@ -34,12 +34,12 @@ export default function WinningTimeline() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/team-left.jpg" 
+              src="/isdc25-1a.png" 
               alt="ISDC 2025 Team"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
             />
             <img
-              src="/drone.png"
+              src="/isdc25-2a.png"
               alt="Drone Prototype 2025"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
             />
@@ -59,12 +59,12 @@ export default function WinningTimeline() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/team-right.jpg" 
+              src="/isdc-1a.png" 
               alt="Winning Moment"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
             <img
-              src="/team-left.jpg"
+              src="/isdc-2a.png"
               alt="Team Celebration"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
@@ -91,7 +91,7 @@ export default function WinningTimeline() {
           </p>
           <div className="grid grid-cols-1 gap-4">
              <img
-              src="/team-right.jpg" 
+              src="/suas-1a.png" 
               alt="Winning Moment"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
@@ -104,12 +104,12 @@ export default function WinningTimeline() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/team-right.jpg" 
+              src="/ipas-1a.png" 
               alt="Winning Moment"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
             <img
-              src="/team-left.jpg"
+              src="/ipas-2a.png"
               alt="Team Celebration"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
@@ -123,9 +123,17 @@ export default function WinningTimeline() {
 
   return (
     <div className="w-full bg-black font-sans py-20">
-      <h2 className="text-white font-audiowide text-2xl md:text-4xl tracking-widest uppercase mb-10 text-center">
-         [VICTORY LOGS]
-      </h2>
+      <div className="text-center mx-4 sm:mx-8 md:mx-12 lg:mx-20 my-10 sm:my-12 md:my-16 lg:my-20">
+              <motion.h2
+                className="font-nico text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-widest"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                [OUR ACHIEVEMENTS]
+              </motion.h2>
+            </div>
       <Timeline data={data} />
     </div>
   );
