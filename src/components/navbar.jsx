@@ -98,11 +98,11 @@ export default function Navbar() {
               rel="noopener noreferrer"
             >
               <Image
-                src="/seds_1.jpeg"
+                src="/seds.png"
                 alt="SEDS VIT"
                 width={120}
                 height={40}
-                className="object-contain w-auto h-10"
+                className="object-contain w-auto h-auto"
               />
             </a>
           </div>

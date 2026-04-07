@@ -156,7 +156,7 @@ const ContactUs = () => {
           <div className="flex flex-col justify-between h-full space-y-10">
 
             {/* Description Text */}
-            <motion.div variants={itemVariants} className="text-gray-300 font-nico text-lg leading-relaxed text-justify border-l-4 border-blue-500 pl-4 py-2 bg-white/5 rounded-r-lg">
+            <motion.div variants={itemVariants} className="text-gray-300 font-nico text-lg leading-relaxed border-l-4 border-blue-500 pl-4 py-2 bg-white/5 rounded-r-lg">
               <p>
                 Team Ardra was founded to foster technical innovation in aviation at VIT.
                 Comprising dedicated students, the team designs, develops, and deploys UAVs,
@@ -168,12 +168,23 @@ const ContactUs = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center font-nico" style={{ fontFamily: '"Akatab", sans-serif' }}>
 
               {/* Phone */}
-              <motion.div variants={itemVariants} className="flex flex-col items-center group font-nico">
-                <div className="w-16 h-16 rounded-full border border-gray-500 flex items-center justify-center mb-4 group-hover:border-blue-400 group-hover:bg-blue-900/20 transition-all duration-300">
-                  <Phone className="w-8 h-8 text-gray-300 group-hover:text-blue-400 group-hover:scale-110 transition-transform" />
-                </div>
-                <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-1 group-hover:text-blue-300 transition-colors">Phone Number</h4>
-                <p className="text-white text-lg">+91 82813 82419</p>
+              <motion.div variants={itemVariants}>
+                <a
+                  href="tel:+918281382419"
+                  className="flex flex-col items-center group cursor-pointer"
+                >
+                  <div className="w-16 h-16 rounded-full border border-gray-500 flex items-center justify-center mb-4 group-hover:border-green-400 group-hover:bg-green-900/20 transition-all duration-300">
+                    <Phone className="w-8 h-8 text-gray-300 group-hover:text-green-400 transition-colors" />
+                  </div>
+
+                  <h4 className="text-sm font-audiowide font-bold uppercase tracking-wider text-gray-400 mb-1 group-hover:text-blue-300 transition-colors">
+                    Phone Number
+                  </h4>
+
+                  <p className="text-white text-lg group-hover:text-green-400 transition-colors">
+                    +91 82813 82419
+                  </p>
+                </a>
               </motion.div>
 
               {/* Email */}
@@ -192,15 +203,26 @@ const ContactUs = () => {
 
             {/* Location & Map */}
             <motion.div variants={itemVariants} className="flex flex-col items-center text-center font-nico" >
-              <div className="mb-4 group cursor-default">
-                <MapPin className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:text-red-500 group-hover:animate-bounce transition-colors" />
-                <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 group-hover:text-blue-300 transition-colors">Our Location</h4>
-                <p className="text-gray-300 text-lg mt-1 max-w-xs mx-auto">
-                  VIT, Vellore Campus, Tiruvalam Rd, Katpadi, Vellore, Tamil Nadu 632014
-                </p>
-              </div>
+              <a
+                href="https://www.google.com/maps?q=VIT+Vellore+Campus"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center text-center font-nico"
+              >
+                <div className="mb-4 group cursor-pointer">
+                  <MapPin className="w-10 h-10 text-gray-400 mx-auto mb-2 group-hover:text-red-500 group-hover:animate-bounce transition-colors" />
 
-              {/* Embedded Google Map */}
+                  <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 group-hover:text-blue-300 transition-colors">
+                    Our Location
+                  </h4>
+
+                  <p className="text-gray-300 text-lg mt-1 max-w-xs mx-auto">
+                    VIT, Vellore Campus, Tiruvalam Rd, Katpadi, Vellore, Tamil Nadu 632014
+                  </p>
+                </div>
+              </a>
+
+              {/* Embedded Google Map
               <div className="w-full h-48 md:h-64 rounded-xl overflow-hidden border-2 border-gray-700 hover:border-blue-500 transition-colors duration-300 shadow-lg mt-4 relative">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.034097374418!2d79.15138964810319!3d12.969669977358484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bad47a00884377f%3A0x6319afd49269257!2sG.D.%20Naidu!5e0!3m2!1sen!2sin!4v1774952653110!5m2!1sen!2sin"
@@ -212,7 +234,7 @@ const ContactUs = () => {
                   title="VIT Vellore Map"
                   className="hover:filter-none transition-all duration-500"
                 ></iframe>
-              </div>
+              </div> */}
             </motion.div>
 
           </div>

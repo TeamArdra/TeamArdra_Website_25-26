@@ -7,6 +7,12 @@ const benchNine = BenchNine({
   display: "swap",
 });
 
+const contacts = [
+  "+91 82813 82419",
+  "+91 74893 35063",
+  "+91 86103 79392"
+]
+
 const Footer = () => {
   return (
     <footer className="w-full bg-black text-white pt-12 pb-0 bottom-0">
@@ -41,22 +47,27 @@ const Footer = () => {
                 <div className="mt-6">
                   <p className="font-audiowide text-sm">Contact us:</p>
                   <div className="flex flex-col items-center md:items-end mt-1 gap-0 md:gap-2">
-                    <div className="flex items-center justify-center md:justify-end gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor">
-                        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.26 2.67.76 3.88a1 1 0 01-.21 1.11l-2.43 2.8z" />
-                      </svg>
-                      <span className="font-audiowide text-sm">
-                        +91 74729 47974
-                      </span>
-                    </div>
+                    <div className="flex flex-col items-center md:items-end mt-1 gap-1 md:gap-2">
+                      {contacts.map((num, index) => (
+                        <a
+                          key={index}
+                          href={`tel:${num.replace(/\s/g, "")}`}
+                          className="flex items-center justify-center md:justify-end gap-2 w-full group cursor-pointer"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            className="w-4 h-4 text-white group-hover:text-green-400 transition-colors"
+                            fill="currentColor"
+                          >
+                            <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.26 2.67.76 3.88a1 1 0 01-.21 1.11l-2.43 2.8z" />
+                          </svg>
 
-                    <div className="flex items-center justify-center md:justify-end gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor">
-                        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.26 2.67.76 3.88a1 1 0 01-.21 1.11l-2.43 2.8z" />
-                      </svg>
-                      <span className="font-audiowide text-sm">
-                        +91 88585 84438
-                      </span>
+                          <span className="font-audiowide text-sm font-mono tracking-wider group-hover:translate-x-1 transition-transform">
+                            {num}
+                          </span>
+                        </a>
+                      ))}
                     </div>
                   </div>
                 </div>

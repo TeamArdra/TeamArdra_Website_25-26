@@ -38,12 +38,29 @@ export default function About() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            {/* Image */}
-            <img
-              src="/about.jpeg"
-              alt="Team Ardra"
-              className="rounded-xl object-cover w-full h-70"
-            />
+            {/* Yap */}
+            <motion.div
+              className="
+              bg-[#071A57]
+              rounded-2xl
+              border-4 border-blue-500
+              p-10
+              flex items-center
+            "
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <p
+                className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-loose text-md md:text-lg`}
+              >
+                Team Ardra was founded to foster technical innovation in aviation at
+                VIT. Comprising dedicated students, the team designs, develops, and
+                deploys UAVs, aiming to advance technology while honing aerospace
+                and autonomy skills.
+              </p>
+            </motion.div>
 
             {/* Stats */}
             <div className="bg-[#0A1E5E] rounded-2xl p-6 grid grid-cols-2 gap-y-4 text-lg md:text-md tracking-widest uppercase text-[#F8F8E2]">
@@ -63,7 +80,7 @@ export default function About() {
               <div className={`text-right ${aubrey.className}`}>Autonomous Drones</div>
 
               <div className={`${bigShoulders.className}`}>Team Size</div>
-              <div className={`text-right ${aubrey.className}`}>16</div>
+              <div className={`text-right ${aubrey.className}`}>15</div>
 
               <div className={`${bigShoulders.className}`}>Team Motto</div>
               <div className={`text-right ${aubrey.className}`}>THROTTLING TOWARDS EXCELLENCE</div>
@@ -71,29 +88,12 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* RIGHT PANEL */}
-          <motion.div
-            className="
-              bg-[#071A57]
-              rounded-2xl
-              border-4 border-blue-500
-              p-10
-              flex items-center
-            "
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <p
-              className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-loose text-md md:text-lg`}
-            >
-              Team Ardra was founded to foster technical innovation in aviation at
-              VIT. Comprising dedicated students, the team designs, develops, and
-              deploys UAVs, aiming to advance technology while honing aerospace
-              and autonomy skills.
-            </p>
-          </motion.div>
+          {/* Image */}
+          <img
+            src="/about.jpeg"
+            alt="Team Ardra"
+            className="rounded-xl object-cover w-full h-full"
+          />
 
         </div>
       </div>

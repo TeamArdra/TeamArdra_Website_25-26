@@ -5,15 +5,40 @@ import React, { useEffect, useRef, useState } from "react";
 export default function WinningTimeline() {
   const data = [
     {
+      title: "2026",
+      content: (
+        <div>
+          <h3 className="text-2xl md:text-4xl font-audiowide text-blue-400 mb-4">
+            FINALIST OF ISDC'26
+          </h3>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="/isdc26-1a.jpeg"
+              alt="ISDC 2025 Team"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
+            />
+            <img
+              src="/isdc26-2a.jpeg"
+              alt="Drone Prototype 2025"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
+            />
+          </div>
+          <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
+            Team Ardra participated at ISDC Manipal 2026, showcasing strong performance in autonomous flight and drone operations among top student teams
+          </p>
+        </div>
+      ),
+    },
+    {
       title: "2025",
       content: (
         <div>
           <h3 className="text-2xl md:text-4xl font-audiowide text-blue-400 mb-4">
-            FINALIST OF GEO-AI HACKOTHON, TECHFEST
+            FINALIST OF GEO-AI HACKATHON, TECHFEST
           </h3>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/tf-1a.png" 
+              src="/tf-1a.png"
               alt="ISDC 2025 Team"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
             />
@@ -34,7 +59,7 @@ export default function WinningTimeline() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/isdc25-1a.png" 
+              src="/isdc25-1a.png"
               alt="ISDC 2025 Team"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(59,130,246,0.2)] border border-blue-500/20"
             />
@@ -59,7 +84,7 @@ export default function WinningTimeline() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/isdc-1a.png" 
+              src="/isdc-1a.png"
               alt="Winning Moment"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
@@ -76,7 +101,7 @@ export default function WinningTimeline() {
             Qualified for the Cognizance IIT Roorkee Finals 2024, demonstrating reliable system design and execution.
           </p>
         </div>
-        
+
       ),
     },
     {
@@ -84,14 +109,14 @@ export default function WinningTimeline() {
       content: (
         <div>
           <h3 className="text-2xl md:text-4xl font-audiowide text-white mb-4">
-              FINALS  SUAS ’21 USA
+            FINALS  SUAS ’21 USA
           </h3>
           <p className="text-neutral-300 font-ocr text-sm md:text-base mb-8 tracking-wider">
             Finalists at SUAS 2021 (USA), competing in autonomous unmanned aircraft mission challenges.
           </p>
           <div className="grid grid-cols-1 gap-4">
-             <img
-              src="/suas-1a.png" 
+            <img
+              src="/suas-1a.png"
               alt="Winning Moment"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
@@ -104,7 +129,7 @@ export default function WinningTimeline() {
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/ipas-1a.png" 
+              src="/ipas-1a.png"
               alt="Winning Moment"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(250,204,21,0.2)] border border-yellow-500/20"
             />
@@ -124,16 +149,16 @@ export default function WinningTimeline() {
   return (
     <div className="w-full bg-black font-sans py-20">
       <div className="text-center mx-4 sm:mx-8 md:mx-12 lg:mx-20 my-10 sm:my-12 md:my-16 lg:my-20">
-              <motion.h2
-                className="font-nico text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-widest"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                [OUR ACHIEVEMENTS]
-              </motion.h2>
-            </div>
+        <motion.h2
+          className="font-nico text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-widest"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          [OUR ACHIEVEMENTS]
+        </motion.h2>
+      </div>
       <Timeline data={data} />
     </div>
   );
@@ -189,7 +214,7 @@ export const Timeline = ({ data }) => {
             </div>
           </div>
         ))}
-        
+
         {/* The Animated Line */}
         <div
           style={{
