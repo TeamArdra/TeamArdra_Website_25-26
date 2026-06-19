@@ -4,6 +4,17 @@ import Reveal, { SectionTitle } from "@/components/Reveal";
 
 const TIMELINE = [
   {
+    year: "2026",
+    items: [
+      {
+        title: "Finalists in ISDC '26",
+        desc: "Team Ardra qualified as finalists at ISDC 2026, carrying forward the team's strong track record in autonomous flight and mission execution against the best student teams in the country.",
+        images: ["/Main.jpeg"],
+        side: "right",
+      },
+    ],
+  },
+  {
     year: "2025",
     items: [
       {
@@ -74,7 +85,7 @@ function AchievementCard({ item, side }) {
       <h3 className="font-space font-bold text-[var(--text-primary)] text-lg leading-snug">
         {item.title}
       </h3>
-      <p className="font-inter text-[var(--text-secondary)] text-sm mt-2 leading-relaxed">
+      <p className="font-sora font-light text-[var(--text-secondary)] text-[0.95rem] mt-3 leading-[1.85] tracking-[0.01em]">
         {item.desc}
       </p>
     </div>
@@ -89,7 +100,7 @@ export default function Achievements() {
       style={{ backgroundColor: "var(--surface)" }}
     >
       <div className="absolute inset-0 aurora-soft" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-6xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-10">
         <SectionTitle index="/ 04" label="Track Record" title="Our Achievements" />
 
         <div className="relative mt-16">
@@ -127,7 +138,7 @@ export default function Achievements() {
               {/* alternating items */}
               <div className="flex flex-col gap-8">
                 {group.items.map((item, i) => {
-                  const side = i % 2 === 0 ? "left" : "right";
+                  const side = item.side || (i % 2 === 0 ? "left" : "right");
                   return (
                     <div
                       key={item.title}

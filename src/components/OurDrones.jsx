@@ -63,7 +63,7 @@ export default function OurDrones() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionTitle index="/ 03" label="Engineered In-House" title="Our Drones" />
 
         <div className="mt-14 grid md:grid-cols-3 gap-6 lg:gap-8">
@@ -84,8 +84,10 @@ export default function OurDrones() {
                   <Image
                     src={drone.image}
                     alt={`${drone.name} drone`}
-                    width={320}
-                    height={200}
+                    width={760}
+                    height={520}
+                    quality={100}
+                    sizes="(max-width: 768px) 90vw, 760px"
                     className="max-h-[200px] w-auto object-contain origin-center transition-transform duration-500 ease-out md:group-hover:scale-[2.1] group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
                   />
                 </div>

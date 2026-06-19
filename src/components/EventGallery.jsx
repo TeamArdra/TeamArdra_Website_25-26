@@ -13,27 +13,21 @@ export default function EventGallery() {
   return (
     <section id="events" className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden noise">
       <div className="absolute inset-0 aurora" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-6xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-10">
         <SectionTitle index="/ 05" label="Beyond The Build" title="Events & Outreach" />
 
         <div className="mt-14 grid sm:grid-cols-2 gap-6">
           {EVENTS.map((ev, i) => (
             <Reveal key={ev.title} from="up" delay={i * 0.1}>
               <div className="glass glass-hover overflow-hidden h-full">
-                <div className="relative w-full h-[180px]">
+                {/* contain on a dark panel so the whole photo is visible (not cropped) */}
+                <div className="relative w-full h-64 bg-[#06080f]">
                   <Image
                     src={ev.src}
                     alt={ev.title}
                     fill
                     sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, transparent 50%, rgba(10,10,15,0.6) 100%)",
-                    }}
+                    className="object-contain"
                   />
                 </div>
                 <div className="p-5">

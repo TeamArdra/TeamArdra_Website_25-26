@@ -16,7 +16,7 @@ export default function Footer() {
       className="w-full bg-black"
       style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
     >
-      <div className="mx-auto max-w-7xl px-5 md:px-8 py-14">
+      <div className="mx-auto max-w-[1400px] px-5 md:px-10 py-14">
         <div className="grid gap-10 md:grid-cols-3">
           {/* logo + tagline */}
           <div>
@@ -85,7 +85,7 @@ export default function Footer() {
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
           <p className="font-space text-xs text-[var(--text-secondary)] tracking-wide">
-            © 2025 Team Ardra · SEDS VIT Vellore · All Rights Reserved
+            © 2026 Team Ardra · SEDS VIT Vellore · All Rights Reserved
           </p>
         </div>
       </div>

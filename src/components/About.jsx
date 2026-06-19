@@ -15,14 +15,14 @@ export default function About() {
   return (
     <section id="about" className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden noise">
       <div className="absolute inset-0 aurora-soft" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionTitle index="/ 01" label="Who We Are" title="About Us" align="left" />
 
         <div className="mt-12 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* LEFT: text + stats */}
           <div>
             <Reveal from="up">
-              <p className="font-inter text-[var(--text-secondary)] text-base md:text-lg leading-[1.8] max-w-xl">
+              <p className="font-sora font-light text-[var(--text-secondary)] text-base md:text-lg leading-[1.95] tracking-[0.01em] max-w-xl">
                 Team Ardra was founded to foster technical innovation in aviation
                 at VIT. Comprising dedicated students, the team designs, develops,
                 and deploys UAVs, aiming to advance technology while honing
@@ -34,7 +34,7 @@ export default function About() {
               {STATS.map((stat, i) => (
                 <Reveal key={stat.label} from="up" delay={i * 0.08}>
                   <div className="glass glass-hover p-5 h-full">
-                    <p className="font-space text-[var(--text-secondary)] text-[0.65rem] uppercase tracking-[0.15em]">
+                    <p className="font-mono text-[var(--accent-2)]/70 text-[0.62rem] uppercase tracking-[0.18em]">
                       {stat.label}
                     </p>
                     <p className="font-orbitron text-[var(--text-primary)] text-lg md:text-xl mt-2 leading-tight">

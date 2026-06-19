@@ -57,7 +57,7 @@ export default function Hero() {
       {/* content */}
       <motion.div
         style={{ y: contentY }}
-        className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full pt-24"
+        className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10 w-full pt-24"
       >
         <div className="max-w-3xl">
           <motion.p
@@ -86,18 +86,18 @@ export default function Hero() {
             <span className="relative gradient-text">Team Ardra</span>
           </motion.h1>
 
-          {/* ticker tagline */}
+          {/* tagline — scrolling ticker, wide enough that the whole phrase reads */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease, delay: 0.35 }}
-            className="mt-5 overflow-hidden whitespace-nowrap max-w-xl border-y border-white/10 py-2"
+            className="mt-6 overflow-hidden w-full max-w-2xl border-y border-white/10 py-2.5"
           >
-            <div className="inline-block animate-marquee">
+            <div className="flex w-max animate-marquee whitespace-nowrap">
               {[0, 1].map((i) => (
                 <span
                   key={i}
-                  className="font-orbitron text-white uppercase tracking-[0.25em] text-sm sm:text-base mx-6"
+                  className="font-orbitron text-white uppercase tracking-[0.16em] text-base sm:text-lg mx-8 drop-shadow-[0_0_16px_rgba(30,111,255,0.4)]"
                 >
                   Team Ardra · Throttling Towards Excellence ·
                 </span>
@@ -131,6 +131,25 @@ export default function Hero() {
           </motion.div>
         </div>
       </motion.div>
+
+      {/* live-coordinates HUD chip (VIT Vellore) */}
+      <div
+        className="absolute bottom-8 left-5 md:left-10 z-[6] hidden sm:flex items-center gap-3 glass px-4 py-2.5"
+        style={{ borderRadius: "12px" }}
+      >
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent-2)] opacity-60 animate-ping" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
+        </span>
+        <div className="leading-tight">
+          <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-[var(--accent-2)]">
+            VIT Vellore · Live
+          </p>
+          <p className="font-mono text-[0.72rem] tracking-wide text-[var(--text-primary)]">
+            12.9692°&nbsp;N · 79.1559°&nbsp;E
+          </p>
+        </div>
+      </div>
 
       {/* scroll indicator */}
       <a

@@ -248,15 +248,11 @@ export default function HeroBackground() {
       ctx.lineTo(W - 50, H - 40);
       ctx.stroke();
 
-      ctx.fillStyle = "rgba(30,111,255,0.3)";
-      ctx.font = "10px monospace";
-      // top-right
+      ctx.fillStyle = "rgba(255,255,255,0.5)";
+      ctx.font = "12px monospace";
+      // top-right telemetry only (bottom-left is the DOM HUD chip)
       ctx.textAlign = "right";
-      ctx.fillText("SYS: ONLINE   ALT: ██████   HDG: ██████", W - 40, 46);
-      // bottom-left
-      ctx.textAlign = "left";
-      ctx.fillText("LAT: 12.9716° N   LON: 79.1587° E", 40, H - 56);
-      ctx.fillText("TEAM ARDRA // SEDS VIT", 40, H - 42);
+      ctx.fillText("SYS: ONLINE   ALT: ██████   HDG: ██████", W - 40, 48);
       ctx.restore();
 
       // CRT scanline drifting top→bottom over 8s

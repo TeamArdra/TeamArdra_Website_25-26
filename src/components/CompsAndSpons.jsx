@@ -2,11 +2,12 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
+// `scale` normalises how big each mark reads inside its fixed box
 const SPONSORS = [
-  { src: "/Solidworks.png", name: "SolidWorks" },
-  { src: "/anys.png", name: "Ansys" },
-  { src: "/altium.png", name: "Altium" },
-  { src: "/protoworks.png", name: "Protoworks" },
+  { src: "/Solidworks.png", name: "SolidWorks", scale: 1.35 },
+  { src: "/anys.png", name: "Ansys", scale: 1.0 },
+  { src: "/altium.png", name: "Altium", scale: 1.3 },
+  { src: "/protoworks.png", name: "Protoworks", scale: 1.4 },
 ];
 
 const COMPETITIONS = [
@@ -17,6 +18,10 @@ const COMPETITIONS = [
   { src: "/IROC.png", name: "IROC" },
 ];
 
+// dark/detailed logos that disappear on the dark glass — set them on a light tile
+// so they stay visible in their original colours
+const TILE_LOGOS = new Set(["SPROS", "IROC", "Techfest"]);
+
 export default function CompsAndSpons() {
   // duplicate each list for seamless infinite marquees
   const sponsorRow = [...SPONSORS, ...SPONSORS];
@@ -25,10 +30,10 @@ export default function CompsAndSpons() {
   return (
     <section className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden">
       <div className="absolute inset-0 aurora-soft" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10">
         {/* ===== SPONSORS ===== */}
         <Reveal from="up" className="text-center">
-          <h3 className="font-space uppercase tracking-[0.2em] text-[var(--text-secondary)] text-sm">
+          <h3 className="font-mono uppercase tracking-[0.25em] text-[var(--accent-2)]/80 text-xs">
             Our Sponsors &amp; Partners
           </h3>
         </Reveal>
@@ -48,16 +53,21 @@ export default function CompsAndSpons() {
             {sponsorRow.map((s, i) => (
               <div
                 key={`${s.name}-${i}`}
-                className="glass mx-5 px-12 py-7 flex items-center justify-center shrink-0"
+                className="glass mx-4 px-8 py-5 flex items-center justify-center shrink-0"
                 style={{ borderRadius: "9999px" }}
               >
-                <Image
-                  src={s.src}
-                  alt={s.name}
-                  width={220}
-                  height={80}
-                  className="h-16 md:h-20 w-auto object-contain grayscale brightness-150 hover:grayscale-0 hover:brightness-100 transition-all duration-300"
-                />
+                {/* fixed-size box so every logo occupies the same footprint;
+                    per-logo scale evens out the visual weight of each mark */}
+                <span className="flex items-center justify-center w-40 h-14 md:w-48 md:h-16 overflow-visible">
+                  <Image
+                    src={s.src}
+                    alt={s.name}
+                    width={260}
+                    height={100}
+                    style={{ transform: `scale(${s.scale})` }}
+                    className="max-h-full max-w-full w-auto h-auto object-contain grayscale brightness-150 hover:grayscale-0 hover:brightness-100 transition-all duration-300"
+                  />
+                </span>
               </div>
             ))}
           </div>
@@ -65,12 +75,13 @@ export default function CompsAndSpons() {
 
         {/* ===== COMPETITIONS (reverse-scrolling marquee) ===== */}
         <Reveal from="up" className="text-center mt-24">
-          <h3 className="font-space uppercase tracking-[0.2em] text-[var(--text-secondary)] text-sm">
+          <h3 className="font-mono uppercase tracking-[0.25em] text-[var(--accent-2)]/80 text-xs">
             Competitions We&apos;ve Flown
           </h3>
         </Reveal>
 
-        <div className="mt-12 relative overflow-hidden">
+        {/* py gives the hover-lift room so the card top isn't clipped */}
+        <div className="mt-12 relative overflow-hidden py-5">
           {/* edge fades */}
           <div
             className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10"
@@ -87,14 +98,26 @@ export default function CompsAndSpons() {
                 key={`${c.name}-${i}`}
                 className="glass glass-hover group w-56 md:w-64 mx-4 shrink-0 h-48 md:h-52 flex flex-col items-center justify-center gap-4 p-6"
               >
-                <Image
-                  src={c.src}
-                  alt={c.name}
-                  width={180}
-                  height={100}
-                  className="h-20 md:h-24 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
-                />
-                <span className="font-space text-sm uppercase tracking-[0.12em] text-[var(--text-secondary)]">
+                {TILE_LOGOS.has(c.name) ? (
+                  <div className="flex items-center justify-center bg-white rounded-xl px-4 py-3 h-20 md:h-24 transition-transform duration-500 group-hover:scale-110">
+                    <Image
+                      src={c.src}
+                      alt={c.name}
+                      width={180}
+                      height={100}
+                      className="max-h-full w-auto object-contain"
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    src={c.src}
+                    alt={c.name}
+                    width={180}
+                    height={100}
+                    className="h-20 md:h-24 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
+                  />
+                )}
+                <span className="font-mono text-xs uppercase tracking-[0.16em] text-[var(--text-primary)]">
                   {c.name}
                 </span>
               </div>

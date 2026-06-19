@@ -56,21 +56,24 @@ export function SectionTitle({
     ? "text-left items-start"
     : "text-center items-center";
 
+  // normalise the index into a zero-padded technical tag, e.g. "/ 01" -> "01"
+  const tag = index ? index.replace(/[^\d]/g, "").padStart(2, "0") : null;
+
   return (
-    <Reveal from="up" className={`flex flex-col ${alignment} gap-3 ${className}`}>
+    <Reveal from="up" className={`flex flex-col ${alignment} gap-4 ${className}`}>
       <div
-        className={`flex items-center gap-3 ${
-          isLeft ? "" : "justify-center"
-        }`}
+        className={`flex items-center gap-3 ${isLeft ? "" : "justify-center"}`}
       >
-        {index && (
-          <span className="font-orbitron text-[var(--accent)]/70 text-xs tracking-[0.3em]">
-            {index}
+        {tag && (
+          <span className="font-mono text-[var(--accent-2)] text-[0.7rem] tracking-[0.15em]">
+            <span className="text-[var(--accent)]/50">[</span>
+            &nbsp;{tag}&nbsp;
+            <span className="text-[var(--accent)]/50">]</span>
           </span>
         )}
-        <span className="h-px w-8 bg-[var(--accent)]/40" />
+        <span className="h-px w-10 bg-gradient-to-r from-[var(--accent)] to-transparent" />
         {label && (
-          <span className="font-space text-accent text-xs sm:text-sm font-medium uppercase tracking-[0.2em]">
+          <span className="font-mono text-[var(--text-secondary)] text-[0.7rem] sm:text-xs font-medium uppercase tracking-[0.25em]">
             {label}
           </span>
         )}

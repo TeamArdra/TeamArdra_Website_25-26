@@ -55,6 +55,8 @@ textarea:focus-visible {
   .font-orbitron { font-family: var(--font-orbitron), sans-serif; }
   .font-inter    { font-family: var(--font-inter), sans-serif; }
   .font-space    { font-family: var(--font-space), sans-serif; }
+  .font-sora     { font-family: var(--font-sora), sans-serif; }
+  .font-mono     { font-family: var(--font-mono), ui-monospace, monospace; }
 
   /* retained for the drone HUD modal */
   .font-anton    { font-family: var(--font-anton); }
@@ -75,11 +77,15 @@ textarea:focus-visible {
 /* ============================================================
    GLASSMORPHISM
    ============================================================ */
+/*
+ * NOTE: no backdrop-filter here on purpose. On a dark page the blur is
+ * imperceptible, but applied to ~50 cards it forces a per-scroll-frame
+ * backdrop re-rasterisation that makes scrolling jank. A slightly more
+ * opaque background gives the same frosted-panel look with zero scroll cost.
+ */
 .glass {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);

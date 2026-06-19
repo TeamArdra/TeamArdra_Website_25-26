@@ -78,16 +78,16 @@ export default function Navbar() {
     <nav
       className="fixed top-0 left-0 w-full z-[1000] transition-colors duration-300 border-b"
       style={{
-        backgroundColor: scrolled ? "rgba(0,0,0,0.92)" : "rgba(0,0,0,0.7)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
+        // near-opaque solid bg instead of a blurred backdrop — a fixed
+        // backdrop-filter re-rasterises every scroll frame and stutters the page
+        backgroundColor: scrolled ? "rgba(5,6,12,0.97)" : "rgba(5,6,12,0.82)",
         borderColor: "rgba(255,255,255,0.06)",
       }}
     >
       {/* animated sweeping sheen along the bottom border */}
       <span className="nav-sheen" aria-hidden />
 
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="w-full px-4 md:px-6 lg:px-10">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <motion.a

@@ -92,11 +92,10 @@ function BoardCard({ member }) {
 
         {/* role chip */}
         <span
-          className="absolute top-4 left-4 font-space text-[0.65rem] uppercase tracking-[0.14em] px-3 py-1 rounded-full text-[var(--accent-2)]"
+          className="absolute top-4 left-4 font-mono text-[0.62rem] uppercase tracking-[0.14em] px-3 py-1 rounded-full text-[var(--accent-2)]"
           style={{
-            background: "rgba(10,10,15,0.55)",
+            background: "rgba(8,9,15,0.72)",
             border: "1px solid rgba(77,166,255,0.35)",
-            backdropFilter: "blur(8px)",
           }}
         >
           {member.role}
@@ -109,7 +108,7 @@ function BoardCard({ member }) {
           <h3 className="font-space font-bold text-[var(--text-primary)] text-lg leading-tight">
             {member.name}
           </h3>
-          <p className="font-inter text-[var(--text-secondary)] text-xs mt-1">
+          <p className="font-mono text-[var(--text-secondary)] text-[0.7rem] mt-1 tracking-wide">
             {member.role}
           </p>
         </div>
@@ -156,11 +155,11 @@ export default function Board() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionTitle index="/ 02" label="The People" title="Meet The Board" />
 
         <Reveal from="up" className="text-center mt-5">
-          <p className="font-inter text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+          <p className="font-sora font-light text-[var(--text-secondary)] text-base md:text-lg max-w-2xl mx-auto leading-[1.9]">
             Behind every flight is a team that builds, breaks, and rebuilds. These
             are the people steering Team Ardra through every late night in the lab
             and every competition runway.

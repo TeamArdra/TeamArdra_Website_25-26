@@ -3,6 +3,8 @@ import {
   orbitron,
   inter,
   spaceGrotesk,
+  sora,
+  jetbrainsMono,
   anton,
   audiowide,
   nicoMoji,
@@ -20,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${orbitron.variable} ${inter.variable} ${spaceGrotesk.variable} ${anton.variable} ${audiowide.variable} ${nicoMoji.variable} ${ocrA.variable}`}
+      className={`${orbitron.variable} ${inter.variable} ${spaceGrotesk.variable} ${sora.variable} ${jetbrainsMono.variable} ${anton.variable} ${audiowide.variable} ${nicoMoji.variable} ${ocrA.variable}`}
     >
       <body className="bg-black text-[var(--text-primary)] antialiased overflow-x-hidden font-inter">
         <Navbar />

@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Phone, MapPin, Instagram, Linkedin } from "lucide-react";
+import { Phone, MapPin, Mail, Instagram, Linkedin } from "lucide-react";
+
+const CONTACT_EMAIL = "teamardra@vit.ac.in";
 import Reveal, { SectionTitle } from "@/components/Reveal";
 
 export default function Contactus() {
@@ -12,7 +14,14 @@ export default function Contactus() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // No backend wired up — surface a friendly confirmation.
+    // No backend — open the user's mail client addressed to the team.
+    const subject = encodeURIComponent(
+      `Website enquiry from ${form.name || "a visitor"}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+    );
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
     setSent(true);
     setForm({ name: "", email: "", message: "" });
     setTimeout(() => setSent(false), 4000);
@@ -25,7 +34,7 @@ export default function Contactus() {
     <section id="contact" className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden noise">
       <div className="absolute inset-0 aurora" aria-hidden />
       <div className="absolute inset-0 hero-spotlight opacity-60" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-6xl px-5 md:px-8">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-10">
         <SectionTitle index="/ 06" label="Get In Touch" title="Contact Us" />
 
         <div className="mt-14 grid lg:grid-cols-2 gap-12">
@@ -44,16 +53,31 @@ export default function Contactus() {
             </div>
 
             <div className="flex items-start gap-4">
+              <Mail className="text-[var(--accent)] shrink-0 mt-1" size={22} />
+              <div>
+                <p className="font-space uppercase tracking-[0.12em] text-xs text-[var(--text-secondary)] mb-1">
+                  Email
+                </p>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="font-inter text-[var(--text-primary)] hover:text-[var(--accent-2)] transition-colors"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
               <Phone className="text-[var(--accent)] shrink-0 mt-1" size={22} />
               <div>
                 <p className="font-space uppercase tracking-[0.12em] text-xs text-[var(--text-secondary)] mb-1">
                   Phone
                 </p>
                 <p className="font-inter text-[var(--text-primary)]">
-                  +91 74729 47974
+                  +91 86103 79392
                 </p>
                 <p className="font-inter text-[var(--text-primary)]">
-                  +91 88585 84438
+                  +91 82813 82419
                 </p>
               </div>
             </div>
