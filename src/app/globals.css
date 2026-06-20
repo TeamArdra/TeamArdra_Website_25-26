@@ -101,6 +101,22 @@ textarea:focus-visible {
   transform: translateY(-4px);
 }
 
+/*
+ * Drone card image: each drone has a per-image rest scale (--rest-scale) that
+ * normalises the differing PNG padding. On desktop hover it grows by a fixed,
+ * modest factor from that rest size — so the zoom is consistent across drones
+ * and never balloons (no compounding of base-scale × hover-scale).
+ */
+.drone-img {
+  scale: var(--rest-scale, 1);
+  transition: scale 0.5s ease, filter 0.5s ease;
+}
+@media (hover: hover) and (min-width: 768px) {
+  .group:hover .drone-img {
+    scale: calc(var(--rest-scale, 1) * 1.5);
+  }
+}
+
 /* ============================================================
    BACKGROUND PATTERNS
    ============================================================ */

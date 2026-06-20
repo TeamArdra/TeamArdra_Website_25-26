@@ -91,8 +91,8 @@ export default function OurDrones() {
                     height={520}
                     quality={100}
                     sizes="(max-width: 768px) 90vw, 760px"
-                    style={{ transform: `scale(${drone.imgScale})` }}
-                    className="max-h-[260px] md:max-h-[200px] w-auto object-contain origin-center transition-transform duration-500 ease-out md:group-hover:scale-[2.1] group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
+                    style={{ "--rest-scale": drone.imgScale }}
+                    className="drone-img max-h-[260px] md:max-h-[200px] w-auto object-contain origin-center group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
                   />
                 </div>
 

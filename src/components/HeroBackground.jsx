@@ -449,7 +449,15 @@ export default function HeroBackground() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ zIndex: 0, pointerEvents: "none" }}
+      style={{
+        zIndex: 0,
+        pointerEvents: "none",
+        // keep the radar below the fixed navbar (~80px) instead of bleeding into it
+        maskImage:
+          "linear-gradient(to bottom, transparent 0, transparent 84px, #000 150px)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, transparent 0, transparent 84px, #000 150px)",
+      }}
       aria-hidden
     />
   );
