@@ -100,9 +100,9 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="Team Ardra logo"
-              width={90}
-              height={40}
-              className="object-contain h-10 w-auto animate-glow-pulse"
+              width={200}
+              height={88}
+              className="object-contain h-12 md:h-16 w-auto animate-glow-pulse"
               style={{ width: "auto" }}
               priority
             />
@@ -145,9 +145,9 @@ export default function Navbar() {
               <Image
                 src="/seds_1.jpeg"
                 alt="SEDS VIT"
-                width={110}
-                height={36}
-                className="object-contain h-8 md:h-9 w-auto rounded"
+                width={240}
+                height={78}
+                className="object-contain h-10 md:h-14 w-auto rounded"
                 style={{ width: "auto" }}
               />
             </a>
