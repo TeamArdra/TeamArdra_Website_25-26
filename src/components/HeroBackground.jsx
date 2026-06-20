@@ -48,8 +48,8 @@ export default function HeroBackground() {
       if (mobile) {
         // centre the dish around the lower-centre drone on phones
         cx = W * 0.5;
-        cy = H * 0.73;
-        radarR = W * 0.62;
+        cy = H * 0.7;
+        radarR = W * 0.72;
       } else {
         cx = W * 0.75;
         cy = H * 0.4;

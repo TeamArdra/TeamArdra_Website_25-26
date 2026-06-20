@@ -135,7 +135,7 @@ export default function Hero() {
 
       {/* mobile-only drone — lower-centre so the radar sweep circles around it */}
       <motion.div
-        className="md:hidden absolute left-1/2 top-[73%] -translate-x-1/2 -translate-y-1/2 z-[3] w-[58%] max-w-[230px] pointer-events-none"
+        className="md:hidden absolute left-1/2 top-[70%] -translate-x-1/2 -translate-y-1/2 z-[3] w-[90%] max-w-[360px] pointer-events-none"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease, delay: 0.55 }}
