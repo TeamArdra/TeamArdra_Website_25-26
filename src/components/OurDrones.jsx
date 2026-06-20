@@ -8,6 +8,7 @@ const DRONE_DATA = {
   HEX: {
     name: "HEX",
     image: "/drone.png",
+    imgScale: 1,
     chips: ["Autonomous", "Hexacopter", "8 kg Payload"],
     specs: [
       "35 min endurance",
@@ -20,6 +21,7 @@ const DRONE_DATA = {
   KUROGANE: {
     name: "KUROGANE",
     image: "/kurogane.png",
+    imgScale: 1.45,
     chips: ["Autonomous", "Vision Nav", "Competition"],
     specs: [
       "Autonomous hexacopter",
@@ -32,6 +34,7 @@ const DRONE_DATA = {
   "M.I.R.A.D": {
     name: "M.I.R.A.D",
     image: "/MIRAD.png",
+    imgScale: 1.7,
     chips: ["Modular", "ISR", "Rapid Deploy"],
     specs: [
       "Modular ISR drone",
@@ -88,6 +91,7 @@ export default function OurDrones() {
                     height={520}
                     quality={100}
                     sizes="(max-width: 768px) 90vw, 760px"
+                    style={{ transform: `scale(${drone.imgScale})` }}
                     className="max-h-[260px] md:max-h-[200px] w-auto object-contain origin-center transition-transform duration-500 ease-out md:group-hover:scale-[2.1] group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
                   />
                 </div>
