@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
@@ -27,6 +28,15 @@ export default function CompsAndSpons() {
   const sponsorRow = [...SPONSORS, ...SPONSORS];
   const compRow = [...COMPETITIONS, ...COMPETITIONS];
 
+  // tap-to-reveal colour on touch devices (mirrors the desktop hover)
+  const [activeSponsors, setActiveSponsors] = useState(() => new Set());
+  const toggleSponsor = (name) =>
+    setActiveSponsors((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
+
   return (
     <section className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden">
       <div className="absolute inset-0 aurora-soft" aria-hidden />
@@ -51,9 +61,12 @@ export default function CompsAndSpons() {
 
           <div className="flex w-max animate-marquee">
             {sponsorRow.map((s, i) => (
-              <div
+              <button
+                type="button"
                 key={`${s.name}-${i}`}
-                className="glass mx-4 px-8 py-5 flex items-center justify-center shrink-0"
+                onClick={() => toggleSponsor(s.name)}
+                aria-label={`Show ${s.name}`}
+                className="glass mx-4 px-8 py-5 flex items-center justify-center shrink-0 cursor-pointer"
                 style={{ borderRadius: "9999px" }}
               >
                 {/* fixed-size box so every logo occupies the same footprint;
@@ -65,10 +78,14 @@ export default function CompsAndSpons() {
                     width={260}
                     height={100}
                     style={{ transform: `scale(${s.scale})` }}
-                    className="max-h-full max-w-full w-auto h-auto object-contain grayscale brightness-150 hover:grayscale-0 hover:brightness-100 transition-all duration-300"
+                    className={`max-h-full max-w-full w-auto h-auto object-contain transition-all duration-300 ${
+                      activeSponsors.has(s.name)
+                        ? "grayscale-0 brightness-100"
+                        : "grayscale brightness-150 hover:grayscale-0 hover:brightness-100"
+                    }`}
                   />
                 </span>
-              </div>
+              </button>
             ))}
           </div>
         </div>

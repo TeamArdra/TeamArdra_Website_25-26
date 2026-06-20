@@ -134,32 +134,34 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* SEDS badge (desktop) */}
-          <a
-            href="https://sedsvit.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block shrink-0"
-          >
-            <Image
-              src="/seds_1.jpeg"
-              alt="SEDS VIT"
-              width={110}
-              height={36}
-              className="object-contain h-9 w-auto rounded"
-              style={{ width: "auto" }}
-            />
-          </a>
+          {/* right side: SEDS badge (all sizes) + mobile toggle */}
+          <div className="flex items-center gap-3 shrink-0">
+            <a
+              href="https://sedsvit.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0"
+            >
+              <Image
+                src="/seds_1.jpeg"
+                alt="SEDS VIT"
+                width={110}
+                height={36}
+                className="object-contain h-8 md:h-9 w-auto rounded"
+                style={{ width: "auto" }}
+              />
+            </a>
 
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setIsOpen((v) => !v)}
-            className="md:hidden text-[var(--text-primary)] p-2"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setIsOpen((v) => !v)}
+              className="md:hidden text-[var(--text-primary)] p-1.5"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </div>
 

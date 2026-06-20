@@ -80,7 +80,7 @@ export default function OurDrones() {
                 className="glass glass-hover group w-full h-full p-7 flex flex-col text-left"
               >
                 {/* image (escapes the card and zooms over neighbours on hover) */}
-                <div className="relative h-[200px] flex items-center justify-center mb-6 [overflow:visible]">
+                <div className="relative h-[260px] md:h-[200px] flex items-center justify-center mb-6 [overflow:visible]">
                   <Image
                     src={drone.image}
                     alt={`${drone.name} drone`}
@@ -88,7 +88,7 @@ export default function OurDrones() {
                     height={520}
                     quality={100}
                     sizes="(max-width: 768px) 90vw, 760px"
-                    className="max-h-[200px] w-auto object-contain origin-center transition-transform duration-500 ease-out md:group-hover:scale-[2.1] group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
+                    className="max-h-[260px] md:max-h-[200px] w-auto object-contain origin-center transition-transform duration-500 ease-out md:group-hover:scale-[2.1] group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
                   />
                 </div>
 

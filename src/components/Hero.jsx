@@ -22,7 +22,7 @@ export default function Hero() {
     <section
       id="home"
       ref={ref}
-      className="relative min-h-svh w-full flex items-center overflow-hidden bg-black noise"
+      className="relative min-h-svh w-full flex items-start md:items-center overflow-hidden bg-black noise"
     >
       {/* canvas "flight radar" background */}
       <HeroBackground />
@@ -130,25 +130,26 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* mobile-only drone visual (the absolute one is hidden on phones) */}
-          <motion.div
-            className="md:hidden mt-12 flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.55 }}
-          >
-            <div className="animate-float w-[78%] max-w-[260px]">
-              <Image
-                src="/drone.png"
-                alt="Team Ardra autonomous drone"
-                width={600}
-                height={420}
-                priority
-                className="w-full h-auto object-contain"
-                style={{ filter: "drop-shadow(0 0 35px rgba(30,111,255,0.55))" }}
-              />
-            </div>
-          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* mobile-only drone — lower-centre so the radar sweep circles around it */}
+      <motion.div
+        className="md:hidden absolute left-1/2 top-[73%] -translate-x-1/2 -translate-y-1/2 z-[3] w-[58%] max-w-[230px] pointer-events-none"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease, delay: 0.55 }}
+      >
+        <div className="animate-float">
+          <Image
+            src="/drone.png"
+            alt="Team Ardra autonomous drone"
+            width={600}
+            height={420}
+            priority
+            className="w-full h-auto object-contain"
+            style={{ filter: "drop-shadow(0 0 35px rgba(30,111,255,0.55))" }}
+          />
         </div>
       </motion.div>
 

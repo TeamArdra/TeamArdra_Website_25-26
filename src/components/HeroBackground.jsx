@@ -45,9 +45,16 @@ export default function HeroBackground() {
       canvas.height = Math.max(1, Math.floor(H * DPR));
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-      cx = W * 0.75;
-      cy = H * 0.4;
-      radarR = Math.min(W, window.innerHeight) * 0.42; // ~radar dish
+      if (mobile) {
+        // centre the dish around the lower-centre drone on phones
+        cx = W * 0.5;
+        cy = H * 0.73;
+        radarR = W * 0.62;
+      } else {
+        cx = W * 0.75;
+        cy = H * 0.4;
+        radarR = Math.min(W, window.innerHeight) * 0.42; // ~radar dish
+      }
     }
 
     function initParticles() {
@@ -247,12 +254,12 @@ export default function HeroBackground() {
       ctx.lineTo(W - 40, H - 40);
       ctx.lineTo(W - 50, H - 40);
       ctx.stroke();
-
-      ctx.fillStyle = "rgba(255,255,255,0.5)";
-      ctx.font = "12px monospace";
-      // top-right telemetry only (bottom-left is the DOM HUD chip)
-      ctx.textAlign = "right";
-      ctx.fillText("SYS: ONLINE   ALT: ██████   HDG: ██████", W - 40, 48);
+      // top-right bracket (replaces the old SYS/ALT/HDG text readout)
+      ctx.beginPath();
+      ctx.moveTo(W - 50, 40);
+      ctx.lineTo(W - 40, 40);
+      ctx.lineTo(W - 40, 50);
+      ctx.stroke();
       ctx.restore();
 
       // CRT scanline drifting top→bottom over 8s

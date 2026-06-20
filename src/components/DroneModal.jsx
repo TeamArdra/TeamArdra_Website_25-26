@@ -73,7 +73,7 @@ export default function DroneModal({ drone, drones, setDrone, onClose }) {
 
             <div className="grid md:grid-cols-2">
               {/* ===== IMAGE ===== */}
-              <div className="relative flex items-center justify-center p-8 md:p-12 min-h-[260px] md:min-h-[480px] overflow-hidden">
+              <div className="relative flex items-center justify-center p-8 md:p-12 min-h-[320px] md:min-h-[480px] overflow-hidden">
                 {/* accent glow + ring */}
                 <div
                   className="absolute inset-0"
@@ -83,8 +83,9 @@ export default function DroneModal({ drone, drones, setDrone, onClose }) {
                       "radial-gradient(circle at 50% 45%, rgba(30,111,255,0.22), transparent 65%)",
                   }}
                 />
+                {/* sized to the viewport's shorter axis so it never gets clipped */}
                 <div
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[78%] aspect-square rounded-full"
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(62vw,18rem)] md:w-[78%] aspect-square rounded-full"
                   aria-hidden
                   style={{ border: "1px solid rgba(77,166,255,0.25)" }}
                 />
