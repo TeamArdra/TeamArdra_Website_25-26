@@ -46,14 +46,15 @@ export default function HeroBackground() {
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
       if (mobile) {
-        // centre the dish around the lower-centre drone on phones
+        // centre the dish around the lower-centre drone on phones;
+        // smaller radius so the full circular sweep reads on screen
         cx = W * 0.5;
         cy = H * 0.7;
-        radarR = W * 0.72;
+        radarR = W * 0.52;
       } else {
         cx = W * 0.75;
-        cy = H * 0.4;
-        radarR = Math.min(W, window.innerHeight) * 0.42; // ~radar dish
+        cy = H * 0.46; // a little lower so the dish clears the header
+        radarR = Math.min(W, window.innerHeight) * 0.4; // ~radar dish
       }
     }
 
@@ -454,9 +455,9 @@ export default function HeroBackground() {
         pointerEvents: "none",
         // keep the radar below the fixed navbar (~80px) instead of bleeding into it
         maskImage:
-          "linear-gradient(to bottom, transparent 0, transparent 84px, #000 150px)",
+          "linear-gradient(to bottom, transparent 0, transparent 96px, #000 200px)",
         WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0, transparent 84px, #000 150px)",
+          "linear-gradient(to bottom, transparent 0, transparent 96px, #000 200px)",
       }}
       aria-hidden
     />

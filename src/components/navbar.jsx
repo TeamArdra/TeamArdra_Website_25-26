@@ -80,7 +80,7 @@ export default function Navbar() {
       style={{
         // near-opaque solid bg instead of a blurred backdrop — a fixed
         // backdrop-filter re-rasterises every scroll frame and stutters the page
-        backgroundColor: scrolled ? "rgba(5,6,12,0.97)" : "rgba(5,6,12,0.82)",
+        backgroundColor: scrolled ? "rgba(5,6,12,0.99)" : "rgba(5,6,12,0.95)",
         borderColor: "rgba(255,255,255,0.06)",
       }}
     >

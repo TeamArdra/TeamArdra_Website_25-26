@@ -21,7 +21,7 @@ const DRONE_DATA = {
   KUROGANE: {
     name: "KUROGANE",
     image: "/kurogane.png",
-    imgScale: 1.45,
+    imgScale: 1.2,
     chips: ["Autonomous", "Vision Nav", "Competition"],
     specs: [
       "Autonomous hexacopter",
@@ -34,7 +34,7 @@ const DRONE_DATA = {
   "M.I.R.A.D": {
     name: "M.I.R.A.D",
     image: "/MIRAD.png",
-    imgScale: 1.7,
+    imgScale: 1.35,
     chips: ["Modular", "ISR", "Rapid Deploy"],
     specs: [
       "Modular ISR drone",
