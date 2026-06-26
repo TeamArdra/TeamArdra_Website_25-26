@@ -23,6 +23,10 @@ const COMPETITIONS = [
 // so they stay visible in their original colours
 const TILE_LOGOS = new Set(["SPROS", "IROC", "Techfest"]);
 
+// dark sponsor logos that vanish under grayscale+brightness (black stays black);
+// render these as a white silhouette so the wordmark is legible on the dark glass
+const DARK_SPONSORS = new Set(["Ansys", "Protoworks"]);
+
 export default function CompsAndSpons() {
   // duplicate each list for seamless infinite marquees
   const sponsorRow = [...SPONSORS, ...SPONSORS];
@@ -80,7 +84,11 @@ export default function CompsAndSpons() {
                     style={{ transform: `scale(${s.scale})` }}
                     className={`max-h-full max-w-full w-auto h-auto object-contain transition-all duration-300 ${
                       activeSponsors.has(s.name)
-                        ? "grayscale-0 brightness-100"
+                        ? DARK_SPONSORS.has(s.name)
+                          ? "[filter:brightness(0)_invert(1)]"
+                          : "grayscale-0 brightness-100"
+                        : DARK_SPONSORS.has(s.name)
+                        ? "[filter:brightness(0)_invert(1)] opacity-90"
                         : "grayscale brightness-150 hover:grayscale-0 hover:brightness-100"
                     }`}
                   />

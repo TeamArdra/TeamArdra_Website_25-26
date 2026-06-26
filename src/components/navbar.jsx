@@ -204,8 +204,20 @@ export default function Navbar() {
                 <motion.li key={link.name} variants={itemVariants}>
                   <a
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`block font-space text-sm uppercase tracking-[0.12em] ${
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen(false);
+                      // navigate programmatically so the closing panel
+                      // doesn't cancel the anchor scroll
+                      const target = document.querySelector(link.href);
+                      if (target) {
+                        setTimeout(
+                          () => target.scrollIntoView({ behavior: "smooth" }),
+                          0
+                        );
+                      }
+                    }}
+                    className={`block font-space text-base uppercase tracking-[0.12em] py-1 ${
                       isActive(link.href)
                         ? "text-[var(--accent-2)]"
                         : "text-[var(--text-secondary)]"

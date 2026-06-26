@@ -155,7 +155,7 @@ export default function Hero() {
 
       {/* live-coordinates HUD chip (VIT Vellore) */}
       <div
-        className="absolute bottom-8 left-5 md:left-10 z-[6] hidden sm:flex items-center gap-3 glass px-4 py-2.5"
+        className="absolute bottom-6 left-4 md:bottom-8 md:left-10 z-[6] flex items-center gap-2.5 md:gap-3 glass px-3 py-2 md:px-4 md:py-2.5"
         style={{ borderRadius: "12px" }}
       >
         <span className="relative flex h-2.5 w-2.5">
