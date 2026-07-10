@@ -20,42 +20,42 @@ const BOARD = [
   {
     name: "Siddharth",
     role: "Captain",
-    image: "/team/Sid.jpeg",
+    image: "/team/sid11.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Rishit Sinha",
     role: "Vice Captain",
-    image: "/team/Rish.jpeg",
+    image: "/team/Rishit.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Sahana",
     role: "Mechanical Lead",
-    image: "/team/Sahana.jpeg",
+    image: "/team/sah.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Anmol",
     role: "Software Lead",
-    image: "/team/Anmol.jpeg",
+    image: "/team/an11.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Mohak",
     role: "Autonomous Lead",
-    image: "/team/Mohak.jpeg",
+    image: "/team/mo11.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Divyansh",
     role: "Electrical Lead",
-    image: "/team/Div1.jpeg",
+    image: "/team/div11.jpeg",
     instagram: "",
     linkedin: "",
   },
@@ -71,7 +71,7 @@ function BoardCard({ member }) {
           alt={member.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
         />
         {/* gradient scrim */}
         <div
