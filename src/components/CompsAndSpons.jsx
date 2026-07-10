@@ -64,37 +64,43 @@ export default function CompsAndSpons() {
           />
 
           <div className="flex w-max animate-marquee">
-            {sponsorRow.map((s, i) => (
-              <button
-                type="button"
-                key={`${s.name}-${i}`}
-                onClick={() => toggleSponsor(s.name)}
-                aria-label={`Show ${s.name}`}
-                className="glass mx-4 px-8 py-5 flex items-center justify-center shrink-0 cursor-pointer"
-                style={{ borderRadius: "9999px" }}
-              >
-                {/* fixed-size box so every logo occupies the same footprint;
-                    per-logo scale evens out the visual weight of each mark */}
-                <span className="flex items-center justify-center w-40 h-14 md:w-48 md:h-16 overflow-visible">
-                  <Image
-                    src={s.src}
-                    alt={s.name}
-                    width={260}
-                    height={100}
-                    style={{ transform: `scale(${s.scale})` }}
-                    className={`max-h-full max-w-full w-auto h-auto object-contain transition-all duration-300 ${
-                      activeSponsors.has(s.name)
-                        ? DARK_SPONSORS.has(s.name)
-                          ? "[filter:brightness(0)_invert(1)]"
-                          : "grayscale-0 brightness-100"
-                        : DARK_SPONSORS.has(s.name)
-                        ? "[filter:brightness(0)_invert(1)] opacity-90"
-                        : "grayscale brightness-150 hover:grayscale-0 hover:brightness-100"
-                    }`}
-                  />
-                </span>
-              </button>
-            ))}
+            {sponsorRow.map((s, i) => {
+              const isDark = DARK_SPONSORS.has(s.name);
+              const active = activeSponsors.has(s.name);
+              return (
+                <button
+                  type="button"
+                  key={`${s.name}-${i}`}
+                  onClick={() => toggleSponsor(s.name)}
+                  aria-label={`Show ${s.name}`}
+                  className={`mx-4 px-8 py-5 flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
+                    isDark ? "bg-white border border-white/20" : "glass"
+                  }`}
+                  style={{ borderRadius: "9999px" }}
+                >
+                  {/* fixed-size box so every logo occupies the same footprint;
+                      per-logo scale evens out the visual weight of each mark.
+                      Dark logos sit on a light pill so grayscale→colour still
+                      reads (and stays interactive) on tap/hover. */}
+                  <span className="flex items-center justify-center w-40 h-14 md:w-48 md:h-16 overflow-visible">
+                    <Image
+                      src={s.src}
+                      alt={s.name}
+                      width={260}
+                      height={100}
+                      style={{ transform: `scale(${s.scale})` }}
+                      className={`max-h-full max-w-full w-auto h-auto object-contain transition-all duration-300 ${
+                        active
+                          ? "grayscale-0 brightness-100"
+                          : isDark
+                          ? "grayscale brightness-100 hover:grayscale-0"
+                          : "grayscale brightness-150 hover:grayscale-0 hover:brightness-100"
+                      }`}
+                    />
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 

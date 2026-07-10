@@ -24,7 +24,7 @@ const DRONE_DATA = {
     imgScale: 1.2,
     chips: ["Autonomous", "Vision Nav", "Competition"],
     specs: [
-      "Autonomous hexacopter",
+      "Autonomous quadcopter",
       "Vision-based navigation",
       "Competition-grade frame",
       "High stability platform",
