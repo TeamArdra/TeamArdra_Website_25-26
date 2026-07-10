@@ -18,7 +18,7 @@ import Reveal, { SectionTitle } from "@/components/Reveal";
    ============================================================ */
 const BOARD = [
   {
-    name: "Siddharth",
+    name: "Siddharth Soumitra Deodhar",
     role: "Captain",
     image: "/team/sid11.jpeg",
     instagram: "",
@@ -32,28 +32,28 @@ const BOARD = [
     linkedin: "",
   },
   {
-    name: "Sahana",
+    name: "Sahana Pradeep Kumar",
     role: "Mechanical Lead",
     image: "/team/sah.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
-    name: "Anmol",
+    name: "Anmol Diwan",
     role: "Software Lead",
     image: "/team/an11.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
-    name: "Mohak",
+    name: "Mohak Harsh",
     role: "Autonomous Lead",
     image: "/team/mo11.jpeg",
     instagram: "",
     linkedin: "",
   },
   {
-    name: "Divyansh",
+    name: "Divyansh Seth",
     role: "Electrical Lead",
     image: "/team/div11.jpeg",
     instagram: "",

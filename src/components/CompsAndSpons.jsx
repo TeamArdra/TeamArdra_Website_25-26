@@ -73,15 +73,14 @@ export default function CompsAndSpons() {
                   key={`${s.name}-${i}`}
                   onClick={() => toggleSponsor(s.name)}
                   aria-label={`Show ${s.name}`}
-                  className={`mx-4 px-8 py-5 flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
-                    isDark ? "bg-white border border-white/20" : "glass"
-                  }`}
+                  className="glass mx-4 px-8 py-5 flex items-center justify-center shrink-0 cursor-pointer"
                   style={{ borderRadius: "9999px" }}
                 >
                   {/* fixed-size box so every logo occupies the same footprint;
                       per-logo scale evens out the visual weight of each mark.
-                      Dark logos sit on a light pill so grayscale→colour still
-                      reads (and stays interactive) on tap/hover. */}
+                      Dark logos are drawn as a soft grey silhouette (a white
+                      silhouette at low opacity) so they stay faintly visible and
+                      lift on tap/hover — same monochrome feel as the others. */}
                   <span className="flex items-center justify-center w-40 h-14 md:w-48 md:h-16 overflow-visible">
                     <Image
                       src={s.src}
@@ -90,10 +89,12 @@ export default function CompsAndSpons() {
                       height={100}
                       style={{ transform: `scale(${s.scale})` }}
                       className={`max-h-full max-w-full w-auto h-auto object-contain transition-all duration-300 ${
-                        active
+                        isDark
+                          ? active
+                            ? "[filter:brightness(0)_invert(1)] opacity-90"
+                            : "[filter:brightness(0)_invert(1)] opacity-50 hover:opacity-90"
+                          : active
                           ? "grayscale-0 brightness-100"
-                          : isDark
-                          ? "grayscale brightness-100 hover:grayscale-0"
                           : "grayscale brightness-150 hover:grayscale-0 hover:brightness-100"
                       }`}
                     />
