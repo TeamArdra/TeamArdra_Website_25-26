@@ -1,171 +1,181 @@
-// "use client";
+"use client";
+import Image from "next/image";
+import Reveal, { SectionTitle } from "@/components/Reveal";
 
-// import { motion, AnimatePresence } from "framer-motion";
-// import { useState, useEffect } from "react";
-// import { MoveLeft, MoveRight, Trophy } from "lucide-react"; // Make sure you have lucide-react or use standard svgs
+const TIMELINE = [
+  {
+    year: "2026",
+    items: [
+      {
+        title: "Finalists in ISDC '26",
+        desc: "Team Ardra qualified as finalists at ISDC 2026, carrying forward the team's strong track record in autonomous flight and mission execution against the best student teams in the country.",
+        images: ["/Main.jpeg"],
+        side: "right",
+      },
+    ],
+  },
+  {
+    year: "2025",
+    items: [
+      {
+        title: "Finalist of Geo-AI Hackathon, Techfest (IIT Bombay)",
+        desc: "Team Ardra participated in the Geo-AI Hackathon at IIT Bombay's Techfest, developing geospatial machine learning pipelines for rural infrastructure mapping using aerial imagery.",
+        images: ["/tf-1a.png", "/tf-2a.png"],
+      },
+      {
+        title: "9th Place in ISDC'25",
+        desc: "Secured 9th place at ISDC Goa 2025, showcasing strong performance in autonomous flight and drone operations among top student teams.",
+        images: ["/isdc25-1a.png", "/isdc25-2a.png"],
+      },
+    ],
+  },
+  {
+    year: "2024",
+    items: [
+      {
+        title: "Winners of ISDC'24",
+        desc: "Winners of ISDC '24, demonstrating excellence in autonomous drone systems and mission execution.",
+        images: ["/isdc-1a.png", "/isdc-2a.png"],
+      },
+      {
+        title: "Cognizance IITR Finals '24",
+        desc: "Qualified for the Cognizance IIT Roorkee Finals 2024, demonstrating reliable system design and execution.",
+        images: [],
+      },
+    ],
+  },
+  {
+    year: "2021",
+    items: [
+      {
+        title: "Finals SUAS '21 USA",
+        desc: "Finalists at SUAS 2021 (USA), competing in autonomous unmanned aircraft mission challenges.",
+        images: ["/suas-1a.png"],
+      },
+      {
+        title: "3rd Place IPAS'21",
+        desc: "Secured 3rd place at IPAS 2021, demonstrating strong technical performance and system reliability.",
+        images: ["/ipas-1a.png", "/ipas-2a.png"],
+      },
+    ],
+  },
+];
 
-// // DATA: Your History of Winnings
-// const WINNINGS = [
-//   {
-//     id: 1,
-//     title: "WINNERS OF ISDC'24",
-//     year: "2024",
-//     description: "Secured 1st place internationally, showcasing our advanced drone maneuverability and autonomous navigation systems.",
-//     src: "/team-left.jpg", // Replace with actual image path
-//     color: "text-yellow-400", // Gold for winner
-//   },
-//   {
-//     id: 2,
-//     title: "9TH PLACE ISDC'25",
-//     year: "2025",
-//     description: "Competed against 100+ global teams, securing a top-10 finish with our upgraded aerodynamic chassis.",
-//     src: "/team-right.jpg", 
-//     color: "text-blue-400",
-//   },
-//   {
-//     id: 3,
-//     title: "3RD PLACE IPAS'19",
-//     year: "2019",
-//     description: "Awarded for 'Best Design' and podium finish in the precision payload drop category.",
-//     src: "/drone.png", 
-//     color: "text-amber-600", // Bronzeish
-//   },
-//   {
-//     id: 4,
-//     title: "USA COGNIZANCE",
-//     year: "2022",
-//     description: "Finalists in the highly competitive AI-driven drone league held at IIT Roorkee.",
-//     src: "/team-left.jpg", 
-//     color: "text-white",
-//   },
-// ];
+function AchievementCard({ item, side }) {
+  return (
+    <div className="glass glass-hover p-6">
+      {item.images.length > 0 && (
+        <div className="flex gap-3 mb-4">
+          {item.images.map((src) => (
+            <div
+              key={src}
+              className="relative w-20 h-16 sm:w-24 sm:h-20 rounded-lg overflow-hidden border border-white/10 shrink-0"
+            >
+              <Image
+                src={src}
+                alt={item.title}
+                fill
+                sizes="96px"
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+      <h3 className="font-space font-bold text-[var(--text-primary)] text-lg leading-snug">
+        {item.title}
+      </h3>
+      <p className="font-sora font-light text-[var(--text-secondary)] text-[0.95rem] mt-3 leading-[1.85] tracking-[0.01em]">
+        {item.desc}
+      </p>
+    </div>
+  );
+}
 
-// export default function WinningHistory() {
-//   const [active, setActive] = useState(0);
-//   const [autoplay, setAutoplay] = useState(true);
+export default function Achievements() {
+  return (
+    <section
+      id="achievements"
+      className="relative w-full py-20 md:py-[120px] overflow-hidden"
+      style={{ backgroundColor: "var(--surface)" }}
+    >
+      <div className="absolute inset-0 aurora-soft" aria-hidden />
+      <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-10">
+        <SectionTitle index="/ 04" label="Track Record" title="Our Achievements" />
 
-//   // Auto-rotate logic
-//   useEffect(() => {
-//     if (!autoplay) return;
-//     const interval = setInterval(() => {
-//       handleNext();
-//     }, 5000); // 5 seconds per slide
-//     return () => clearInterval(interval);
-//   }, [autoplay, active]);
+        <div className="relative mt-16">
+          {/* center vertical line (desktop) */}
+          <div
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px"
+            style={{ background: "rgba(30,111,255,0.3)" }}
+            aria-hidden
+          />
+          {/* left vertical line (mobile) */}
+          <div
+            className="md:hidden absolute left-4 top-0 bottom-0 w-px"
+            style={{ background: "rgba(30,111,255,0.3)" }}
+            aria-hidden
+          />
 
-//   const handleNext = () => {
-//     setActive((prev) => (prev + 1) % WINNINGS.length);
-//   };
+          {TIMELINE.map((group) => (
+            <div key={group.year} className="mb-16 last:mb-0">
+              {/* year node */}
+              <Reveal from="up" className="relative flex md:justify-center mb-10">
+                <div
+                  className="relative z-10 ml-12 md:ml-0 px-5 py-2 rounded-full"
+                  style={{
+                    background: "var(--surface)",
+                    border: "1px solid rgba(30,111,255,0.4)",
+                    boxShadow: "0 0 25px rgba(30,111,255,0.2)",
+                  }}
+                >
+                  <span className="font-orbitron text-2xl md:text-3xl text-[var(--accent)] tracking-wider">
+                    {group.year}
+                  </span>
+                </div>
+              </Reveal>
 
-//   const handlePrev = () => {
-//     setActive((prev) => (prev - 1 + WINNINGS.length) % WINNINGS.length);
-//   };
-
-//   const currentWin = WINNINGS[active];
-
-//   return (
-//     <section className="relative min-h-[80vh] w-full flex flex-col items-center justify-center py-20 overflow-hidden">
-      
-//       {/* HEADER */}
-//       <motion.h2
-//         className="text-white font-audiowide text-2xl md:text-4xl tracking-widest uppercase mb-12 z-20"
-//         initial={{ opacity: 0, y: -20 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//       >
-//         [VICTORY LOGS]
-//       </motion.h2>
-
-//       {/* SVG TECH LINES BACKGROUND */}
-//       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-//         <svg width="100%" height="100%" className="absolute inset-0">
-//             <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#3b82f6" strokeWidth="1" strokeDasharray="10 10" />
-//             <circle cx="50%" cy="50%" r="300" stroke="#3b82f6" strokeWidth="1" fill="none" opacity="0.3" />
-//         </svg>
-//       </div>
-
-//       <div className="max-w-6xl w-full px-4 md:px-8 relative z-10">
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center min-h-[400px]">
-          
-//           <AnimatePresence mode="wait">
-//             {/* --- LEFT SIDE: IMAGE (Flies in from Left) --- */}
-//             <motion.div
-//               key={`img-${active}`}
-//               initial={{ opacity: 0, x: -100, rotate: -5 }}
-//               animate={{ opacity: 1, x: 0, rotate: 0 }}
-//               exit={{ opacity: 0, x: -100, rotate: 5 }}
-//               transition={{ duration: 0.5, ease: "easeInOut" }}
-//               className="relative group"
-//             >
-//               {/* Image Card */}
-//               <div className="relative aspect-video md:aspect-square rounded-3xl overflow-hidden border-2 border-[#04115A] shadow-[0_0_40px_rgba(4,17,90,0.6)]">
-//                  <motion.img
-//                     src={currentWin.src}
-//                     alt={currentWin.title}
-//                     className="w-full h-full object-cover"
-//                     // Floating Effect on the image itself
-//                     animate={{ scale: [1, 1.05, 1] }}
-//                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-//                  />
-//                  {/* Overlay Gradient */}
-//                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                 
-//                  {/* Year Badge inside Image */}
-//                  <div className="absolute top-4 left-4 bg-blue-600/90 backdrop-blur-md px-4 py-2 rounded-full border border-blue-400">
-//                     <span className="font-audiowide text-white text-lg">{currentWin.year}</span>
-//                  </div>
-//               </div>
-
-//               {/* Decorative Elements behind image */}
-//               <div className="absolute -z-10 -bottom-4 -right-4 w-full h-full rounded-3xl border border-blue-500/30 bg-[#04115A]/50" />
-//             </motion.div>
-
-//             {/* --- RIGHT SIDE: TEXT (Flies in from Right) --- */}
-//             <motion.div
-//               key={`txt-${active}`}
-//               initial={{ opacity: 0, x: 100 }}
-//               animate={{ opacity: 1, x: 0 }}
-//               exit={{ opacity: 0, x: 100 }}
-//               transition={{ duration: 0.5, ease: "easeInOut", delay: 0.1 }}
-//               className="flex flex-col justify-center text-left"
-//             >
-//               <motion.div
-//                 initial={{ opacity: 0, y: 20 }}
-//                 animate={{ opacity: 1, y: 0 }}
-//                 transition={{ delay: 0.3 }}
-//               >
-//                 <Trophy className={`w-12 h-12 mb-6 ${currentWin.color}`} />
-                
-//                 <h3 className={`font-audiowide text-3xl md:text-5xl uppercase leading-tight mb-6 ${currentWin.color}`}>
-//                   {currentWin.title}
-//                 </h3>
-                
-//                 <p className="font-ocr text-gray-300 text-lg md:text-xl leading-relaxed tracking-wide">
-//                   {currentWin.description}
-//                 </p>
-//               </motion.div>
-
-//               {/* CONTROLS */}
-//               <div className="flex gap-4 mt-12">
-//                 <button 
-//                     onClick={handlePrev}
-//                     onMouseEnter={() => setAutoplay(false)}
-//                     className="p-3 rounded-full bg-slate-900 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 transition-all group"
-//                 >
-//                     <MoveLeft className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
-//                 </button>
-//                 <button 
-//                     onClick={handleNext}
-//                     onMouseEnter={() => setAutoplay(false)}
-//                     className="p-3 rounded-full bg-slate-900 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 transition-all group"
-//                 >
-//                     <MoveRight className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
-//                 </button>
-//               </div>
-
-//             </motion.div>
-//           </AnimatePresence>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
+              {/* alternating items */}
+              <div className="flex flex-col gap-8">
+                {group.items.map((item, i) => {
+                  const side = item.side || (i % 2 === 0 ? "left" : "right");
+                  return (
+                    <div
+                      key={item.title}
+                      className="relative md:grid md:grid-cols-2 md:gap-12 items-center"
+                    >
+                      {/* node dot */}
+                      <span
+                        className="absolute left-4 md:left-1/2 top-6 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 w-3 h-3 rounded-full z-10"
+                        style={{
+                          background: "var(--accent)",
+                          boxShadow: "0 0 12px rgba(30,111,255,0.8)",
+                        }}
+                        aria-hidden
+                      />
+                      {side === "left" ? (
+                        <>
+                          <Reveal from="left" className="md:pr-4 pl-12 md:pl-0">
+                            <AchievementCard item={item} side={side} />
+                          </Reveal>
+                          <div className="hidden md:block" />
+                        </>
+                      ) : (
+                        <>
+                          <div className="hidden md:block" />
+                          <Reveal from="right" className="md:pl-4 pl-12 md:pl-0">
+                            <AchievementCard item={item} side={side} />
+                          </Reveal>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

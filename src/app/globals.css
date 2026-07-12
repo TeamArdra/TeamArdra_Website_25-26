@@ -1,27 +1,302 @@
 @import "tailwindcss";
 
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --bg-base: #000000;
+  --surface: #0a0a0f;
+  --accent: #1e6fff;
+  --accent-2: #4da6ff;
+  --text-primary: #f5f5f0;
+  --text-secondary: #a0b4cc;
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+}
 
+@theme inline {
+  --color-bg-base: var(--bg-base);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-cream: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --font-orbitron: var(--font-orbitron), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+  --font-space: var(--font-space), sans-serif;
+}
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem; /* offset for fixed navbar */
+}
 
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-inter), sans-serif;
+  line-height: 1.7;
+}
 
+/* Accessible focus ring on interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
+/* ============================================================
+   FONT UTILITIES
+   ============================================================ */
 @layer utilities {
-   .font-anton {
-    font-family: var(--font-anton);
-  }
+  .font-orbitron { font-family: var(--font-orbitron), sans-serif; }
+  .font-inter    { font-family: var(--font-inter), sans-serif; }
+  .font-space    { font-family: var(--font-space), sans-serif; }
+  .font-sora     { font-family: var(--font-sora), sans-serif; }
+  .font-mono     { font-family: var(--font-mono), ui-monospace, monospace; }
 
-  .font-audiowide {
-    font-family: var(--font-audiowide);
-  }
+  /* retained for the drone HUD modal */
+  .font-anton    { font-family: var(--font-anton); }
+  .font-audiowide{ font-family: var(--font-audiowide); }
+  .font-nico     { font-family: var(--font-nico-moji); }
+  .font-ocr      { font-family: var(--font-ocr-a); }
 
-  .font-nico {
-    font-family: var(--font-nico-moji);
-  }
+  .text-primary   { color: var(--text-primary); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-accent    { color: var(--accent); }
+  .text-accent-2  { color: var(--accent-2); }
 
-  .font-ocr {
-    font-family: var(--font-ocr-a);
+  /* hide scrollbar (marquees / mobile carousels) */
+  .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}
+
+/* ============================================================
+   GLASSMORPHISM
+   ============================================================ */
+/*
+ * NOTE: no backdrop-filter here on purpose. On a dark page the blur is
+ * imperceptible, but applied to ~50 cards it forces a per-scroll-frame
+ * backdrop re-rasterisation that makes scrolling jank. A slightly more
+ * opaque background gives the same frosted-panel look with zero scroll cost.
+ */
+.glass {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+
+.glass-hover:hover {
+  border-color: rgba(30, 111, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 30px rgba(30, 111, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+/*
+ * Drone card image: each drone has a per-image rest scale (--rest-scale) that
+ * normalises the differing PNG padding. On desktop hover it grows by a fixed,
+ * modest factor from that rest size — so the zoom is consistent across drones
+ * and never balloons (no compounding of base-scale × hover-scale).
+ */
+.drone-img {
+  scale: var(--rest-scale, 1);
+  transition: scale 0.5s ease, filter 0.5s ease;
+}
+@media (hover: hover) and (min-width: 768px) {
+  .group:hover .drone-img {
+    scale: calc(var(--rest-scale, 1) * 1.5);
   }
-  .font-aubrey{
-    font-family: var(--font-aubrey);
-  }
+}
+
+/* ============================================================
+   BACKGROUND PATTERNS
+   ============================================================ */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(30, 111, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 111, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgba(77, 166, 255, 0.18) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.hero-spotlight {
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 0%,
+    rgba(30, 111, 255, 0.1),
+    transparent 70%
+  );
+}
+
+/* layered aurora / mesh — gives sections depth and colour */
+.aurora {
+  background:
+    radial-gradient(38% 55% at 18% 22%, rgba(30, 111, 255, 0.16), transparent 62%),
+    radial-gradient(34% 50% at 82% 28%, rgba(77, 166, 255, 0.12), transparent 60%),
+    radial-gradient(45% 55% at 50% 96%, rgba(30, 111, 255, 0.10), transparent 62%);
+}
+.aurora-soft {
+  background:
+    radial-gradient(40% 50% at 78% 18%, rgba(77, 166, 255, 0.10), transparent 60%),
+    radial-gradient(42% 55% at 12% 82%, rgba(30, 111, 255, 0.10), transparent 62%);
+}
+.aurora-animated {
+  background-size: 180% 180%, 180% 180%, 180% 180%;
+  animation: aurora-shift 22s ease-in-out infinite;
+}
+@keyframes aurora-shift {
+  0%, 100% { background-position: 0% 0%, 100% 0%, 50% 100%; }
+  50%      { background-position: 20% 30%, 70% 40%, 40% 70%; }
+}
+
+/* faint film-grain to kill flat banding (premium feel) */
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* gradient section-separator line */
+.glow-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(30, 111, 255, 0.5),
+    rgba(77, 166, 255, 0.6),
+    rgba(30, 111, 255, 0.5),
+    transparent
+  );
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(-12px); }
+  50%      { transform: translateY(12px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+@keyframes bounce-chevron {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50%      { transform: translateY(10px); opacity: 1; }
+}
+.animate-bounce-chevron { animation: bounce-chevron 1.8s ease-in-out infinite; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+.animate-marquee-fast {
+  animation: marquee 18s linear infinite;
+  will-change: transform;
+}
+
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 48px 48px; }
+}
+.animate-grid-drift { animation: grid-drift 9s linear infinite; }
+
+@keyframes dot-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 32px 32px; }
+}
+.animate-dot-drift { animation: dot-drift 7s linear infinite; }
+
+/* aerial particles / drones drifting across the hero */
+@keyframes fly-across {
+  0%   { transform: translate3d(-12vw, 0, 0); opacity: 0; }
+  8%   { opacity: var(--fly-opacity, 1); }
+  92%  { opacity: var(--fly-opacity, 1); }
+  100% { transform: translate3d(112vw, var(--fly-rise, -30px), 0); opacity: 0; }
+}
+.fly-el {
+  animation-name: fly-across;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+/* animated gradient text (headings / accents) */
+.gradient-text {
+  background: linear-gradient(
+    100deg,
+    var(--text-primary) 0%,
+    var(--accent-2) 45%,
+    var(--accent) 60%,
+    var(--text-primary) 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-sheen 6s linear infinite;
+}
+@keyframes text-sheen {
+  to { background-position: 220% center; }
+}
+
+/* sweeping sheen line for the navbar bottom border */
+@keyframes nav-sheen {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.nav-sheen {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(77, 166, 255, 0.9),
+    transparent
+  );
+  animation: nav-sheen 4.5s ease-in-out infinite;
+}
+
+/* soft pulsing glow (logos, accents) */
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(30, 111, 255, 0.35)); }
+  50%      { filter: drop-shadow(0 0 16px rgba(77, 166, 255, 0.7)); }
+}
+.animate-glow-pulse { animation: glow-pulse 3.5s ease-in-out infinite; }
+
+/* gradient ring spin for avatars */
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+.animate-ring-spin { animation: ring-spin 8s linear infinite; }
+
+/*
+ * NOTE: brand marquees, the hero radar and the decorative loops are intentionally
+ * kept running even when the OS requests reduced motion — the site owner wants the
+ * continuous motion. Only the jump-to-anchor smooth scroll is relaxed below.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

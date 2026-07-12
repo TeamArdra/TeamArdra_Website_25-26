@@ -1,6 +1,9 @@
+import path from "path";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  // pin the workspace root so Next doesn't pick up an unrelated parent lockfile
+  outputFileTracingRoot: path.resolve("."),
   images: {
     remotePatterns: [
       {

@@ -1,18 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function DroneModal({
-  drone,
-  drones,
-  setDrone,
-  onClose,
-}) {
+export default function DroneModal({ drone, drones, setDrone, onClose }) {
   const directionRef = useRef(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect mobile only (NO effect on desktop)
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
@@ -20,202 +14,187 @@ export default function DroneModal({
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  const index = drone ? drones.findIndex((d) => d.name === drone.name) : -1;
+
+  const go = (dir) => {
+    if (index < 0) return;
+    directionRef.current = dir;
+    setDrone(drones[(index + dir + drones.length) % drones.length]);
+  };
+
   useEffect(() => {
     if (!drone) return;
-
-    function handleKey(e) {
-      const index = drones.findIndex((d) => d.name === drone.name);
-
+    const handleKey = (e) => {
       if (e.key === "Escape") onClose();
-
-      if (e.key === "ArrowRight") {
-        directionRef.current = 1;
-        setDrone(drones[(index + 1) % drones.length]);
-      }
-
-      if (e.key === "ArrowLeft") {
-        directionRef.current = -1;
-        setDrone(drones[(index - 1 + drones.length) % drones.length]);
-      }
-    }
-
+      if (e.key === "ArrowRight") go(1);
+      if (e.key === "ArrowLeft") go(-1);
+    };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [drone, drones, setDrone, onClose]);
+  }, [drone]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <AnimatePresence>
       {drone && (
-        <>
-          {/* BACKDROP */}
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6">
+          {/* backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[999]"
+            className="absolute inset-0 bg-black/85 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
 
-          {/* FULL SCREEN PANEL */}
+          {/* panel */}
           <motion.div
-            className="fixed inset-0 z-[1000]"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-
-            /* MOBILE ONLY: swipe down to close */
+            className="relative w-full max-w-5xl glass overflow-hidden"
+            style={{ borderRadius: "24px" }}
+            initial={{ opacity: 0, scale: 0.95, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 24 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             drag={isMobile ? "y" : false}
             dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0.2}
+            dragElastic={0.25}
             onDragEnd={(e, info) => {
-              if (isMobile && info.offset.y > 120) {
-                onClose();
-              }
+              if (isMobile && info.offset.y > 120) onClose();
             }}
           >
-            <div className="relative w-full h-full bg-[#03060c] text-sky-100 overflow-hidden isolate">
+            {/* close */}
+            <button
+              onClick={onClose}
+              aria-label="Close"
+              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full flex items-center justify-center text-[var(--text-secondary)] hover:text-white transition-colors"
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <X size={20} />
+            </button>
 
-              {/* ================= HUD GRID ================= */}
-              <motion.div
-                className="absolute inset-0 z-[2] pointer-events-none"
-                animate={{ backgroundPosition: ["0px 0px", "120px 120px"] }}
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                style={{
-                  backgroundImage: `
-                    linear-gradient(rgba(56,189,248,0.035) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(56,189,248,0.035) 1px, transparent 1px)
-                  `,
-                  backgroundSize: "48px 48px",
-                  maskImage:
-                    "radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.4) 60%, transparent 75%)",
-                  WebkitMaskImage:
-                    "radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 35%, rgba(0,0,0,0.4) 60%, transparent 75%)",
-                }}
-              >
+            <div className="grid md:grid-cols-2">
+              {/* ===== IMAGE ===== */}
+              <div className="relative flex items-center justify-center p-8 md:p-12 min-h-[320px] md:min-h-[480px] overflow-hidden">
+                {/* accent glow + ring */}
                 <div
                   className="absolute inset-0"
+                  aria-hidden
                   style={{
                     background:
-                      "radial-gradient(circle at center, rgba(56,189,248,0.16), transparent 65%)",
+                      "radial-gradient(circle at 50% 45%, rgba(30,111,255,0.22), transparent 65%)",
                   }}
                 />
-              </motion.div>
-
-              {/* ================= ADVANCED HUD ================= */}
-              <div className="absolute inset-0 z-[3] pointer-events-none">
-                {[
-                  "top-4 left-4 md:top-8 md:left-8 border-t border-l",
-                  "top-4 right-4 md:top-8 md:right-8 border-t border-r",
-                  "bottom-4 left-4 md:bottom-8 md:left-8 border-b border-l",
-                  "bottom-4 right-4 md:bottom-8 md:right-8 border-b border-r",
-                ].map((pos, i) => (
-                  <div
-                    key={i}
-                    className={`absolute ${pos} w-6 h-6 md:w-10 md:h-10 border-sky-400/40`}
-                  />
-                ))}
-
-                <motion.div
-                  className="hidden md:block absolute left-[26%] top-1/2 -translate-x-1/2 -translate-y-1/2"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-                >
-                  <div className="w-[320px] h-[320px] rounded-full border border-sky-400/35" />
-                  <div className="absolute inset-[20%] rounded-full border border-sky-400/20" />
-                </motion.div>
-
-                <div className="hidden md:block absolute right-[18%] top-1/2 -translate-y-1/2 h-[60%] w-px bg-sky-400/30">
-                  {Array.from({ length: 14 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute left-0 w-3 h-px bg-sky-400/40"
-                      style={{ top: `${i * 7}%` }}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* ================= HEADER ================= */}
-              <header className="
-                relative z-10
-                flex items-center justify-center
-                md:grid md:grid-cols-3
-                px-6 md:px-16
-                py-6 md:py-10
-                border-b border-sky-400/20
-              ">
-                <div />
-
+                {/* sized to the viewport's shorter axis so it never gets clipped */}
+                <div
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(62vw,18rem)] md:w-[78%] aspect-square rounded-full"
+                  aria-hidden
+                  style={{ border: "1px solid rgba(77,166,255,0.25)" }}
+                />
                 <AnimatePresence mode="wait">
-                  <motion.h1
-                    key={drone.name}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="
-                      absolute md:static
-                      left-1/2 -translate-x-1/2 md:translate-x-0
-                      text-center
-                      font-nico
-                      text-3xl md:text-6xl
-                      tracking-[0.2em] md:tracking-[0.25em]
-                      text-sky-100
-                    "
-                  >
-                    [{drone.name}]
-                  </motion.h1>
-                </AnimatePresence>
-
-                {/* CLOSE BUTTON — DESKTOP ONLY */}
-                <div className="hidden md:flex justify-end">
-                  <button
-                    onClick={onClose}
-                    className="text-sky-300 hover:text-sky-400 transition"
-                  >
-                    <X size={28} className="md:size-10" />
-                  </button>
-                </div>
-              </header>
-
-              {/* ================= MAIN ================= */}
-              <main className="relative z-10 flex flex-col md:grid md:grid-cols-2 h-[calc(100%-7rem)] md:h-[calc(100%-10rem)]">
-
-                <div className="flex items-center justify-center py-8 md:py-0">
                   <motion.img
                     key={drone.name}
                     src={drone.image}
                     alt={drone.name}
-                    animate={{ y: [0, -12, 0] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-[85%] max-w-xs md:max-w-4xl object-contain drop-shadow-[0_60px_120px_rgba(56,189,248,0.25)]"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{
+                      opacity: { duration: 0.3 },
+                      scale: { duration: 0.3 },
+                      y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                    }}
+                    className="relative z-10 w-[80%] max-w-sm object-contain drop-shadow-[0_20px_60px_rgba(30,111,255,0.45)]"
                   />
-                </div>
+                </AnimatePresence>
+              </div>
 
-                <div className="flex items-start md:items-center px-6 md:px-24 pb-8 md:pb-0">
-                  <div className="grid gap-6 md:gap-10 font-ocr uppercase tracking-widest text-sm md:text-xl w-full">
-                    {drone.specs.map((spec, i) => (
-                      <div
-                        key={spec}
-                        className="flex items-start gap-4 md:gap-8 border-l-2 border-sky-400/50 pl-4 md:pl-8"
+              {/* ===== DETAILS ===== */}
+              <div className="relative p-7 md:p-10 flex flex-col border-t md:border-t-0 md:border-l border-white/10">
+                <span className="font-mono text-[var(--accent-2)] uppercase tracking-[0.2em] text-xs">
+                  Team Ardra · UAV
+                </span>
+
+                <AnimatePresence mode="wait">
+                  <motion.h2
+                    key={drone.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.25 }}
+                    className="mt-2 font-orbitron uppercase tracking-wider text-3xl md:text-4xl gradient-text pb-1"
+                  >
+                    {drone.name}
+                  </motion.h2>
+                </AnimatePresence>
+
+                {/* chips */}
+                {drone.chips && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {drone.chips.map((chip) => (
+                      <span
+                        key={chip}
+                        className="font-space text-[0.7rem] uppercase tracking-[0.1em] text-[var(--text-secondary)] px-3 py-1 rounded-full"
+                        style={{
+                          background: "rgba(255,255,255,0.04)",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                        }}
                       >
-                        <span className="font-nico text-sky-400/70 text-lg md:text-2xl min-w-[2rem]">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="text-sky-200">{spec}</span>
-                      </div>
+                        {chip}
+                      </span>
                     ))}
                   </div>
-                </div>
-              </main>
+                )}
 
-              {/* ================= FOOTER ================= */}
-              <footer className="relative z-10 py-4 md:py-6 text-center border-t border-sky-400/20 font-nico text-xs md:text-xl tracking-[0.3em] md:tracking-[0.4em] text-sky-300">
-                ← / → NAVIGATE · ESC CLOSE
-              </footer>
+                {/* specs */}
+                <div className="mt-7 flex flex-col gap-3">
+                  <p className="font-mono uppercase tracking-[0.18em] text-[0.7rem] text-[var(--text-secondary)]">
+                    Specifications
+                  </p>
+                  {drone.specs.map((spec, i) => (
+                    <motion.div
+                      key={`${drone.name}-${spec}`}
+                      initial={{ opacity: 0, x: 12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.06 * i, duration: 0.3 }}
+                      className="flex items-center gap-3"
+                    >
+                      <span className="font-orbitron text-[var(--accent)]/70 text-sm w-6 shrink-0">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-inter text-[var(--text-primary)] text-sm md:text-base">
+                        {spec}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* navigation */}
+                <div className="mt-auto pt-8 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => go(-1)}
+                      aria-label="Previous drone"
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--text-primary)] hover:text-[var(--accent-2)] transition-colors"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button
+                      onClick={() => go(1)}
+                      aria-label="Next drone"
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-[var(--text-primary)] hover:text-[var(--accent-2)] transition-colors"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
+                  <span className="font-mono text-xs tracking-[0.2em] text-[var(--text-secondary)]">
+                    {String(index + 1).padStart(2, "0")} / {String(drones.length).padStart(2, "0")}
+                  </span>
+                </div>
+              </div>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>
   );

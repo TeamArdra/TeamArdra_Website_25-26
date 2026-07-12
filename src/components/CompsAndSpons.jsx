@@ -1,130 +1,162 @@
 "use client";
-import ImageCard from "./ImageCard";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import Image from "next/image";
+import Reveal from "@/components/Reveal";
 
-const Comps = [
-  { url: "/spros.png", alt: "Spros" },
-  { url: "/cognizance.png", alt: "Cognizance" },
-  { url: "/Aerothon.png", alt: "City skyline" },
-  { url: "/techfest.png", alt: "Sunset hills" },
-  { url: "/IROC.png", alt: "Ocean cliffs" },
+// `scale` normalises how big each mark reads inside its fixed box
+const SPONSORS = [
+  { src: "/Solidworks.png", name: "SolidWorks", scale: 1.35 },
+  { src: "/anys.png", name: "Ansys", scale: 1.0 },
+  { src: "/altium.png", name: "Altium", scale: 1.3 },
+  { src: "/protoworks.png", name: "Protoworks", scale: 1.4 },
 ];
 
-const Sponsors = [
-  { url: "/Solidworks.png", alt: "Forest road" },
-  { url: "/anys.png", alt: "Mountain landscape" },
-  { url: "/altium.png", alt: "City skyline" },
-  { url: "/protoworks.png", alt: "Sunset hills" },
+const COMPETITIONS = [
+  { src: "/spros.png", name: "SPROS" },
+  { src: "/cognizance.png", name: "Cognizance" },
+  { src: "/Aerothon.png", name: "Aerothon" },
+  { src: "/techfest.png", name: "Techfest" },
+  { src: "/IROC.png", name: "IROC" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
-};
+// dark/detailed logos that disappear on the dark glass — set them on a light tile
+// so they stay visible in their original colours
+const TILE_LOGOS = new Set(["SPROS", "IROC", "Techfest"]);
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
+// dark sponsor logos that vanish under grayscale+brightness (black stays black);
+// render these as a white silhouette so the wordmark is legible on the dark glass
+const DARK_SPONSORS = new Set(["Ansys", "Protoworks"]);
 
 export default function CompsAndSpons() {
+  // duplicate each list for seamless infinite marquees
+  const sponsorRow = [...SPONSORS, ...SPONSORS];
+  const compRow = [...COMPETITIONS, ...COMPETITIONS];
+
+  // tap-to-reveal colour on touch devices (mirrors the desktop hover)
+  const [activeSponsors, setActiveSponsors] = useState(() => new Set());
+  const toggleSponsor = (name) =>
+    setActiveSponsors((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
+
   return (
-    <div className="relative overflow-hidden py-10 md:py-16 lg:py-20 bg-black">
-      <motion.img
-        aria-hidden="true"
-        src="/Ellipse 32.png"
-        alt=""
-        className="absolute w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 pointer-events-none top-12 sm:top-16 md:top-24 -left-8 sm:left-0"
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      />
-      <motion.img
-        aria-hidden="true"
-        src="/Ellipse 28.png"
-        alt=""
-        className="absolute w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 pointer-events-none top-12 sm:top-16 md:top-24 -right-8 sm:right-0"
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      />
-      <motion.img
-        aria-hidden="true"
-        src="/Ellipse 30.png"
-        alt=""
-        className="absolute w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 top-1/2 md:top-3/5 left-1/2"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-      />
-      <motion.img
-        src="Ellipse 31.png"
-        alt="decor"
-        className="absolute w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 pointer-events-none -bottom-8 sm:bottom-12 -left-8 sm:left-0"
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-      />
-      {/* Competitions */}
-      <div className="text-center my-16">
-        <motion.h2
-          className="font-nico text-4xl md:text-5xl lg:text-6xl tracking-widest"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          [COMPETITIONS]
-        </motion.h2>
+    <section className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden">
+      <div className="absolute inset-0 aurora-soft" aria-hidden />
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10">
+        {/* ===== SPONSORS ===== */}
+        <Reveal from="up" className="text-center">
+          <h3 className="font-mono uppercase tracking-[0.25em] text-[var(--accent-2)]/80 text-xs">
+            Our Sponsors &amp; Partners
+          </h3>
+        </Reveal>
+
+        <div className="mt-10 relative overflow-hidden">
+          {/* edge fades */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10"
+            style={{ background: "linear-gradient(90deg, #000, transparent)" }}
+          />
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10"
+            style={{ background: "linear-gradient(270deg, #000, transparent)" }}
+          />
+
+          <div className="flex w-max animate-marquee">
+            {sponsorRow.map((s, i) => {
+              const isDark = DARK_SPONSORS.has(s.name);
+              const active = activeSponsors.has(s.name);
+              return (
+                <button
+                  type="button"
+                  key={`${s.name}-${i}`}
+                  onClick={() => toggleSponsor(s.name)}
+                  aria-label={`Show ${s.name}`}
+                  className="glass mx-4 px-8 py-5 flex items-center justify-center shrink-0 cursor-pointer"
+                  style={{ borderRadius: "9999px" }}
+                >
+                  {/* fixed-size box so every logo occupies the same footprint;
+                      per-logo scale evens out the visual weight of each mark.
+                      Dark logos are drawn as a soft grey silhouette (a white
+                      silhouette at low opacity) so they stay faintly visible and
+                      lift on tap/hover — same monochrome feel as the others. */}
+                  <span className="flex items-center justify-center w-40 h-14 md:w-48 md:h-16 overflow-visible">
+                    <Image
+                      src={s.src}
+                      alt={s.name}
+                      width={260}
+                      height={100}
+                      style={{ transform: `scale(${s.scale})` }}
+                      className={`max-h-full max-w-full w-auto h-auto object-contain transition-all duration-300 ${
+                        isDark
+                          ? active
+                            ? "[filter:brightness(0)_invert(1)] opacity-90"
+                            : "[filter:brightness(0)_invert(1)] opacity-50 hover:opacity-90"
+                          : active
+                          ? "grayscale-0 brightness-100"
+                          : "grayscale brightness-150 hover:grayscale-0 hover:brightness-100"
+                      }`}
+                    />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ===== COMPETITIONS (reverse-scrolling marquee) ===== */}
+        <Reveal from="up" className="text-center mt-24">
+          <h3 className="font-mono uppercase tracking-[0.25em] text-[var(--accent-2)]/80 text-xs">
+            Competitions We&apos;ve Flown
+          </h3>
+        </Reveal>
+
+        {/* py gives the hover-lift room so the card top isn't clipped */}
+        <div className="mt-12 relative overflow-hidden py-5">
+          {/* edge fades */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10"
+            style={{ background: "linear-gradient(90deg, #000, transparent)" }}
+          />
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10"
+            style={{ background: "linear-gradient(270deg, #000, transparent)" }}
+          />
+
+          <div className="flex w-max animate-marquee" style={{ animationDirection: "reverse" }}>
+            {compRow.map((c, i) => (
+              <div
+                key={`${c.name}-${i}`}
+                className="glass glass-hover group w-56 md:w-64 mx-4 shrink-0 h-48 md:h-52 flex flex-col items-center justify-center gap-4 p-6"
+              >
+                {TILE_LOGOS.has(c.name) ? (
+                  <div className="flex items-center justify-center bg-white rounded-xl px-4 py-3 h-20 md:h-24 transition-transform duration-500 group-hover:scale-110">
+                    <Image
+                      src={c.src}
+                      alt={c.name}
+                      width={180}
+                      height={100}
+                      className="max-h-full w-auto object-contain"
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    src={c.src}
+                    alt={c.name}
+                    width={180}
+                    height={100}
+                    className="h-20 md:h-24 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
+                  />
+                )}
+                <span className="font-mono text-xs uppercase tracking-[0.16em] text-[var(--text-primary)]">
+                  {c.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-
-      <motion.div
-        className="flex flex-wrap justify-center gap-6 px-6"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        {Comps.map((img, i) => (
-          <motion.div key={i} variants={cardVariants}>
-            <ImageCard url={img.url} alt={img.alt} />
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Sponsors */}
-      <div className="text-center my-16">
-        <motion.h2
-          className="font-nico text-4xl md:text-5xl lg:text-6xl tracking-widest"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          [OUR SPONSORS]
-        </motion.h2>
-      </div>
-
-      <motion.div
-        className="flex flex-wrap justify-center gap-6 px-6 pb-16"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        {Sponsors.map((img, i) => (
-          <motion.div key={i} variants={cardVariants}>
-            <ImageCard url={img.url} alt={img.alt} />
-          </motion.div>
-        ))}
-      </motion.div>
-
-    </div>
+    </section>
   );
 }

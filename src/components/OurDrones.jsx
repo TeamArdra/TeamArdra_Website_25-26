@@ -1,13 +1,15 @@
 "use client";
 import { useState } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import Image from "next/image";
+import Reveal, { SectionTitle } from "@/components/Reveal";
 import DroneModal from "@/components/DroneModal";
 
-/* ================= DRONE DATA ================= */
 const DRONE_DATA = {
   HEX: {
     name: "HEX",
     image: "/drone.png",
+    imgScale: 1,
+    chips: ["Autonomous", "Hexacopter", "8 kg Payload"],
     specs: [
       "35 min endurance",
       "22 m/s speed",
@@ -19,8 +21,10 @@ const DRONE_DATA = {
   KUROGANE: {
     name: "KUROGANE",
     image: "/kurogane.png",
+    imgScale: 1.2,
+    chips: ["Autonomous", "Vision Nav", "Competition"],
     specs: [
-      "Autonomous hexacopter",
+      "Autonomous quadcopter",
       "Vision-based navigation",
       "Competition-grade frame",
       "High stability platform",
@@ -30,6 +34,8 @@ const DRONE_DATA = {
   "M.I.R.A.D": {
     name: "M.I.R.A.D",
     image: "/MIRAD.png",
+    imgScale: 1.35,
+    chips: ["Modular", "ISR", "Rapid Deploy"],
     specs: [
       "Modular ISR drone",
       "Rapid deployment",
@@ -39,136 +45,94 @@ const DRONE_DATA = {
   },
 };
 
-/* ================= CURSOR TILT ================= */
-function useTilt(maxTilt = 22) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const rotateX = useTransform(y, [-50, 50], [maxTilt, -maxTilt]);
-  const rotateY = useTransform(x, [-50, 50], [-maxTilt, maxTilt]);
-
-  function handleMouseMove(e) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - rect.left - rect.width / 2) / 4);
-    y.set((e.clientY - rect.top - rect.height / 2) / 4);
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
-  return { rotateX, rotateY, handleMouseMove, handleMouseLeave };
-}
-
 export default function OurDrones() {
   const [selectedDrone, setSelectedDrone] = useState(null);
-
-  const drones = [
-    { key: "HEX", img: "/drone.png", size: "w-[19rem]", tilt: useTilt(22) },
-    { key: "KUROGANE", img: "/kurogane.png", size: "w-[21rem]", tilt: useTilt(24) },
-    { key: "M.I.R.A.D", img: "/MIRAD.png", size: "w-[19rem]", tilt: useTilt(22) },
-  ];
+  const drones = Object.values(DRONE_DATA);
 
   return (
-    <section className="relative w-full bg-black py-28 md:py-40 overflow-hidden">
-
-      {/* ================= TITLE ================= */}
-      <div className="text-center mb-20 md:mb-28">
-        <h2 className="font-nico text-4xl md:text-5xl tracking-widest text-white">
-          [OUR DRONES]
-        </h2>
-      </div>
-
-      {/* ================= DESKTOP LAYOUT (UNCHANGED) ================= */}
-      <div className="relative hidden md:flex justify-center items-center gap-44">
-        {drones.map((d) => (
-          <DroneCard key={d.key} d={d} setSelectedDrone={setSelectedDrone} />
-        ))}
-      </div>
-
-      {/* ================= MOBILE CAROUSEL ================= */}
+    <section
+      id="drones"
+      className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden"
+    >
+      {/* blueprint grid + aurora backdrop */}
+      <div className="absolute inset-0 aurora" aria-hidden />
+      <div className="absolute inset-0 blueprint-grid opacity-60" aria-hidden />
       <div
-        className="
-          md:hidden
-          relative
-          overflow-x-auto
-          flex
-          snap-x snap-mandatory
-          gap-6
-          px-[calc((100vw-18rem)/2)]
-          scrollbar-none
-        "
-      >
-        {drones.map((d) => (
-          <div
-            key={d.key}
-            className="shrink-0 snap-center flex justify-center"
-          >
-            <DroneCard
-              d={d}
-              setSelectedDrone={setSelectedDrone}
-              mobile
-            />
-          </div>
-        ))}
+        className="absolute inset-0"
+        aria-hidden
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 50% 50%, transparent 40%, rgba(0,0,0,0.9) 100%)",
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10">
+        <SectionTitle index="/ 03" label="Engineered In-House" title="Our Drones" />
+
+        <div className="mt-14 grid md:grid-cols-3 gap-6 lg:gap-8">
+          {drones.map((drone, i) => (
+            <Reveal
+              key={drone.name}
+              from={i === 0 ? "left" : i === 2 ? "right" : "up"}
+              delay={i * 0.15}
+              className="relative z-[1] hover:z-40"
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedDrone(drone)}
+                className="glass glass-hover group w-full h-full p-7 flex flex-col text-left"
+              >
+                {/* image (escapes the card and zooms over neighbours on hover) */}
+                <div className="relative h-[260px] md:h-[200px] flex items-center justify-center mb-6 [overflow:visible]">
+                  <Image
+                    src={drone.image}
+                    alt={`${drone.name} drone`}
+                    width={760}
+                    height={520}
+                    quality={100}
+                    sizes="(max-width: 768px) 90vw, 760px"
+                    style={{ "--rest-scale": drone.imgScale }}
+                    className="drone-img max-h-[260px] md:max-h-[200px] w-auto object-contain origin-center group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
+                  />
+                </div>
+
+                {/* name */}
+                <h3 className="font-orbitron text-[var(--text-primary)] text-xl uppercase tracking-wider">
+                  {drone.name}
+                </h3>
+
+                {/* spec chips */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {drone.chips.map((chip) => (
+                    <span
+                      key={chip}
+                      className="font-space text-[0.7rem] uppercase tracking-[0.1em] text-[var(--text-secondary)] px-3 py-1 rounded-full"
+                      style={{
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                      }}
+                    >
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+
+                {/* view details */}
+                <span className="mt-auto pt-6 font-space text-sm uppercase tracking-[0.12em] text-[var(--accent)] group-hover:text-[var(--accent-2)] transition-colors">
+                  View Details →
+                </span>
+              </button>
+            </Reveal>
+          ))}
+        </div>
       </div>
 
-      {/* ================= MODAL ================= */}
       <DroneModal
         drone={selectedDrone}
-        drones={Object.values(DRONE_DATA)}
+        drones={drones}
         setDrone={setSelectedDrone}
         onClose={() => setSelectedDrone(null)}
       />
     </section>
-  );
-}
-
-/* ================= DRONE CARD ================= */
-function DroneCard({ d, setSelectedDrone, mobile = false }) {
-  return (
-    <div className="relative flex items-center justify-center">
-
-      {/* Ring */}
-      <div
-        className={`
-          absolute rounded-full
-          ${mobile
-            ? "w-[22rem] h-[22rem]"
-            : "w-[44rem] h-[44rem]"}
-          border border-sky-400/50
-          shadow-[0_0_120px_rgba(56,189,248,0.35)]
-        `}
-      />
-
-      {/* Cabinet */}
-      <motion.div
-        className={`
-          relative z-10 cursor-pointer
-          ${mobile ? "w-[18rem] h-[22rem]" : "w-[28rem] h-[34rem]"}
-          perspective-[1800px]
-        `}
-        style={{ rotateX: d.tilt.rotateX, rotateY: d.tilt.rotateY }}
-        onMouseMove={d.tilt.handleMouseMove}
-        onMouseLeave={d.tilt.handleMouseLeave}
-        onClick={() => setSelectedDrone(DRONE_DATA[d.key])}
-      >
-        <div className="absolute inset-0 rounded-[2.2rem] bg-gradient-to-br from-[#0b1220] to-[#05070d] border border-white/15 flex items-center justify-center">
-          <div className="relative w-[88%] h-[88%] rounded-[1.8rem] bg-[linear-gradient(135deg,rgba(120,180,255,0.32),rgba(60,130,200,0.18))] backdrop-blur-2xl border border-sky-400/40 flex items-center justify-center">
-            <h1 className="absolute top-6 text-white font-nico text-xl tracking-widest">
-              {d.key}
-            </h1>
-          </div>
-        </div>
-
-        {/* Drone Image */}
-        <img
-          src={d.img}
-          alt={d.key}
-          className={`absolute left-1/2 -translate-x-1/2 bottom-[18%] ${mobile ? "w-48" : d.size}`}
-        />
-      </motion.div>
-    </div>
   );
 }

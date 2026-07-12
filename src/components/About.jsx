@@ -1,100 +1,69 @@
 "use client";
-import { motion } from "framer-motion";
-import { Aubrey, Big_Shoulders } from "next/font/google";
-import localFont from "next/font/local";
-const aubrey = Aubrey({ subsets: ["latin"], weight: ["400"], display: "swap" });
-const bigShoulders = Big_Shoulders({ subsets: ["latin"], weight: ["400"], display: "swap" });
+import Image from "next/image";
+import Reveal, { SectionTitle } from "@/components/Reveal";
 
-const ocrA = localFont({
-  src: "../../public/fonts/ocraextended.woff",
-  display: "swap",
-});
+const STATS = [
+  { label: "Established", value: "2019" },
+  { label: "Chapter", value: "SEDS VIT" },
+  { label: "Institution", value: "VIT Vellore" },
+  { label: "Domains", value: "UAVs" },
+  { label: "Main Specialty", value: "Autonomous Drones" },
+  { label: "Team Size", value: "16" },
+];
 
 export default function About() {
   return (
-    <section className="w-full bg-black text-[#f8f8e2] py-32 px-[6%]">
+    <section id="about" className="relative w-full bg-black py-20 md:py-[120px] overflow-hidden noise">
+      <div className="absolute inset-0 aurora-soft" aria-hidden />
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 md:px-10">
+        <SectionTitle index="/ 01" label="Who We Are" title="About Us" align="left" />
 
-      <div className="text-center mx-4 sm:mx-8 md:mx-12 lg:mx-20 my-10 sm:my-12 md:my-16 lg:my-20">
-        <motion.h2
-          className="font-nico text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-widest"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          [ABOUT US]
-        </motion.h2>
-      </div>
+        <div className="mt-12 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* LEFT: text + stats */}
+          <div>
+            <Reveal from="up">
+              <p className="font-sora font-light text-[var(--text-secondary)] text-base md:text-lg leading-[1.95] tracking-[0.01em] max-w-xl">
+                Team Ardra was founded to foster technical innovation in aviation
+                at VIT. Comprising dedicated students, the team designs, develops,
+                and deploys UAVs, aiming to advance technology while honing
+                aerospace and autonomy skills.
+              </p>
+            </Reveal>
 
-      {/* Outer Card */}
-      <div className="bg-[#231f1f] rounded-3xl p-8 lg:p-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
-          {/* LEFT PANEL */}
-          <motion.div
-            className="flex flex-col gap-6"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {/* Image */}
-            <img
-              src="/about.jpeg"
-              alt="Team Ardra"
-              className="rounded-xl object-cover w-full h-70"
-            />
-
-            {/* Stats */}
-            <div className="bg-[#0A1E5E] rounded-2xl p-6 grid grid-cols-2 gap-y-4 text-lg md:text-md tracking-widest uppercase text-[#F8F8E2]">
-              <div className={`${bigShoulders.className}`}>Established</div>
-              <div className={`text-right ${aubrey.className}`}>2019</div>
-
-              <div className={`${bigShoulders.className}`}>Chapter</div>
-              <div className={`text-right ${aubrey.className}`}>SEDS VIT</div>
-
-              <div className={`${bigShoulders.className}`}>Institution</div>
-              <div className={`text-right ${aubrey.className}`}>VIT Vellore</div>
-
-              <div className={`${bigShoulders.className}`}>Domains</div>
-              <div className={`text-right ${aubrey.className}`}>UAVs</div>
-
-              <div className={`${bigShoulders.className}`}>Main Specialty</div>
-              <div className={`text-right ${aubrey.className}`}>Autonomous Drones</div>
-
-              <div className={`${bigShoulders.className}`}>Team Size</div>
-              <div className={`text-right ${aubrey.className}`}>16</div>
-
-              <div className={`${bigShoulders.className}`}>Team Motto</div>
-              <div className={`text-right ${aubrey.className}`}>THROTTLING TOWARDS EXCELLENCE</div>
-
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {STATS.map((stat, i) => (
+                <Reveal key={stat.label} from="up" delay={i * 0.08}>
+                  <div className="glass glass-hover p-5 h-full">
+                    <p className="font-mono text-[var(--accent-2)]/70 text-[0.62rem] uppercase tracking-[0.18em]">
+                      {stat.label}
+                    </p>
+                    <p className="font-orbitron text-[var(--text-primary)] text-lg md:text-xl mt-2 leading-tight">
+                      {stat.value}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* RIGHT PANEL */}
-          <motion.div
-            className="
-              bg-[#071A57]
-              rounded-2xl
-              border-4 border-blue-500
-              p-10
-              flex items-center
-            "
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <p
-              className={`${ocrA.className} text-[#F8F8E2] uppercase tracking-[0.25em] leading-loose text-md md:text-lg`}
+          {/* RIGHT: image */}
+          <Reveal from="right" className="relative">
+            <div
+              className="relative rounded-xl overflow-hidden"
+              style={{
+                border: "1px solid rgba(30,111,255,0.4)",
+                boxShadow: "0 0 40px rgba(30,111,255,0.2)",
+              }}
             >
-              Team Ardra was founded to foster technical innovation in aviation at
-              VIT. Comprising dedicated students, the team designs, develops, and
-              deploys UAVs, aiming to advance technology while honing aerospace
-              and autonomy skills.
-            </p>
-          </motion.div>
-
+              <Image
+                src="/Main.jpeg"
+                alt="Team Ardra members with their drone"
+                width={720}
+                height={520}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
