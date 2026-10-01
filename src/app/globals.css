@@ -10,8 +10,6 @@
   --accent-2: #4da6ff;
   --text-primary: #f5f5f0;
   --text-secondary: #a0b4cc;
-  --border-glass: rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(255, 255, 255, 0.04);
 }
 
 @theme inline {
@@ -27,8 +25,9 @@
 }
 
 html {
+  -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem; /* offset for fixed navbar */
+  scroll-padding-top: 5rem; /* offset for fixed navbar */
 }
 
 body {
@@ -38,6 +37,14 @@ body {
   line-height: 1.7;
 }
 
+/* Tailwind v4's preflight gives buttons the arrow cursor */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 /* Accessible focus ring on interactive elements */
 a:focus-visible,
 button:focus-visible,
@@ -45,7 +52,6 @@ input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--accent-2);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
 /* ============================================================
@@ -57,21 +63,6 @@ textarea:focus-visible {
   .font-space    { font-family: var(--font-space), sans-serif; }
   .font-sora     { font-family: var(--font-sora), sans-serif; }
   .font-mono     { font-family: var(--font-mono), ui-monospace, monospace; }
-
-  /* retained for the drone HUD modal */
-  .font-anton    { font-family: var(--font-anton); }
-  .font-audiowide{ font-family: var(--font-audiowide); }
-  .font-nico     { font-family: var(--font-nico-moji); }
-  .font-ocr      { font-family: var(--font-ocr-a); }
-
-  .text-primary   { color: var(--text-primary); }
-  .text-secondary { color: var(--text-secondary); }
-  .text-accent    { color: var(--accent); }
-  .text-accent-2  { color: var(--accent-2); }
-
-  /* hide scrollbar (marquees / mobile carousels) */
-  .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
-  .scrollbar-none::-webkit-scrollbar { display: none; }
 }
 
 /* ============================================================
@@ -93,12 +84,15 @@ textarea:focus-visible {
     transform 0.4s ease;
 }
 
-.glass-hover:hover {
-  border-color: rgba(30, 111, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 0 30px rgba(30, 111, 255, 0.15);
-  transform: translateY(-4px);
+/* real hover only — on touch screens a tap would otherwise leave cards stuck lifted */
+@media (hover: hover) {
+  .glass-hover:hover {
+    border-color: rgba(30, 111, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 0 30px rgba(30, 111, 255, 0.15);
+    transform: translateY(-4px);
+  }
 }
 
 /*
@@ -127,11 +121,6 @@ textarea:focus-visible {
   background-size: 48px 48px;
 }
 
-.dot-grid {
-  background-image: radial-gradient(rgba(77, 166, 255, 0.18) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
 .hero-spotlight {
   background: radial-gradient(
     ellipse 70% 55% at 50% 0%,
@@ -151,14 +140,6 @@ textarea:focus-visible {
   background:
     radial-gradient(40% 50% at 78% 18%, rgba(77, 166, 255, 0.10), transparent 60%),
     radial-gradient(42% 55% at 12% 82%, rgba(30, 111, 255, 0.10), transparent 62%);
-}
-.aurora-animated {
-  background-size: 180% 180%, 180% 180%, 180% 180%;
-  animation: aurora-shift 22s ease-in-out infinite;
-}
-@keyframes aurora-shift {
-  0%, 100% { background-position: 0% 0%, 100% 0%, 50% 100%; }
-  50%      { background-position: 20% 30%, 70% 40%, 40% 70%; }
 }
 
 /* faint film-grain to kill flat banding (premium feel) */
@@ -195,6 +176,12 @@ textarea:focus-visible {
 }
 .animate-float { animation: float 4s ease-in-out infinite; }
 
+@keyframes float-sm {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.animate-float-sm { animation: float-sm 6s ease-in-out infinite; }
+
 @keyframes bounce-chevron {
   0%, 100% { transform: translateY(0); opacity: 0.4; }
   50%      { transform: translateY(10px); opacity: 1; }
@@ -213,31 +200,50 @@ textarea:focus-visible {
   animation: marquee 18s linear infinite;
   will-change: transform;
 }
-
-@keyframes grid-drift {
-  from { background-position: 0 0; }
-  to   { background-position: 48px 48px; }
+/* the events ticker reads too fast on a narrow screen */
+@media (max-width: 767px) {
+  .animate-marquee-fast { animation-duration: 36s; }
 }
-.animate-grid-drift { animation: grid-drift 9s linear infinite; }
-
-@keyframes dot-drift {
-  from { background-position: 0 0; }
-  to   { background-position: 32px 32px; }
+/* set by PauseOffscreen while an infinite animation is scrolled out of view */
+.anim-paused {
+  animation-play-state: paused !important;
 }
-.animate-dot-drift { animation: dot-drift 7s linear infinite; }
-
-/* aerial particles / drones drifting across the hero */
-@keyframes fly-across {
-  0%   { transform: translate3d(-12vw, 0, 0); opacity: 0; }
-  8%   { opacity: var(--fly-opacity, 1); }
-  92%  { opacity: var(--fly-opacity, 1); }
-  100% { transform: translate3d(112vw, var(--fly-rise, -30px), 0); opacity: 0; }
+/* marquee viewport: `clip` (unlike `hidden`) can't be scrolled by keyboard focus,
+   so tabbing through the strip never knocks the loop out of position */
+.marquee-mask {
+  overflow: hidden;
+  overflow: clip;
 }
-.fly-el {
-  animation-name: fly-across;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  will-change: transform, opacity;
+
+/* hero entrance — plain CSS so it plays on first paint, before any JS loads.
+   Tune per element with --in-y / --in-blur / --in-dur / --in-delay. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--in-y, 20px));
+    filter: blur(var(--in-blur, 0px));
+  }
+}
+.hero-in {
+  animation: hero-in var(--in-dur, 0.7s) cubic-bezier(0.22, 1, 0.36, 1) var(--in-delay, 0s) both;
+}
+
+/* scroll reveal (Reveal.jsx adds .in once 15% of the element is on screen) */
+.js .reveal {
+  opacity: 0;
+}
+.reveal {
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js .reveal-up    { transform: translateY(40px); }
+.js .reveal-down  { transform: translateY(-40px); }
+.js .reveal-left  { transform: translateX(-40px); }
+.js .reveal-right { transform: translateX(40px); }
+.js .reveal-scale { transform: scale(0.92); }
+.js .reveal.in {
+  opacity: 1;
+  transform: none;
 }
 
 /* animated gradient text (headings / accents) */
@@ -279,18 +285,14 @@ textarea:focus-visible {
   animation: nav-sheen 4.5s ease-in-out infinite;
 }
 
-/* soft pulsing glow (logos, accents) */
-@keyframes glow-pulse {
-  0%, 100% { filter: drop-shadow(0 0 6px rgba(30, 111, 255, 0.35)); }
-  50%      { filter: drop-shadow(0 0 16px rgba(77, 166, 255, 0.7)); }
+/* soft pulsing glow (navbar logo): fades a brighter copy in and out —
+   opacity-only, so it runs on the compositor */
+@keyframes glow-fade {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 1; }
 }
-.animate-glow-pulse { animation: glow-pulse 3.5s ease-in-out infinite; }
+.animate-glow-fade { animation: glow-fade 3.5s ease-in-out infinite; }
 
-/* gradient ring spin for avatars */
-@keyframes ring-spin {
-  to { transform: rotate(360deg); }
-}
-.animate-ring-spin { animation: ring-spin 8s linear infinite; }
 
 /*
  * NOTE: brand marquees, the hero radar and the decorative loops are intentionally

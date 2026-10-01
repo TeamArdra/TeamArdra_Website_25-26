@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import Reveal, { SectionTitle } from "@/components/Reveal";
-import DroneModal from "@/components/DroneModal";
+
+// the details modal (and its animation code) loads only when it's first needed
+const DroneModal = dynamic(() => import("@/components/DroneModal"), { ssr: false });
 
 const DRONE_DATA = {
   HEX: {
@@ -46,7 +49,9 @@ const DRONE_DATA = {
 };
 
 export default function OurDrones() {
-  const [selectedDrone, setSelectedDrone] = useState(null);
+  // undefined until the first "View Details" tap, so the modal code isn't
+  // fetched up front; null afterwards keeps it mounted for the exit animation
+  const [selectedDrone, setSelectedDrone] = useState();
   const drones = Object.values(DRONE_DATA);
 
   return (
@@ -83,7 +88,7 @@ export default function OurDrones() {
                 className="glass glass-hover group w-full h-full p-7 flex flex-col text-left"
               >
                 {/* image (escapes the card and zooms over neighbours on hover) */}
-                <div className="relative h-[260px] md:h-[200px] flex items-center justify-center mb-6 [overflow:visible]">
+                <span className="relative h-[260px] md:h-[200px] flex items-center justify-center mb-6 [overflow:visible]">
                   <Image
                     src={drone.image}
                     alt={`${drone.name} drone`}
@@ -92,15 +97,15 @@ export default function OurDrones() {
                     style={{ "--rest-scale": drone.imgScale }}
                     className="drone-img max-h-[260px] md:max-h-[200px] w-auto object-contain origin-center group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
                   />
-                </div>
+                </span>
 
                 {/* name */}
-                <h3 className="font-orbitron text-[var(--text-primary)] text-xl uppercase tracking-wider">
+                <span className="block font-orbitron text-[var(--text-primary)] text-xl uppercase tracking-wider">
                   {drone.name}
-                </h3>
+                </span>
 
                 {/* spec chips */}
-                <div className="mt-4 flex flex-wrap gap-2">
+                <span className="mt-4 flex flex-wrap gap-2">
                   {drone.chips.map((chip) => (
                     <span
                       key={chip}
@@ -113,10 +118,10 @@ export default function OurDrones() {
                       {chip}
                     </span>
                   ))}
-                </div>
+                </span>
 
                 {/* view details */}
-                <span className="mt-auto pt-6 font-space text-sm uppercase tracking-[0.12em] text-[var(--accent)] group-hover:text-[var(--accent-2)] transition-colors">
+                <span className="mt-auto pt-6 font-space text-sm uppercase tracking-[0.12em] text-[var(--accent-2)] group-hover:text-white transition-colors">
                   View Details →
                 </span>
               </button>
@@ -125,12 +130,12 @@ export default function OurDrones() {
         </div>
       </div>
 
-      <DroneModal
+      {selectedDrone !== undefined && <DroneModal
         drone={selectedDrone}
         drones={drones}
         setDrone={setSelectedDrone}
         onClose={() => setSelectedDrone(null)}
-      />
+      />}
     </section>
   );
 }

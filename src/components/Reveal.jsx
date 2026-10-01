@@ -1,43 +1,55 @@
 "use client";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+
+/*
+ * One IntersectionObserver shared by every <Reveal>. The animation itself is a
+ * CSS transition (see .reveal in globals.css), so it runs on the compositor and
+ * scrolling does no per-frame JavaScript work.
+ */
+let observer = null;
+function getObserver() {
+  if (!observer) {
+    window.__revealReady = true; // read by the guard script in layout.js
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.15 }
+    );
+  }
+  return observer;
+}
 
 /**
  * Scroll-triggered reveal wrapper.
- * Animates in when 15% enters the viewport.
+ * Animates in (once) when 15% of it enters the viewport.
  *
- * @param {"up"|"down"|"left"|"right"|"scale"|"blur"} from  entry style
+ * @param {"up"|"down"|"left"|"right"|"scale"} from  entry direction
  * @param {number} delay  stagger delay in seconds
  */
-export default function Reveal({
-  children,
-  from = "up",
-  delay = 0,
-  className = "",
-  as = "div",
-  amount = 0.15,
-}) {
-  const offset = 40;
-  const initials = {
-    up: { opacity: 0, y: offset },
-    down: { opacity: 0, y: -offset },
-    left: { opacity: 0, x: -offset },
-    right: { opacity: 0, x: offset },
-    scale: { opacity: 0, scale: 0.92 },
-    blur: { opacity: 0, y: 24, filter: "blur(12px)" },
-  };
+export default function Reveal({ children, from = "up", delay = 0, className = "" }) {
+  const ref = useRef(null);
 
-  const MotionTag = motion[as] || motion.div;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = getObserver();
+    io.observe(el);
+    return () => io.unobserve(el);
+  }, []);
 
   return (
-    <MotionTag
-      className={className}
-      initial={initials[from]}
-      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
-      viewport={{ once: true, amount }}
-      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay }}
+    <div
+      ref={ref}
+      className={`reveal reveal-${from} ${className}`}
+      style={delay ? { transitionDelay: `${delay}s` } : undefined}
     >
       {children}
-    </MotionTag>
+    </div>
   );
 }
 

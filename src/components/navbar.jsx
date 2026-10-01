@@ -20,6 +20,7 @@ const SECTION_IDS = [
   "board",
   "drones",
   "achievements",
+  "sponsors",
   "events",
   "contact",
 ];
@@ -44,6 +45,20 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Esc or scrolling the page closes the mobile menu
+  useEffect(() => {
+    if (!isOpen) return;
+    const startY = window.scrollY;
+    const onKey = (e) => e.key === "Escape" && setIsOpen(false);
+    const onScroll = () => Math.abs(window.scrollY - startY) > 40 && setIsOpen(false);
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [isOpen]);
 
   // scrollspy via IntersectionObserver
   useEffect(() => {
@@ -75,7 +90,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav
+    <header
       className="fixed top-0 left-0 w-full z-[1000] transition-colors duration-300 border-b"
       style={{
         // near-opaque solid bg instead of a blurred backdrop — a fixed
@@ -89,53 +104,70 @@ export default function Navbar() {
 
       <div className="w-full px-4 md:px-6 lg:px-10">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <motion.a
-            href="#home"
-            className="flex items-center shrink-0"
-            aria-label="Team Ardra home"
-            whileHover={{ scale: 1.06 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
-            <Image
-              src="/logo.webp"
-              alt="Team Ardra logo"
-              width={200}
-              height={88}
-              className="object-contain h-12 md:h-16 w-auto animate-glow-pulse"
-              style={{ width: "auto" }}
-              priority
-            />
-          </motion.a>
+          {/* Logo (flex-1 on both sides keeps the link row centred) */}
+          <div className="flex-1 flex">
+            <motion.a
+              href="#home"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center shrink-0"
+              aria-label="Team Ardra home"
+              whileHover={{ scale: 1.06 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              {/* the glow "pulse" cross-fades a second, brighter copy so only
+                  opacity animates (an animated drop-shadow repaints every frame) */}
+              <span className="relative inline-flex">
+                <Image
+                  src="/logo.webp"
+                  alt="Team Ardra logo"
+                  width={323}
+                  height={323}
+                  className="object-contain h-12 md:h-16 w-auto [filter:drop-shadow(0_0_6px_rgba(30,111,255,0.35))]"
+                  priority
+                />
+                <Image
+                  src="/logo.webp"
+                  alt=""
+                  aria-hidden
+                  width={323}
+                  height={323}
+                  className="absolute inset-0 object-contain h-12 md:h-16 w-auto [filter:drop-shadow(0_0_16px_rgba(77,166,255,0.7))] animate-glow-fade"
+                  priority
+                />
+              </span>
+            </motion.a>
+          </div>
 
           {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-8 lg:gap-10">
-            {NAV_LINKS.map((link) => (
-              <li key={link.name} className="relative">
-                <a
-                  href={link.href}
-                  className={`font-space text-[0.8rem] font-medium uppercase tracking-[0.12em] transition-colors duration-200 whitespace-nowrap ${
-                    isActive(link.href)
-                      ? "text-[var(--text-primary)]"
-                      : "text-[var(--text-secondary)] hover:text-[var(--accent-2)]"
-                  }`}
-                >
-                  {link.name}
-                </a>
-                {isActive(link.href) && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute -bottom-2 left-0 right-0 h-[2px] rounded-full"
-                    style={{ background: "var(--accent)" }}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </li>
-            ))}
-          </ul>
+          <nav aria-label="Main" className="hidden lg:block">
+            <ul className="flex items-center gap-5 xl:gap-10">
+              {NAV_LINKS.map((link) => (
+                <li key={link.name} className="relative">
+                  <a
+                    href={link.href}
+                    className={`font-space text-[0.75rem] xl:text-[0.8rem] font-medium uppercase tracking-[0.1em] xl:tracking-[0.12em] transition-colors duration-200 whitespace-nowrap ${
+                      isActive(link.href)
+                        ? "text-[var(--text-primary)]"
+                        : "text-[var(--text-secondary)] hover:text-[var(--accent-2)]"
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                  {isActive(link.href) && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute -bottom-2 left-0 right-0 h-[2px] rounded-full"
+                      style={{ background: "var(--accent)" }}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           {/* right side: SEDS badge (all sizes) + mobile toggle */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex-1 min-w-max flex items-center justify-end gap-3">
             <a
               href="https://sedsvit.in"
               target="_blank"
@@ -145,19 +177,21 @@ export default function Navbar() {
               <Image
                 src="/seds_1.webp"
                 alt="SEDS VIT"
-                width={240}
-                height={78}
+                width={600}
+                height={212}
+                loading="eager"
                 className="object-contain h-10 md:h-14 w-auto rounded"
-                style={{ width: "auto" }}
               />
             </a>
 
             {/* Mobile toggle */}
             <button
+              type="button"
               onClick={() => setIsOpen((v) => !v)}
-              className="md:hidden text-[var(--text-primary)] p-1.5"
+              className="lg:hidden text-[var(--text-primary)] p-2"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -167,7 +201,7 @@ export default function Navbar() {
 
       {/* scroll-progress bar */}
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] origin-left"
+        className="absolute bottom-0 left-0 h-[2px] origin-left will-change-transform"
         style={{
           scaleX: progress,
           width: "100%",
@@ -181,21 +215,21 @@ export default function Navbar() {
       {/* Mobile slide-down panel */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <motion.nav
+            id="mobile-menu"
+            aria-label="Main"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden border-t"
+            className="lg:hidden overflow-hidden border-t"
             style={{
-              background: "rgba(10,10,15,0.96)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
+              background: "rgba(10,10,15,0.97)",
               borderColor: "rgba(255,255,255,0.06)",
             }}
           >
             <motion.ul
-              className="flex flex-col px-6 py-6 gap-5"
+              className="flex flex-col px-6 py-4 gap-1"
               initial="closed"
               animate="open"
               transition={{ staggerChildren: 0.06 }}
@@ -217,7 +251,7 @@ export default function Navbar() {
                         );
                       }
                     }}
-                    className={`block font-space text-base uppercase tracking-[0.12em] py-1 ${
+                    className={`block font-space text-base uppercase tracking-[0.12em] py-2.5 ${
                       isActive(link.href)
                         ? "text-[var(--accent-2)]"
                         : "text-[var(--text-secondary)]"
@@ -228,9 +262,9 @@ export default function Navbar() {
                 </motion.li>
               ))}
             </motion.ul>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   );
 }

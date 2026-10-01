@@ -40,17 +40,20 @@ export default function HeroBackground() {
       DPR = Math.min(window.devicePixelRatio || 1, 1.5);
       W = canvas.clientWidth;
       H = canvas.clientHeight;
-      mobile = window.innerWidth < 768;
+      mobile = window.innerWidth < 1024;
       canvas.width = Math.max(1, Math.floor(W * DPR));
       canvas.height = Math.max(1, Math.floor(H * DPR));
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
       if (mobile) {
-        // centre the dish around the lower-centre drone on phones;
-        // smaller radius so the full circular sweep reads on screen
-        cx = W * 0.5;
-        cy = H * 0.7;
-        radarR = W * 0.52;
+        // centre the dish on the phone/tablet drone (it sits in the page flow
+        // under the CTAs); smaller radius so the full circular sweep reads
+        const drone = canvas.parentElement?.querySelector("[data-hero-drone]");
+        const box = canvas.getBoundingClientRect();
+        const r = drone?.getBoundingClientRect();
+        cx = r && r.height ? r.left + r.width / 2 - box.left : W * 0.5;
+        cy = r && r.height ? r.top + r.height / 2 - box.top : H * 0.7;
+        radarR = Math.min(W * 0.52, 300);
       } else {
         cx = W * 0.75;
         cy = H * 0.46; // a little lower so the dish clears the header
@@ -269,7 +272,9 @@ export default function HeroBackground() {
       ctx.fillRect(0, y, W, 2);
     }
 
-    function update(now) {
+    // dt = elapsed time in 60 fps frames, so motion speed is the same at
+    // 30 / 60 / 120 Hz
+    function update(now, dt = 1) {
       // sweep advance: one revolution / 4s
       prevSweep = sweep;
       sweep = ((now / 4000) % 1) * TAU;
@@ -280,16 +285,16 @@ export default function HeroBackground() {
           // course changes for drones
           if (p.type === "A") {
             if (p.turnLeft > 0) {
-              p.heading += p.turnStep;
-              p.turnLeft--;
-            } else if (Math.random() < 0.003) {
+              p.heading += p.turnStep * dt;
+              p.turnLeft -= dt;
+            } else if (Math.random() < 0.003 * dt) {
               const delta = rand(Math.PI / 4, Math.PI / 2) * (Math.random() < 0.5 ? -1 : 1);
               p.turnLeft = 40;
               p.turnStep = delta / 40;
             }
           }
-          p.x += Math.cos(p.heading) * p.speed;
-          p.y += Math.sin(p.heading) * p.speed;
+          p.x += Math.cos(p.heading) * p.speed * dt;
+          p.y += Math.sin(p.heading) * p.speed * dt;
           // wrap
           if (p.x < -20) p.x = W + 20;
           if (p.x > W + 20) p.x = -20;
@@ -327,13 +332,8 @@ export default function HeroBackground() {
     }
 
     function render(now) {
-      // background
-      const grad = ctx.createLinearGradient(0, 0, W, H);
-      grad.addColorStop(0, "#000000");
-      grad.addColorStop(0.5, "#03060f");
-      grad.addColorStop(1, "#000510");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, W, H);
+      // the background gradient is CSS on the canvas element; just clear
+      ctx.clearRect(0, 0, W, H);
 
       drawRadar(now);
 
@@ -387,11 +387,18 @@ export default function HeroBackground() {
 
     let running = false;
     let onScreen = true;
+    let last = 0;
 
+    // capped at 30 fps on phones / 60 fps elsewhere so 90-120 Hz screens
+    // don't do double the work for no visible gain
     function frame(now) {
-      update(now);
-      render(now);
       raf = requestAnimationFrame(frame);
+      const minDt = mobile ? 1000 / 30 : 1000 / 60;
+      if (now - last < minDt - 1) return;
+      const dt = last ? Math.min(now - last, 100) / (1000 / 60) : 1;
+      last = now;
+      update(now, dt);
+      render(now);
     }
 
     // static single-paint for reduced motion
@@ -405,6 +412,7 @@ export default function HeroBackground() {
       // only run while the hero is visible and the tab is focused
       if (running || !onScreen || document.hidden) return;
       running = true;
+      last = 0;
       raf = requestAnimationFrame(frame);
     }
     function stop() {
@@ -415,7 +423,10 @@ export default function HeroBackground() {
     setup();
     initParticles();
     paintStatic(); // ensure the radar is visible immediately, even before the loop runs
-    start();
+    // start the loop once the page has finished its startup work (hydration)
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(start, { timeout: 1500 })
+      : window.setTimeout(start, 300);
 
     const ro = new ResizeObserver(() => {
       setup();
@@ -439,6 +450,8 @@ export default function HeroBackground() {
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
+      if (window.cancelIdleCallback) window.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
       stop();
       ro.disconnect();
       io.disconnect();
@@ -447,19 +460,25 @@ export default function HeroBackground() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      style={{
-        zIndex: 0,
-        pointerEvents: "none",
-        // keep the radar below the fixed navbar (~80px) instead of bleeding into it
-        maskImage:
-          "linear-gradient(to bottom, transparent 0, transparent 96px, #000 200px)",
-        WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0, transparent 96px, #000 200px)",
-      }}
-      aria-hidden
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+        style={{
+          zIndex: 0,
+          pointerEvents: "none",
+          background: "linear-gradient(to bottom right, #000000, #03060f 50%, #000510)",
+        }}
+        aria-hidden
+      />
+      {/* keep the radar below the fixed navbar (~80px) instead of bleeding into it.
+          A static black fade over the canvas — cheaper than a mask-image, which
+          would re-composite the whole canvas every frame */}
+      <div
+        className="absolute inset-x-0 top-0 h-[200px] pointer-events-none"
+        style={{ zIndex: 0, background: "linear-gradient(#000 96px, transparent 200px)" }}
+        aria-hidden
+      />
+    </>
   );
 }

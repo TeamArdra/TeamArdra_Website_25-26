@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { Instagram, Linkedin } from "lucide-react";
 import Reveal, { SectionTitle } from "@/components/Reveal";
@@ -94,7 +93,7 @@ function BoardCard({ member }) {
 
         {/* role chip */}
         <span
-          className="absolute top-4 left-4 font-mono text-[0.62rem] uppercase tracking-[0.14em] px-3 py-1 rounded-full text-[var(--accent-2)]"
+          className="absolute top-4 left-4 font-mono text-[0.7rem] uppercase tracking-[0.14em] px-3 py-1 rounded-full text-[var(--accent-2)]"
           style={{
             background: "rgba(8,9,15,0.72)",
             border: "1px solid rgba(77,166,255,0.35)",
@@ -171,7 +170,7 @@ export default function Board() {
         <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {BOARD.map((member, i) => (
             <Reveal
-              key={i}
+              key={member.name}
               from={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
               delay={(i % 3) * 0.12}
             >

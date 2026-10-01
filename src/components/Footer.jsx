@@ -4,6 +4,7 @@ import { Instagram, Linkedin } from "lucide-react";
 const NAV = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
+  { name: "Board", href: "#board" },
   { name: "Our Drones", href: "#drones" },
   { name: "Achievements", href: "#achievements" },
   { name: "Events & Outreach", href: "#events" },
@@ -23,10 +24,9 @@ export default function Footer() {
             <Image
               src="/logo.webp"
               alt="Team Ardra logo"
-              width={110}
-              height={48}
+              width={323}
+              height={323}
               className="object-contain h-12 w-auto"
-              style={{ width: "auto" }}
             />
             <p className="font-space text-[var(--text-secondary)] text-sm mt-4 max-w-xs">
               Throttling towards excellence — the UAV team of SEDS VIT Vellore.
@@ -35,15 +35,15 @@ export default function Footer() {
 
           {/* quick nav */}
           <div>
-            <h4 className="font-space uppercase tracking-[0.12em] text-xs text-[var(--text-primary)] mb-4">
+            <h2 className="font-space uppercase tracking-[0.12em] text-xs text-[var(--text-primary)] mb-4">
               Navigate
-            </h4>
-            <ul className="grid grid-cols-2 gap-y-3 gap-x-6">
+            </h2>
+            <ul className="grid grid-cols-2 gap-y-1 gap-x-6">
               {NAV.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="font-space text-sm text-[var(--text-secondary)] hover:text-[var(--accent-2)] transition-colors"
+                    className="inline-block py-2 font-space text-sm text-[var(--text-secondary)] hover:text-[var(--accent-2)] transition-colors"
                   >
                     {link.name}
                   </a>
@@ -54,16 +54,16 @@ export default function Footer() {
 
           {/* social */}
           <div>
-            <h4 className="font-space uppercase tracking-[0.12em] text-xs text-[var(--text-primary)] mb-4">
+            <h2 className="font-space uppercase tracking-[0.12em] text-xs text-[var(--text-primary)] mb-4">
               Connect
-            </h4>
+            </h2>
             <div className="flex gap-4">
               <a
                 href="https://www.instagram.com/teamardra"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="glass glass-hover w-10 h-10 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--accent-2)]"
+                className="glass glass-hover w-11 h-11 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--accent-2)]"
               >
                 <Instagram size={18} />
               </a>
@@ -72,7 +72,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="glass glass-hover w-10 h-10 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--accent-2)]"
+                className="glass glass-hover w-11 h-11 flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--accent-2)]"
               >
                 <Linkedin size={18} />
               </a>

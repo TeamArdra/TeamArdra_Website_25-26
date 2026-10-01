@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import Reveal, { SectionTitle } from "@/components/Reveal";
 
@@ -21,7 +20,7 @@ export default function EventGallery() {
             <Reveal key={ev.title} from="up" delay={i * 0.1}>
               <div className="glass glass-hover overflow-hidden h-full">
                 {/* contain on a dark panel so the whole photo is visible (not cropped) */}
-                <div className="relative w-full h-64 bg-[#06080f]">
+                <div className="relative w-full aspect-[4/3] sm:aspect-[3/2] bg-[#06080f]">
                   <Image
                     src={ev.src}
                     alt={ev.title}
@@ -42,7 +41,7 @@ export default function EventGallery() {
       </div>
 
       {/* marquee banner */}
-      <div className="relative z-10 mt-20 overflow-hidden border-y border-white/10 py-4">
+      <div className="relative z-10 mt-20 overflow-hidden border-y border-white/10 py-4" aria-hidden="true">
         <div className="flex w-max animate-marquee-fast">
           {[0, 1].map((g) => (
             <div key={g} className="flex shrink-0">

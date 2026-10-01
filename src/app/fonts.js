@@ -1,4 +1,3 @@
-import localFont from "next/font/local";
 import {
   Orbitron,
   Inter,
@@ -20,6 +19,7 @@ export const inter = Inter({
   weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
+  preload: false, // not needed for the first screen
 });
 
 export const spaceGrotesk = Space_Grotesk({
@@ -34,6 +34,7 @@ export const sora = Sora({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-sora",
   display: "swap",
+  preload: false, // not needed for the first screen
 });
 
 export const jetbrainsMono = JetBrains_Mono({
@@ -41,29 +42,5 @@ export const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
   variable: "--font-mono",
   display: "swap",
-});
-
-/* ===== Local fonts (retained for the drone HUD modal) ===== */
-export const anton = localFont({
-  src: "../../public/fonts/Anton-Regular.woff",
-  variable: "--font-anton",
-  display: "swap",
-});
-
-export const audiowide = localFont({
-  src: "../../public/fonts/Audiowide-Regular.woff",
-  variable: "--font-audiowide",
-  display: "swap",
-});
-
-export const nicoMoji = localFont({
-  src: "../../public/fonts/NicoMoji-Regular.woff",
-  variable: "--font-nico-moji",
-  display: "swap",
-});
-
-export const ocrA = localFont({
-  src: "../../public/fonts/ocraextended.woff",
-  variable: "--font-ocr-a",
-  display: "swap",
+  preload: false, // not needed for the first screen
 });

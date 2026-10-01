@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import Reveal, { SectionTitle } from "@/components/Reveal";
 
@@ -9,7 +8,7 @@ const TIMELINE = [
       {
         title: "Finalists in ISDC '26",
         desc: "Team Ardra qualified as finalists at ISDC 2026, carrying forward the team's strong track record in autonomous flight and mission execution against the best student teams in the country.",
-        images: ["/Main.webp"],
+        images: ["/thumbs/Main.webp"],
         side: "right",
       },
     ],
@@ -20,12 +19,12 @@ const TIMELINE = [
       {
         title: "Finalist of Geo-AI Hackathon, Techfest (IIT Bombay)",
         desc: "Team Ardra participated in the Geo-AI Hackathon at IIT Bombay's Techfest, developing geospatial machine learning pipelines for rural infrastructure mapping using aerial imagery.",
-        images: ["/tf-1a.webp", "/tf-2a.webp"],
+        images: ["/thumbs/tf-1a.webp", "/thumbs/tf-2a.webp"],
       },
       {
         title: "9th Place in ISDC'25",
         desc: "Secured 9th place at ISDC Goa 2025, showcasing strong performance in autonomous flight and drone operations among top student teams.",
-        images: ["/isdc25-1a.webp", "/isdc25-2a.webp"],
+        images: ["/thumbs/isdc25-1a.webp", "/thumbs/isdc25-2a.webp"],
       },
     ],
   },
@@ -35,7 +34,7 @@ const TIMELINE = [
       {
         title: "Winners of ISDC'24",
         desc: "Winners of ISDC '24, demonstrating excellence in autonomous drone systems and mission execution.",
-        images: ["/isdc-1a.webp", "/isdc-2a.webp"],
+        images: ["/thumbs/isdc-1a.webp", "/thumbs/isdc-2a.webp"],
       },
       {
         title: "Cognizance IITR Finals '24",
@@ -50,34 +49,29 @@ const TIMELINE = [
       {
         title: "Finals SUAS '21 USA",
         desc: "Finalists at SUAS 2021 (USA), competing in autonomous unmanned aircraft mission challenges.",
-        images: ["/suas-1a.webp"],
+        images: ["/thumbs/suas-1a.webp"],
       },
       {
         title: "3rd Place IPAS'21",
         desc: "Secured 3rd place at IPAS 2021, demonstrating strong technical performance and system reliability.",
-        images: ["/ipas-1a.webp", "/ipas-2a.webp"],
+        images: ["/thumbs/ipas-1a.webp", "/thumbs/ipas-2a.webp"],
       },
     ],
   },
 ];
 
-function AchievementCard({ item, side }) {
+function AchievementCard({ item }) {
   return (
-    <div className="glass glass-hover p-6">
+    <div className="glass p-5 md:p-6">
       {item.images.length > 0 && (
         <div className="flex gap-3 mb-4">
           {item.images.map((src) => (
             <div
               key={src}
-              className="relative w-20 h-16 sm:w-24 sm:h-20 rounded-lg overflow-hidden border border-white/10 shrink-0"
+              className="relative flex-1 max-w-[260px] h-28 md:h-32 rounded-lg overflow-hidden border border-white/10"
             >
-              <Image
-                src={src}
-                alt={item.title}
-                fill
-                sizes="96px"
-                className="object-cover"
-              />
+              {/* decorative: the card title sits right beside it */}
+              <Image src={src} alt="" fill className="object-cover" />
             </div>
           ))}
         </div>
@@ -122,7 +116,7 @@ export default function Achievements() {
               {/* year node */}
               <Reveal from="up" className="relative flex md:justify-center mb-10">
                 <div
-                  className="relative z-10 ml-12 md:ml-0 px-5 py-2 rounded-full"
+                  className="relative z-10 ml-10 md:ml-0 px-5 py-2 rounded-full"
                   style={{
                     background: "var(--surface)",
                     border: "1px solid rgba(30,111,255,0.4)",
@@ -155,16 +149,16 @@ export default function Achievements() {
                       />
                       {side === "left" ? (
                         <>
-                          <Reveal from="left" className="md:pr-4 pl-12 md:pl-0">
-                            <AchievementCard item={item} side={side} />
+                          <Reveal from="left" className="md:pr-4 pl-10 md:pl-0">
+                            <AchievementCard item={item} />
                           </Reveal>
                           <div className="hidden md:block" />
                         </>
                       ) : (
                         <>
                           <div className="hidden md:block" />
-                          <Reveal from="right" className="md:pl-4 pl-12 md:pl-0">
-                            <AchievementCard item={item} side={side} />
+                          <Reveal from="right" className="md:pl-4 pl-10 md:pl-0">
+                            <AchievementCard item={item} />
                           </Reveal>
                         </>
                       )}

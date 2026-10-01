@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import Reveal, { SectionTitle } from "@/components/Reveal";
 
@@ -30,14 +29,14 @@ export default function About() {
               </p>
             </Reveal>
 
-            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
               {STATS.map((stat, i) => (
                 <Reveal key={stat.label} from="up" delay={i * 0.08}>
-                  <div className="glass glass-hover p-5 h-full">
-                    <p className="font-mono text-[var(--accent-2)]/70 text-[0.62rem] uppercase tracking-[0.18em]">
+                  <div className="glass p-4 sm:p-5 h-full">
+                    <p className="font-mono text-[var(--accent-2)] text-[0.7rem] uppercase tracking-[0.18em]">
                       {stat.label}
                     </p>
-                    <p className="font-orbitron text-[var(--text-primary)] text-lg md:text-xl mt-2 leading-tight">
+                    <p className="font-orbitron text-[var(--text-primary)] text-base sm:text-lg md:text-xl mt-2 leading-tight">
                       {stat.value}
                     </p>
                   </div>
@@ -58,8 +57,8 @@ export default function About() {
               <Image
                 src="/Main.webp"
                 alt="Team Ardra members with their drone"
-                width={720}
-                height={520}
+                width={1280}
+                height={960}
                 className="w-full h-auto object-cover"
               />
             </div>

@@ -6,7 +6,21 @@ import Achievements from "@/components/Achivements";
 import CompsAndSpons from "@/components/CompsAndSpons";
 import EventGallery from "@/components/EventGallery";
 import Contactus from "@/components/Contactus";
-import Footer from "@/components/Footer";
+import { SITE_URL } from "./site";
+
+const ORGANIZATION = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Team Ardra",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.webp`,
+  email: "teamardra@vit.ac.in",
+  sameAs: [
+    "https://www.instagram.com/teamardra",
+    "https://www.linkedin.com/company/team-ardra",
+  ],
+  parentOrganization: { "@type": "Organization", name: "SEDS VIT", url: "https://sedsvit.in" },
+};
 
 function Divider() {
   return (
@@ -21,6 +35,10 @@ function Divider() {
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION) }}
+      />
       <Hero />
       <About />
       <Divider />
@@ -35,7 +53,6 @@ export default function Home() {
       <EventGallery />
       <Divider />
       <Contactus />
-      <Footer />
     </div>
   );
 }
