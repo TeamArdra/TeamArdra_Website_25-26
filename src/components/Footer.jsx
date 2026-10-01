@@ -21,7 +21,7 @@ export default function Footer() {
           {/* logo + tagline */}
           <div>
             <Image
-              src="/logo.png"
+              src="/logo.webp"
               alt="Team Ardra logo"
               width={110}
               height={48}

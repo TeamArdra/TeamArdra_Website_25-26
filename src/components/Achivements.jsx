@@ -9,7 +9,7 @@ const TIMELINE = [
       {
         title: "Finalists in ISDC '26",
         desc: "Team Ardra qualified as finalists at ISDC 2026, carrying forward the team's strong track record in autonomous flight and mission execution against the best student teams in the country.",
-        images: ["/Main.jpeg"],
+        images: ["/Main.webp"],
         side: "right",
       },
     ],
@@ -20,12 +20,12 @@ const TIMELINE = [
       {
         title: "Finalist of Geo-AI Hackathon, Techfest (IIT Bombay)",
         desc: "Team Ardra participated in the Geo-AI Hackathon at IIT Bombay's Techfest, developing geospatial machine learning pipelines for rural infrastructure mapping using aerial imagery.",
-        images: ["/tf-1a.png", "/tf-2a.png"],
+        images: ["/tf-1a.webp", "/tf-2a.webp"],
       },
       {
         title: "9th Place in ISDC'25",
         desc: "Secured 9th place at ISDC Goa 2025, showcasing strong performance in autonomous flight and drone operations among top student teams.",
-        images: ["/isdc25-1a.png", "/isdc25-2a.png"],
+        images: ["/isdc25-1a.webp", "/isdc25-2a.webp"],
       },
     ],
   },
@@ -35,7 +35,7 @@ const TIMELINE = [
       {
         title: "Winners of ISDC'24",
         desc: "Winners of ISDC '24, demonstrating excellence in autonomous drone systems and mission execution.",
-        images: ["/isdc-1a.png", "/isdc-2a.png"],
+        images: ["/isdc-1a.webp", "/isdc-2a.webp"],
       },
       {
         title: "Cognizance IITR Finals '24",
@@ -50,12 +50,12 @@ const TIMELINE = [
       {
         title: "Finals SUAS '21 USA",
         desc: "Finalists at SUAS 2021 (USA), competing in autonomous unmanned aircraft mission challenges.",
-        images: ["/suas-1a.png"],
+        images: ["/suas-1a.webp"],
       },
       {
         title: "3rd Place IPAS'21",
         desc: "Secured 3rd place at IPAS 2021, demonstrating strong technical performance and system reliability.",
-        images: ["/ipas-1a.png", "/ipas-2a.png"],
+        images: ["/ipas-1a.webp", "/ipas-2a.webp"],
       },
     ],
   },

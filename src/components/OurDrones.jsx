@@ -7,7 +7,7 @@ import DroneModal from "@/components/DroneModal";
 const DRONE_DATA = {
   HEX: {
     name: "HEX",
-    image: "/drone.png",
+    image: "/drone.webp",
     imgScale: 1,
     chips: ["Autonomous", "Hexacopter", "8 kg Payload"],
     specs: [
@@ -20,7 +20,7 @@ const DRONE_DATA = {
   },
   KUROGANE: {
     name: "KUROGANE",
-    image: "/kurogane.png",
+    image: "/kurogane.webp",
     imgScale: 1.2,
     chips: ["Autonomous", "Vision Nav", "Competition"],
     specs: [
@@ -33,7 +33,7 @@ const DRONE_DATA = {
   },
   "M.I.R.A.D": {
     name: "M.I.R.A.D",
-    image: "/MIRAD.png",
+    image: "/MIRAD.webp",
     imgScale: 1.35,
     chips: ["Modular", "ISR", "Rapid Deploy"],
     specs: [
@@ -89,8 +89,6 @@ export default function OurDrones() {
                     alt={`${drone.name} drone`}
                     width={760}
                     height={520}
-                    quality={100}
-                    sizes="(max-width: 768px) 90vw, 760px"
                     style={{ "--rest-scale": drone.imgScale }}
                     className="drone-img max-h-[260px] md:max-h-[200px] w-auto object-contain origin-center group-hover:drop-shadow-[0_0_45px_rgba(30,111,255,0.7)] relative z-30"
                   />

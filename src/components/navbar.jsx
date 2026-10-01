@@ -98,7 +98,7 @@ export default function Navbar() {
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <Image
-              src="/logo.png"
+              src="/logo.webp"
               alt="Team Ardra logo"
               width={200}
               height={88}
@@ -143,7 +143,7 @@ export default function Navbar() {
               className="shrink-0"
             >
               <Image
-                src="/seds_1.jpeg"
+                src="/seds_1.webp"
                 alt="SEDS VIT"
                 width={240}
                 height={78}

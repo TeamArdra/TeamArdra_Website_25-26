@@ -43,7 +43,7 @@ export default function Hero() {
       >
         <div className="animate-float">
           <Image
-            src="/drone.png"
+            src="/drone.webp"
             alt="Team Ardra autonomous drone"
             width={900}
             height={600}
@@ -142,7 +142,7 @@ export default function Hero() {
       >
         <div className="animate-float">
           <Image
-            src="/drone.png"
+            src="/drone.webp"
             alt="Team Ardra autonomous drone"
             width={600}
             height={420}

@@ -9,9 +9,11 @@ import Reveal, { SectionTitle } from "@/components/Reveal";
    To add a real member, just fill in the fields below.
    • name      : displayed name
    • role      : their position on the board
-   • image     : path to a photo in /public (e.g. "/team/team1.jpeg")
-                 To add a NEW photo: drop the file into /public/team/
-                 then point `image` at it, e.g. "/team/captain.jpeg"
+   • image     : path to a photo in /public (e.g. "/team/sid11.webp")
+                 To add a NEW photo: drop the file into /public/team/,
+                 convert it with
+                   npm run optimize-images -- --width=800 --replace public/team/captain.jpg
+                 then point `image` at the .webp, e.g. "/team/captain.webp"
    • instagram : full profile URL (or "" to hide the icon)
    • linkedin  : full profile URL (or "" to hide the icon)
    Add or remove objects freely — the grid reflows automatically.
@@ -20,42 +22,42 @@ const BOARD = [
   {
     name: "Siddharth Soumitra Deodhar",
     role: "Captain",
-    image: "/team/sid11.jpeg",
+    image: "/team/sid11.webp",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Rishit Sinha",
     role: "Vice Captain",
-    image: "/team/Rishit.jpeg",
+    image: "/team/Rishit.webp",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Sahana Pradeep Kumar",
     role: "Mechanical Lead",
-    image: "/team/sah.jpeg",
+    image: "/team/sah.webp",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Anmol Diwan",
     role: "Software Lead",
-    image: "/team/an11.jpeg",
+    image: "/team/an11.webp",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Mohak Harsh",
     role: "Autonomous Lead",
-    image: "/team/mo11.jpeg",
+    image: "/team/mo11.webp",
     instagram: "",
     linkedin: "",
   },
   {
     name: "Divyansh Seth",
     role: "Electrical Lead",
-    image: "/team/div11.jpeg",
+    image: "/team/div11.webp",
     instagram: "",
     linkedin: "",
   },

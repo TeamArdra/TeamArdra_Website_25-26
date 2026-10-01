@@ -5,18 +5,18 @@ import Reveal from "@/components/Reveal";
 
 // `scale` normalises how big each mark reads inside its fixed box
 const SPONSORS = [
-  { src: "/Solidworks.png", name: "SolidWorks", scale: 1.35 },
-  { src: "/anys.png", name: "Ansys", scale: 1.0 },
-  { src: "/altium.png", name: "Altium", scale: 1.3 },
-  { src: "/protoworks.png", name: "Protoworks", scale: 1.4 },
+  { src: "/Solidworks.webp", name: "SolidWorks", scale: 1.35 },
+  { src: "/anys.webp", name: "Ansys", scale: 1.0 },
+  { src: "/altium.webp", name: "Altium", scale: 1.3 },
+  { src: "/protoworks.webp", name: "Protoworks", scale: 1.4 },
 ];
 
 const COMPETITIONS = [
-  { src: "/spros.png", name: "SPROS" },
-  { src: "/cognizance.png", name: "Cognizance" },
-  { src: "/Aerothon.png", name: "Aerothon" },
-  { src: "/techfest.png", name: "Techfest" },
-  { src: "/IROC.png", name: "IROC" },
+  { src: "/spros.webp", name: "SPROS" },
+  { src: "/cognizance.webp", name: "Cognizance" },
+  { src: "/Aerothon.webp", name: "Aerothon" },
+  { src: "/techfest.webp", name: "Techfest" },
+  { src: "/IROC.webp", name: "IROC" },
 ];
 
 // dark/detailed logos that disappear on the dark glass — set them on a light tile

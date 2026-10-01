@@ -56,7 +56,7 @@ export default function About() {
               }}
             >
               <Image
-                src="/Main.jpeg"
+                src="/Main.webp"
                 alt="Team Ardra members with their drone"
                 width={720}
                 height={520}

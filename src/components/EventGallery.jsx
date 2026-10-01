@@ -3,10 +3,10 @@ import Image from "next/image";
 import Reveal, { SectionTitle } from "@/components/Reveal";
 
 const EVENTS = [
-  { title: "Outreach @ Takshilah School", src: "/takshilah.png" },
-  { title: "GRAVITAS 2025", src: "/gravitas.png" },
-  { title: "Star Party", src: "/Starparty.png" },
-  { title: "ASTSF 2025", src: "/ASTSF.png" },
+  { title: "Outreach @ Takshilah School", src: "/takshilah.webp" },
+  { title: "GRAVITAS 2025", src: "/gravitas.webp" },
+  { title: "Star Party", src: "/Starparty.webp" },
+  { title: "ASTSF 2025", src: "/ASTSF.webp" },
 ];
 
 export default function EventGallery() {
